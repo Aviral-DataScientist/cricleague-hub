@@ -22,17 +22,27 @@ export default function LeaguesPage() {
   });
 
   return (
-    <div style={{ backgroundColor: "#0a1628", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "#060e1a", minHeight: "100vh" }}>
       {/* Page Header */}
       <div
-        className="py-14 px-4 sm:px-6 lg:px-8"
+        className="py-14 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
         style={{
-          background: "linear-gradient(180deg, #081020 0%, #0a1628 100%)",
-          borderBottom: "1px solid rgba(255,255,255,0.05)",
+          background: "linear-gradient(180deg, #040a14 0%, #060e1a 100%)",
+          borderBottom: "1px solid rgba(245,166,35,0.08)",
         }}
       >
-        <div className="max-w-7xl mx-auto">
-          <p className="text-sm font-medium mb-2" style={{ color: "#f5a623" }}>
+        <div
+          className="orb"
+          style={{
+            width: 400,
+            height: 400,
+            top: "-100px",
+            right: "-50px",
+            background: "radial-gradient(circle, rgba(245,166,35,0.08) 0%, transparent 70%)",
+          }}
+        />
+        <div className="max-w-7xl mx-auto relative">
+          <p className="text-xs font-semibold tracking-widest mb-2" style={{ color: "#f5a623" }}>
             GLOBAL T20 CRICKET
           </p>
           <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-3">
@@ -47,13 +57,7 @@ export default function LeaguesPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {/* Filters */}
-        <div
-          className="flex flex-col md:flex-row gap-4 mb-10 p-5 rounded-2xl"
-          style={{
-            backgroundColor: "#112240",
-            border: "1px solid rgba(255,255,255,0.06)",
-          }}
-        >
+        <div className="glass-card flex flex-col md:flex-row gap-4 mb-10 p-5">
           {/* Search */}
           <div className="flex-1 relative">
             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
@@ -64,10 +68,11 @@ export default function LeaguesPage() {
               placeholder="Search leagues..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-11 pr-4 py-3 rounded-xl text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2"
+              className="w-full pl-11 pr-4 py-3 rounded-xl text-sm text-white placeholder-gray-500 focus-gold"
               style={{
-                backgroundColor: "#0a1628",
-                border: "1px solid rgba(255,255,255,0.1)",
+                backgroundColor: "rgba(6,14,26,0.8)",
+                border: "1px solid rgba(245,166,35,0.15)",
+                outline: "none",
               }}
             />
           </div>
@@ -78,8 +83,8 @@ export default function LeaguesPage() {
             onChange={(e) => setSelectedContinent(e.target.value)}
             className="px-4 py-3 rounded-xl text-sm text-white focus:outline-none cursor-pointer"
             style={{
-              backgroundColor: "#0a1628",
-              border: "1px solid rgba(255,255,255,0.1)",
+              backgroundColor: "rgba(6,14,26,0.8)",
+              border: "1px solid rgba(245,166,35,0.15)",
               color: selectedContinent === "All" ? "#9ca3af" : "#ffffff",
             }}
           >
@@ -102,11 +107,12 @@ export default function LeaguesPage() {
                   statusFilter === s
                     ? {
                         background: "linear-gradient(135deg, #f5a623, #d4891e)",
-                        color: "#0a1628",
+                        color: "#060e1a",
+                        boxShadow: "0 4px 16px rgba(245,166,35,0.3)",
                       }
                     : {
-                        backgroundColor: "#0a1628",
-                        border: "1px solid rgba(255,255,255,0.1)",
+                        backgroundColor: "rgba(6,14,26,0.8)",
+                        border: "1px solid rgba(245,166,35,0.15)",
                         color: "#9ca3af",
                       }
                 }
@@ -135,11 +141,10 @@ export default function LeaguesPage() {
               <Link
                 key={league.id}
                 to={`/leagues/${league.id}`}
-                className="block rounded-2xl overflow-hidden card-hover"
+                className="block rounded-2xl overflow-hidden card-hover glass-card"
                 style={{
-                  backgroundColor: "#112240",
-                  border: "1px solid rgba(255,255,255,0.06)",
                   textDecoration: "none",
+                  borderLeft: `3px solid ${league.color}`,
                 }}
               >
                 {/* Color bar */}
@@ -190,7 +195,7 @@ export default function LeaguesPage() {
                   {/* Stats row */}
                   <div
                     className="grid grid-cols-4 gap-3 pt-4"
-                    style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+                    style={{ borderTop: "1px solid rgba(245,166,35,0.08)" }}
                   >
                     <div className="text-center">
                       <div className="text-white font-bold">{league.teams}</div>
@@ -221,8 +226,9 @@ export default function LeaguesPage() {
                         key={team}
                         className="text-xs px-2.5 py-1 rounded-md"
                         style={{
-                          backgroundColor: "rgba(255,255,255,0.05)",
+                          backgroundColor: "rgba(245,166,35,0.06)",
                           color: "#9ca3af",
+                          border: "1px solid rgba(245,166,35,0.1)",
                         }}
                       >
                         {team}
@@ -232,8 +238,9 @@ export default function LeaguesPage() {
                       <span
                         className="text-xs px-2.5 py-1 rounded-md"
                         style={{
-                          backgroundColor: "rgba(245,166,35,0.1)",
+                          backgroundColor: "rgba(245,166,35,0.12)",
                           color: "#f5a623",
+                          border: "1px solid rgba(245,166,35,0.2)",
                         }}
                       >
                         +{league.teamsList.length - 3} more

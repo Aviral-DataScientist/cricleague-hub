@@ -11,10 +11,10 @@ interface BarProps {
 function Bar({ value, max, color, label }: BarProps) {
   const pct = Math.round((value / max) * 100);
   return (
-    <div className="mb-1">
-      <div className="flex justify-between items-center mb-1.5">
-        <span className="text-xs text-gray-400 truncate max-w-[140px]">{label}</span>
-        <span className="text-xs font-bold" style={{ color }}>
+    <div className="mb-3">
+      <div className="flex justify-between items-center mb-2">
+        <span className="text-xs text-gray-300 truncate max-w-[160px] font-medium">{label}</span>
+        <span className="text-xs font-bold ml-2" style={{ color }}>
           {value.toLocaleString()}
         </span>
       </div>
@@ -24,7 +24,11 @@ function Bar({ value, max, color, label }: BarProps) {
       >
         <div
           className="h-full rounded-full transition-all duration-700"
-          style={{ width: `${pct}%`, background: color }}
+          style={{
+            width: `${pct}%`,
+            background: `linear-gradient(90deg, ${color}, ${color}bb)`,
+            boxShadow: `0 0 8px ${color}60`,
+          }}
         />
       </div>
     </div>
@@ -94,17 +98,27 @@ export default function ComparisonPage() {
   };
 
   return (
-    <div style={{ backgroundColor: "#0a1628", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "#060e1a", minHeight: "100vh" }}>
       {/* Header */}
       <div
-        className="py-14 px-4 sm:px-6 lg:px-8"
+        className="py-14 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
         style={{
-          background: "linear-gradient(180deg, #081020 0%, #0a1628 100%)",
-          borderBottom: "1px solid rgba(255,255,255,0.05)",
+          background: "linear-gradient(180deg, #040a14 0%, #060e1a 100%)",
+          borderBottom: "1px solid rgba(245,166,35,0.08)",
         }}
       >
-        <div className="max-w-7xl mx-auto">
-          <p className="text-sm font-medium mb-2" style={{ color: "#f5a623" }}>
+        <div
+          className="orb"
+          style={{
+            width: 300,
+            height: 300,
+            top: "-80px",
+            right: "10%",
+            background: "radial-gradient(circle, rgba(245,166,35,0.08) 0%, transparent 70%)",
+          }}
+        />
+        <div className="max-w-7xl mx-auto relative">
+          <p className="text-xs font-semibold tracking-widest mb-2" style={{ color: "#f5a623" }}>
             SIDE BY SIDE
           </p>
           <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-3">
@@ -118,13 +132,7 @@ export default function ComparisonPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {/* League selector */}
-        <div
-          className="p-6 rounded-2xl mb-10"
-          style={{
-            backgroundColor: "#112240",
-            border: "1px solid rgba(255,255,255,0.06)",
-          }}
-        >
+        <div className="glass-card p-6 mb-10">
           <h2 className="text-white font-semibold mb-4">
             Choose Leagues to Compare{" "}
             <span className="text-sm font-normal text-gray-400">
@@ -143,13 +151,14 @@ export default function ComparisonPage() {
                   style={
                     isSelected
                       ? {
-                          background: `${COLORS[idx]}20`,
+                          background: `${COLORS[idx]}18`,
                           border: `1px solid ${COLORS[idx]}60`,
                           color: COLORS[idx],
+                          boxShadow: `0 0 12px ${COLORS[idx]}25`,
                         }
                       : {
-                          backgroundColor: "#0a1628",
-                          border: "1px solid rgba(255,255,255,0.08)",
+                          backgroundColor: "rgba(6,14,26,0.8)",
+                          border: "1px solid rgba(245,166,35,0.12)",
                           color: "#9ca3af",
                         }
                   }
@@ -157,7 +166,7 @@ export default function ComparisonPage() {
                 >
                   <span>{league.flag}</span>
                   <span>{league.shortName}</span>
-                  {isSelected && <span>✓</span>}
+                  {isSelected && <span style={{ color: COLORS[idx] }}>✓</span>}
                 </button>
               );
             })}
@@ -166,19 +175,19 @@ export default function ComparisonPage() {
 
         {/* Comparison table */}
         <div
-          className="rounded-2xl overflow-hidden mb-10"
-          style={{ border: "1px solid rgba(255,255,255,0.06)" }}
+          className="rounded-2xl overflow-hidden mb-10 glass-card"
+          style={{ padding: 0 }}
         >
           {/* Header row */}
           <div
             className="grid"
             style={{
               gridTemplateColumns: `220px repeat(${selectedLeagues.length}, 1fr)`,
-              backgroundColor: "#112240",
-              borderBottom: "1px solid rgba(255,255,255,0.08)",
+              background: "linear-gradient(90deg, rgba(13,31,60,0.95), rgba(17,43,92,0.95))",
+              borderBottom: "1px solid rgba(245,166,35,0.15)",
             }}
           >
-            <div className="px-6 py-5 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+            <div className="px-6 py-5 text-xs font-semibold uppercase tracking-wider" style={{ color: "#f5a623" }}>
               Metric
             </div>
             {selectedLeagues.map((league, i) => (
@@ -206,8 +215,8 @@ export default function ComparisonPage() {
                 className="grid"
                 style={{
                   gridTemplateColumns: `220px repeat(${selectedLeagues.length}, 1fr)`,
-                  backgroundColor: mi % 2 === 0 ? "#0a1628" : "#0d1f3c",
-                  borderBottom: "1px solid rgba(255,255,255,0.04)",
+                  backgroundColor: mi % 2 === 0 ? "rgba(6,14,26,0.5)" : "rgba(13,31,60,0.5)",
+                  borderBottom: "1px solid rgba(245,166,35,0.04)",
                 }}
               >
                 <div className="px-6 py-5 flex items-center gap-3">
@@ -218,7 +227,18 @@ export default function ComparisonPage() {
                   const val = (league as unknown as Record<string, number>)[metric.key];
                   const isBest = val === maxVal && metric.key !== "founded";
                   return (
-                    <div key={league.id} className="px-6 py-5 text-center flex flex-col items-center justify-center">
+                    <div
+                      key={league.id}
+                      className="px-6 py-5 text-center flex flex-col items-center justify-center"
+                      style={
+                        isBest && metric.key !== "founded"
+                          ? {
+                              background: `${COLORS[i]}08`,
+                              borderLeft: `2px solid ${COLORS[i]}40`,
+                            }
+                          : {}
+                      }
+                    >
                       <div
                         className="text-lg font-extrabold mb-0.5"
                         style={{ color: isBest ? COLORS[i] : "#ffffff" }}
@@ -226,7 +246,14 @@ export default function ComparisonPage() {
                         {metric.format(val)}
                       </div>
                       {isBest && metric.key !== "founded" && (
-                        <span className="text-xs" style={{ color: COLORS[i] }}>
+                        <span
+                          className="text-xs font-semibold px-2 py-0.5 rounded-full"
+                          style={{
+                            color: COLORS[i],
+                            backgroundColor: `${COLORS[i]}15`,
+                            border: `1px solid ${COLORS[i]}30`,
+                          }}
+                        >
                           ▲ Best
                         </span>
                       )}
@@ -254,17 +281,13 @@ export default function ComparisonPage() {
             return (
               <div
                 key={chart.key}
-                className="p-6 rounded-2xl"
-                style={{
-                  backgroundColor: "#112240",
-                  border: "1px solid rgba(255,255,255,0.06)",
-                }}
+                className="glass-card p-6"
               >
                 <div className="flex items-center gap-2 mb-5">
                   <span className="text-xl">{chart.icon}</span>
                   <h3 className="text-white font-semibold text-sm">{chart.label}</h3>
                 </div>
-                <div className="space-y-4">
+                <div className="space-y-2">
                   {selectedLeagues.map((league, i) => (
                     <Bar
                       key={league.id}
@@ -286,10 +309,10 @@ export default function ComparisonPage() {
           {selectedLeagues.map((league, i) => (
             <div
               key={league.id}
-              className="p-6 rounded-2xl"
+              className="glass-card p-6"
               style={{
-                backgroundColor: "#112240",
-                border: `1px solid ${COLORS[i]}30`,
+                borderColor: `${COLORS[i]}30`,
+                boxShadow: `0 0 20px ${COLORS[i]}10`,
               }}
             >
               <div className="flex items-center gap-3 mb-4">
@@ -299,6 +322,13 @@ export default function ComparisonPage() {
                   <div className="text-xs text-gray-400">{league.country}</div>
                 </div>
               </div>
+
+              {/* Color accent bar */}
+              <div
+                className="h-0.5 rounded-full mb-4"
+                style={{ background: `linear-gradient(90deg, ${COLORS[i]}, transparent)` }}
+              />
+
               <div className="space-y-2">
                 {[
                   { label: "Status", value: league.isActive ? "● Active" : "Off Season" },
