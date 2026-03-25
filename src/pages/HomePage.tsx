@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { leagues } from "../data/leagues";
-import { getFeaturedArticles } from "../data/articles";
+import newsData from "../data/real/news.json";
+import type { RealArticle } from "../lib/api";
 
 const statBar = [
   { label: "T20 Leagues", value: "11", icon: "🏆" },
@@ -11,7 +12,7 @@ const statBar = [
 ];
 
 export default function HomePage() {
-  const featuredArticles = getFeaturedArticles().slice(0, 3);
+  const featuredArticles = (newsData as unknown as RealArticle[]).slice(0, 3);
 
   return (
     <div>

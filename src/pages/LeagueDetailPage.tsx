@@ -1,7 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getLeagueById } from "../data/leagues";
-import { getArticlesByLeague } from "../data/articles";
 import { fetchLeagueStats, type RealLeagueStats } from "../lib/api";
 
 const statCard = (label: string, value: string | number, icon: string, accent = false) => (
@@ -23,7 +22,6 @@ const statCard = (label: string, value: string | number, icon: string, accent = 
 export default function LeagueDetailPage() {
   const { id } = useParams<{ id: string }>();
   const league = getLeagueById(id ?? "");
-  const leagueArticles = getArticlesByLeague(id ?? "");
   const [realStats, setRealStats] = useState<RealLeagueStats | null>(null);
   const [statsLoading, setStatsLoading] = useState(false);
 
@@ -66,15 +64,6 @@ export default function LeagueDetailPage() {
     notation: "compact",
     maximumFractionDigits: 1,
   }).format(league.prizeMoneyUSD);
-
-  // Use real stats when available, otherwise fall back to mock
-  const mostRuns = realStats?.topRunScorers[0]
-    ? { player: realStats.topRunScorers[0].name, runs: realStats.topRunScorers[0].runs ?? 0, season: "Career" }
-    : league.mostRuns;
-  const mostWickets = realStats?.topWicketTakers[0]
-    ? { player: realStats.topWicketTakers[0].name, wickets: realStats.topWicketTakers[0].wickets ?? 0, season: "Career" }
-    : league.mostWickets;
-  const highestScore = realStats?.highestIndividualScore ?? league.highestScore;
 
   return (
     <div style={{ backgroundColor: "#0a1628", minHeight: "100vh" }}>
@@ -183,56 +172,66 @@ export default function LeagueDetailPage() {
           {statCard("Quality Rating", `${league.playerQualityRating}/100`, "⭐", true)}
         </div>
 
-        {/* ─── Records (real or mock) ─── */}
-        <div className="flex items-center gap-3 mb-5">
-          <h2 className="text-2xl font-bold text-white">All-Time Records</h2>
-          {realStats && !realStats.isFallback && (
-            <span
-              className="text-xs font-semibold px-2.5 py-1 rounded-full"
-              style={{ backgroundColor: "rgba(34,197,94,0.12)", color: "#22c55e", border: "1px solid rgba(34,197,94,0.3)" }}
-            >
-              ✓ Real Data
-            </span>
-          )}
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12">
-          <div
-            className="p-6 rounded-2xl"
-            style={{ backgroundColor: "#112240", border: "1px solid rgba(255,255,255,0.06)" }}
-          >
-            <div className="text-3xl mb-3">🏏</div>
-            <div className="text-xs text-gray-400 uppercase tracking-wider mb-2">Most Runs (Career)</div>
-            <div className="text-2xl font-extrabold text-white mb-1">
-              {mostRuns.runs.toLocaleString()}
+        {/* ─── Records (real data only) ─── */}
+        {realStats && (
+          <>
+            <div className="flex items-center gap-3 mb-5">
+              <h2 className="text-2xl font-bold text-white">All-Time Records</h2>
+              {!realStats.isFallback && (
+                <span
+                  className="text-xs font-semibold px-2.5 py-1 rounded-full"
+                  style={{ backgroundColor: "rgba(34,197,94,0.12)", color: "#22c55e", border: "1px solid rgba(34,197,94,0.3)" }}
+                >
+                  ✓ Real Data
+                </span>
+              )}
             </div>
-            <div className="font-semibold" style={{ color: "#f5a623" }}>{mostRuns.player}</div>
-            <div className="text-xs text-gray-500 mt-1">{mostRuns.season}</div>
-          </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12">
+              {realStats.topRunScorers[0] && (
+                <div
+                  className="p-6 rounded-2xl"
+                  style={{ backgroundColor: "#112240", border: "1px solid rgba(255,255,255,0.06)" }}
+                >
+                  <div className="text-3xl mb-3">🏏</div>
+                  <div className="text-xs text-gray-400 uppercase tracking-wider mb-2">Most Runs (Career)</div>
+                  <div className="text-2xl font-extrabold text-white mb-1">
+                    {(realStats.topRunScorers[0].runs ?? 0).toLocaleString()}
+                  </div>
+                  <div className="font-semibold" style={{ color: "#f5a623" }}>{realStats.topRunScorers[0].name}</div>
+                  <div className="text-xs text-gray-500 mt-1">Career</div>
+                </div>
+              )}
 
-          <div
-            className="p-6 rounded-2xl"
-            style={{ backgroundColor: "#112240", border: "1px solid rgba(255,255,255,0.06)" }}
-          >
-            <div className="text-3xl mb-3">🎳</div>
-            <div className="text-xs text-gray-400 uppercase tracking-wider mb-2">Most Wickets (Career)</div>
-            <div className="text-2xl font-extrabold text-white mb-1">{mostWickets.wickets}</div>
-            <div className="font-semibold" style={{ color: "#f5a623" }}>{mostWickets.player}</div>
-            <div className="text-xs text-gray-500 mt-1">{mostWickets.season}</div>
-          </div>
+              {realStats.topWicketTakers[0] && (
+                <div
+                  className="p-6 rounded-2xl"
+                  style={{ backgroundColor: "#112240", border: "1px solid rgba(255,255,255,0.06)" }}
+                >
+                  <div className="text-3xl mb-3">🎳</div>
+                  <div className="text-xs text-gray-400 uppercase tracking-wider mb-2">Most Wickets (Career)</div>
+                  <div className="text-2xl font-extrabold text-white mb-1">{realStats.topWicketTakers[0].wickets ?? 0}</div>
+                  <div className="font-semibold" style={{ color: "#f5a623" }}>{realStats.topWicketTakers[0].name}</div>
+                  <div className="text-xs text-gray-500 mt-1">Career</div>
+                </div>
+              )}
 
-          <div
-            className="p-6 rounded-2xl"
-            style={{ backgroundColor: "#112240", border: "1px solid rgba(255,255,255,0.06)" }}
-          >
-            <div className="text-3xl mb-3">⚡</div>
-            <div className="text-xs text-gray-400 uppercase tracking-wider mb-2">Highest Score</div>
-            <div className="text-2xl font-extrabold text-white mb-1">{highestScore.score}*</div>
-            <div className="font-semibold" style={{ color: "#f5a623" }}>{highestScore.player}</div>
-            <div className="text-xs text-gray-500 mt-1">
-              vs {highestScore.against} · {highestScore.season}
+              {realStats.highestIndividualScore && (
+                <div
+                  className="p-6 rounded-2xl"
+                  style={{ backgroundColor: "#112240", border: "1px solid rgba(255,255,255,0.06)" }}
+                >
+                  <div className="text-3xl mb-3">⚡</div>
+                  <div className="text-xs text-gray-400 uppercase tracking-wider mb-2">Highest Score</div>
+                  <div className="text-2xl font-extrabold text-white mb-1">{realStats.highestIndividualScore.score}*</div>
+                  <div className="font-semibold" style={{ color: "#f5a623" }}>{realStats.highestIndividualScore.player}</div>
+                  <div className="text-xs text-gray-500 mt-1">
+                    vs {realStats.highestIndividualScore.against} · {realStats.highestIndividualScore.season}
+                  </div>
+                </div>
+              )}
             </div>
-          </div>
-        </div>
+          </>
+        )}
 
         {/* ─── Real Stats: Top Run Scorers ─── */}
         {realStats && realStats.topRunScorers.length > 0 && (
@@ -532,33 +531,21 @@ export default function LeagueDetailPage() {
           ))}
         </div>
 
-        {/* ─── Related Articles ─── */}
-        {leagueArticles.length > 0 && (
-          <>
-            <h2 className="text-2xl font-bold text-white mb-5">Latest Articles</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-12">
-              {leagueArticles.slice(0, 2).map((article) => (
-                <div
-                  key={article.id}
-                  className="p-5 rounded-2xl card-hover"
-                  style={{ backgroundColor: "#112240", border: "1px solid rgba(255,255,255,0.06)" }}
-                >
-                  <div className="flex items-center gap-2 mb-3">
-                    <span
-                      className="text-xs font-semibold px-2.5 py-1 rounded-md capitalize"
-                      style={{ backgroundColor: "rgba(245,166,35,0.1)", color: "#f5a623" }}
-                    >
-                      {article.category}
-                    </span>
-                    <span className="text-xs text-gray-500">{article.readTime} min</span>
-                  </div>
-                  <h3 className="text-white font-semibold mb-2">{article.title}</h3>
-                  <p className="text-gray-400 text-sm">{article.excerpt}</p>
-                </div>
-              ))}
-            </div>
-          </>
-        )}
+        {/* ─── News ─── */}
+        <div className="mb-12 text-center">
+          <Link
+            to="/news"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-all hover:-translate-y-0.5"
+            style={{
+              border: "1px solid rgba(245,166,35,0.4)",
+              color: "#f5a623",
+              background: "rgba(245,166,35,0.05)",
+              textDecoration: "none",
+            }}
+          >
+            📰 Visit News Page for Latest Articles →
+          </Link>
+        </div>
       </div>
     </div>
   );

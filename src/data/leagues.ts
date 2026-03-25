@@ -33,9 +33,6 @@ export interface League {
   accentColor: string;
   description: string;
   numberOfSeasons: number;
-  mostRuns: { player: string; runs: number; season: string };
-  mostWickets: { player: string; wickets: number; season: string };
-  highestScore: { player: string; score: number; against: string; season: string };
   topPlayers: Player[];
   recentSeasons: Season[];
   teamsList: string[];
@@ -63,9 +60,6 @@ export const leagues: League[] = [
       "The Indian Premier League is the world's most-watched and richest cricket league, featuring the biggest stars from across the globe competing in a high-octane franchise tournament every year.",
     numberOfSeasons: 18,
     continent: "Asia",
-    mostRuns: { player: "Virat Kohli", runs: 8004, season: "Career" },
-    mostWickets: { player: "Yuzvendra Chahal", wickets: 205, season: "Career" },
-    highestScore: { player: "Chris Gayle", score: 175, against: "PWI", season: "2013" },
     topPlayers: [
       { name: "Virat Kohli", country: "India", role: "Batsman", runs: 8004, rating: 98 },
       { name: "Rohit Sharma", country: "India", role: "Batsman", runs: 6628, rating: 96 },
@@ -106,9 +100,6 @@ export const leagues: League[] = [
       "Australia's premier T20 competition, the BBL features eight city-based franchises in a festive summer tournament known for its family-friendly atmosphere and cricketing flair.",
     numberOfSeasons: 15,
     continent: "Oceania",
-    mostRuns: { player: "Chris Lynn", runs: 2803, season: "Career" },
-    mostWickets: { player: "Andrew Tye", wickets: 119, season: "Career" },
-    highestScore: { player: "Joe Burns", score: 115, against: "Brisbane Heat", season: "2017-18" },
     topPlayers: [
       { name: "David Warner", country: "Australia", role: "Batsman", runs: 2400, rating: 91 },
       { name: "Pat Cummins", country: "Australia", role: "Bowler", wickets: 85, rating: 93 },
@@ -148,9 +139,6 @@ export const leagues: League[] = [
       "Pakistan Super League has grown into one of Asia's most exciting T20 leagues, developing world-class Pakistani talent while attracting top international players.",
     numberOfSeasons: 10,
     continent: "Asia",
-    mostRuns: { player: "Babar Azam", runs: 3056, season: "Career" },
-    mostWickets: { player: "Hasan Ali", wickets: 121, season: "Career" },
-    highestScore: { player: "Kamran Akmal", score: 117, against: "Peshawar Zalmi", season: "2017" },
     topPlayers: [
       { name: "Babar Azam", country: "Pakistan", role: "Batsman", runs: 3056, rating: 95 },
       { name: "Shaheen Afridi", country: "Pakistan", role: "Bowler", wickets: 90, rating: 92 },
@@ -190,9 +178,6 @@ export const leagues: League[] = [
       "The Caribbean Premier League brings together cricket, carnival culture, and stunning tropical venues for one of the most entertaining T20 tournaments in the world.",
     numberOfSeasons: 13,
     continent: "Americas",
-    mostRuns: { player: "Chris Gayle", runs: 2718, season: "Career" },
-    mostWickets: { player: "Sunil Narine", wickets: 154, season: "Career" },
-    highestScore: { player: "Chris Gayle", score: 132, against: "Guyana Amazon Warriors", season: "2015" },
     topPlayers: [
       { name: "Chris Gayle", country: "West Indies", role: "Batsman", runs: 2718, rating: 88 },
       { name: "Kieron Pollard", country: "West Indies", role: "All-rounder", runs: 2300, rating: 86 },
@@ -232,9 +217,6 @@ export const leagues: League[] = [
       "England's innovative 100-ball format competition bringing cricket to a new generation, featuring city-based teams and simultaneous men's and women's tournaments.",
     numberOfSeasons: 5,
     continent: "Europe",
-    mostRuns: { player: "Dawid Malan", runs: 987, season: "Career" },
-    mostWickets: { player: "Adil Rashid", wickets: 56, season: "Career" },
-    highestScore: { player: "Jos Buttler", score: 101, against: "London Spirit", season: "2021" },
     topPlayers: [
       { name: "Jos Buttler", country: "England", role: "WK-Batsman", runs: 850, rating: 92 },
       { name: "Jofra Archer", country: "England", role: "Bowler", wickets: 48, rating: 90 },
@@ -273,9 +255,6 @@ export const leagues: League[] = [
       "South Africa's newest IPL-owned T20 league, SA20 has rapidly become one of the world's most competitive leagues, with major IPL franchise ownership bringing in top global talent.",
     numberOfSeasons: 3,
     continent: "Africa",
-    mostRuns: { player: "Quinton de Kock", runs: 1456, season: "Career" },
-    mostWickets: { player: "Ottneil Baartman", wickets: 52, season: "Career" },
-    highestScore: { player: "Quinton de Kock", score: 140, against: "Durban Super Giants", season: "2024" },
     topPlayers: [
       { name: "Quinton de Kock", country: "South Africa", role: "WK-Batsman", runs: 1456, rating: 92 },
       { name: "Kagiso Rabada", country: "South Africa", role: "Bowler", wickets: 48, rating: 93 },
@@ -313,9 +292,6 @@ export const leagues: League[] = [
       "The Lanka Premier League showcases Sri Lankan cricket talent alongside international stars in a vibrant domestic T20 competition set against breathtaking island venues.",
     numberOfSeasons: 4,
     continent: "Asia",
-    mostRuns: { player: "Kusal Mendis", runs: 876, season: "Career" },
-    mostWickets: { player: "Wanindu Hasaranga", wickets: 46, season: "Career" },
-    highestScore: { player: "Avishka Fernando", score: 102, against: "Dambulla Aura", season: "2023" },
     topPlayers: [
       { name: "Wanindu Hasaranga", country: "Sri Lanka", role: "All-rounder", wickets: 46, rating: 88 },
       { name: "Kusal Mendis", country: "Sri Lanka", role: "WK-Batsman", runs: 876, rating: 85 },
@@ -353,9 +329,6 @@ export const leagues: League[] = [
       "Bangladesh's flagship T20 franchise competition has become a crucial platform for developing local talent and attracting international stars to the vibrant cricket-crazy nation.",
     numberOfSeasons: 10,
     continent: "Asia",
-    mostRuns: { player: "Tamim Iqbal", runs: 2467, season: "Career" },
-    mostWickets: { player: "Al-Amin Hossain", wickets: 95, season: "Career" },
-    highestScore: { player: "Chris Gayle", score: 146, against: "Barisal Burners", season: "2012-13" },
     topPlayers: [
       { name: "Shakib Al Hasan", country: "Bangladesh", role: "All-rounder", runs: 1800, rating: 90 },
       { name: "Tamim Iqbal", country: "Bangladesh", role: "Batsman", runs: 2467, rating: 86 },
@@ -393,9 +366,6 @@ export const leagues: League[] = [
       "The International League T20 is the UAE's premier franchise competition, backed by major IPL franchise owners and rapidly growing into one of the most competitive T20 leagues globally.",
     numberOfSeasons: 3,
     continent: "Asia",
-    mostRuns: { player: "Alex Hales", runs: 982, season: "Career" },
-    mostWickets: { player: "Matheesha Pathirana", wickets: 44, season: "Career" },
-    highestScore: { player: "Alex Hales", score: 110, against: "Gulf Giants", season: "2023" },
     topPlayers: [
       { name: "Alex Hales", country: "England", role: "Batsman", runs: 982, rating: 87 },
       { name: "Matheesha Pathirana", country: "Sri Lanka", role: "Bowler", wickets: 44, rating: 88 },
@@ -433,9 +403,6 @@ export const leagues: League[] = [
       "Major League Cricket is America's first professional T20 league, signaling cricket's ambitious expansion into the world's biggest sports market, with IPL-backed franchises.",
     numberOfSeasons: 2,
     continent: "Americas",
-    mostRuns: { player: "Andries Gous", runs: 456, season: "Career" },
-    mostWickets: { player: "Ali Khan", wickets: 22, season: "Career" },
-    highestScore: { player: "Andries Gous", score: 94, against: "MI New York", season: "2023" },
     topPlayers: [
       { name: "Shakib Al Hasan", country: "Bangladesh", role: "All-rounder", runs: 400, rating: 88 },
       { name: "Rilee Rossouw", country: "South Africa", role: "Batsman", runs: 420, rating: 85 },
@@ -472,9 +439,6 @@ export const leagues: League[] = [
       "The oldest and most storied domestic T20 competition in the world, the Vitality T20 Blast features 18 county teams competing across England and Wales every summer.",
     numberOfSeasons: 12,
     continent: "Europe",
-    mostRuns: { player: "Ian Bell", runs: 3900, season: "Career" },
-    mostWickets: { player: "Imran Tahir", wickets: 112, season: "Career" },
-    highestScore: { player: "Alex Hales", score: 147, against: "Hampshire", season: "2015" },
     topPlayers: [
       { name: "Ben Duckett", country: "England", role: "Batsman", runs: 2100, rating: 84 },
       { name: "Sam Curran", country: "England", role: "All-rounder", wickets: 75, rating: 87 },

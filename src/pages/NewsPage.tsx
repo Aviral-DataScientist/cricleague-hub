@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { articles as mockArticles, categories as mockCategories, type Article } from "../data/articles";
 import { leagues } from "../data/leagues";
 import { fetchRealNews, type RealArticle } from "../lib/api";
 
@@ -12,24 +11,7 @@ const categoryColors: Record<string, string> = {
   review: "#f472b6",
 };
 
-// Adapt RealArticle to Article shape for unified rendering
-function adaptRealArticle(a: RealArticle): Article {
-  return {
-    id: a.id,
-    title: a.title,
-    excerpt: a.excerpt,
-    content: a.content,
-    leagueTag: a.leagueTag,
-    leagueId: a.leagueId,
-    author: a.author,
-    date: a.date,
-    readTime: a.readTime,
-    category: a.category,
-    featured: a.featured,
-  };
-}
-
-function ArticleCard({ article, url }: { article: Article; url?: string }) {
+function ArticleCard({ article, url }: { article: RealArticle; url?: string }) {
   const inner = (
     <div
       className="rounded-2xl overflow-hidden card-hover flex flex-col h-full"
@@ -113,7 +95,7 @@ export default function NewsPage() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedLeague, setSelectedLeague] = useState("all");
   const [search, setSearch] = useState("");
-  const [realArticles, setRealArticles] = useState<Article[] | null>(null);
+  const [realArticles, setRealArticles] = useState<RealArticle[] | null>(null);
   const [articleUrls, setArticleUrls] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(true);
   const [isLive, setIsLive] = useState(false);
@@ -124,10 +106,9 @@ export default function NewsPage() {
       setIsLoading(true);
       const data = await fetchRealNews();
       if (mounted && data && data.length > 0) {
-        const adapted = data.map(adaptRealArticle);
         const urls: Record<string, string> = {};
         data.forEach((a) => { if (a.url) urls[a.id] = a.url; });
-        setRealArticles(adapted);
+        setRealArticles(data);
         setArticleUrls(urls);
         setIsLive(true);
       }
@@ -136,8 +117,8 @@ export default function NewsPage() {
     return () => { mounted = false; };
   }, []);
 
-  const displayArticles = realArticles ?? mockArticles;
-  const allCategories = isLive ? ["news"] : mockCategories;
+  const displayArticles = realArticles ?? [];
+  const allCategories = ["news"];
 
   const filtered = displayArticles.filter((a) => {
     const matchCat = selectedCategory === "all" || a.category === selectedCategory;
