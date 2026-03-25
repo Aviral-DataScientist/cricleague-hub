@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { leagues, type League } from "../data/leagues";
+import { ChevronDown } from "lucide-react";
 
 interface BarProps {
   value: number;
@@ -11,23 +12,20 @@ interface BarProps {
 function Bar({ value, max, color, label }: BarProps) {
   const pct = Math.round((value / max) * 100);
   return (
-    <div className="mb-3">
-      <div className="flex justify-between items-center mb-2">
-        <span className="text-xs text-gray-300 truncate max-w-[160px] font-medium">{label}</span>
-        <span className="text-xs font-bold ml-2" style={{ color }}>
-          {value.toLocaleString()}
-        </span>
+    <div style={{ marginBottom: 12 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+        <span style={{ fontSize: 12, color: "#C8C9D4", fontFamily: "'Lato', sans-serif", maxWidth: 160, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" as const }}>{label}</span>
+        <span style={{ fontSize: 12, fontWeight: 700, color, marginLeft: 8, fontFamily: "'Inter', sans-serif" }}>{value.toLocaleString()}</span>
       </div>
-      <div
-        className="h-3 rounded-full overflow-hidden"
-        style={{ backgroundColor: "rgba(255,255,255,0.06)" }}
-      >
+      <div style={{ height: 10, borderRadius: 5, overflow: "hidden", background: "rgba(255,255,255,0.06)" }}>
         <div
-          className="h-full rounded-full transition-all duration-700"
           style={{
+            height: "100%",
             width: `${pct}%`,
-            background: `linear-gradient(90deg, ${color}, ${color}bb)`,
+            borderRadius: 5,
+            background: `linear-gradient(90deg, ${color}, ${color}99)`,
             boxShadow: `0 0 8px ${color}60`,
+            transition: "width 700ms ease",
           }}
         />
       </div>
@@ -80,7 +78,7 @@ const METRICS = [
   },
 ];
 
-const COLORS = ["#f5a623", "#60a5fa", "#34d399", "#f472b6"];
+const COLORS = ["#00D9FF", "#A78BFA", "#34d399", "#f472b6"];
 
 export default function ComparisonPage() {
   const [selected, setSelected] = useState<string[]>(["ipl", "psl"]);
@@ -98,48 +96,29 @@ export default function ComparisonPage() {
   };
 
   return (
-    <div style={{ backgroundColor: "#060e1a", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "var(--bg-primary)", minHeight: "100vh" }}>
       {/* Header */}
-      <div
-        className="py-14 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
-        style={{
-          background: "linear-gradient(180deg, #040a14 0%, #060e1a 100%)",
-          borderBottom: "1px solid rgba(245,166,35,0.08)",
-        }}
-      >
-        <div
-          className="orb"
-          style={{
-            width: 300,
-            height: 300,
-            top: "-80px",
-            right: "10%",
-            background: "radial-gradient(circle, rgba(245,166,35,0.08) 0%, transparent 70%)",
-          }}
-        />
-        <div className="max-w-7xl mx-auto relative">
-          <p className="text-xs font-semibold tracking-widest mb-2" style={{ color: "#f5a623" }}>
+      <div style={{ padding: "56px 24px 40px", borderBottom: "1px solid var(--border-subtle)" }}>
+        <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+          <p style={{ color: "#00D9FF", fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", fontFamily: "'Inter', sans-serif", marginBottom: 8 }}>
             SIDE BY SIDE
           </p>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-3">
-            Compare Leagues
-          </h1>
-          <p className="text-gray-400 text-lg">
+          <h1 style={{ color: "#FFFFFF", margin: "0 0 8px" }}>Compare Leagues</h1>
+          <p style={{ color: "#C8C9D4", fontSize: 16 }}>
             Select up to 3 leagues and compare them across key metrics.
           </p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div style={{ maxWidth: 1400, margin: "0 auto", padding: "32px 24px" }}>
         {/* League selector */}
-        <div className="glass-card p-6 mb-10">
-          <h2 className="text-white font-semibold mb-4">
-            Choose Leagues to Compare{" "}
-            <span className="text-sm font-normal text-gray-400">
-              (min 1, max 3 — {selected.length}/3 selected)
-            </span>
-          </h2>
-          <div className="flex flex-wrap gap-2.5">
+        <div className="glass-card" style={{ padding: 24, marginBottom: 32 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
+            <h2 style={{ color: "#FFFFFF", fontSize: 16, margin: 0 }}>Choose Leagues to Compare</h2>
+            <ChevronDown size={16} color="#6B7280" />
+            <span style={{ color: "#6B7280", fontSize: 13 }}>({selected.length}/3 selected)</span>
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
             {leagues.map((league) => {
               const isSelected = selected.includes(league.id);
               const idx = selected.indexOf(league.id);
@@ -147,21 +126,22 @@ export default function ComparisonPage() {
                 <button
                   key={league.id}
                   onClick={() => toggleLeague(league.id)}
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-150"
-                  style={
-                    isSelected
-                      ? {
-                          background: `${COLORS[idx]}18`,
-                          border: `1px solid ${COLORS[idx]}60`,
-                          color: COLORS[idx],
-                          boxShadow: `0 0 12px ${COLORS[idx]}25`,
-                        }
-                      : {
-                          backgroundColor: "rgba(6,14,26,0.8)",
-                          border: "1px solid rgba(245,166,35,0.12)",
-                          color: "#9ca3af",
-                        }
-                  }
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 6,
+                    padding: "8px 14px",
+                    borderRadius: 8,
+                    fontSize: 13,
+                    fontFamily: "'Inter', sans-serif",
+                    fontWeight: 500,
+                    cursor: "pointer",
+                    transition: "all 150ms ease",
+                    background: isSelected ? `${COLORS[idx]}18` : "rgba(255,255,255,0.03)",
+                    border: isSelected ? `1px solid ${COLORS[idx]}60` : "1px solid var(--border-subtle)",
+                    color: isSelected ? COLORS[idx] : "#9CA3AF",
+                    boxShadow: isSelected ? `0 0 12px ${COLORS[idx]}25` : "none",
+                  }}
                   disabled={!isSelected && selected.length >= 3}
                 >
                   <span>{league.flag}</span>
@@ -174,32 +154,24 @@ export default function ComparisonPage() {
         </div>
 
         {/* Comparison table */}
-        <div
-          className="rounded-2xl overflow-hidden mb-10 glass-card"
-          style={{ padding: 0 }}
-        >
+        <div className="glass-card" style={{ overflow: "hidden", padding: 0, marginBottom: 32 }}>
           {/* Header row */}
           <div
-            className="grid"
             style={{
+              display: "grid",
               gridTemplateColumns: `220px repeat(${selectedLeagues.length}, 1fr)`,
-              background: "linear-gradient(90deg, rgba(13,31,60,0.95), rgba(17,43,92,0.95))",
-              borderBottom: "1px solid rgba(245,166,35,0.15)",
+              background: "rgba(0,217,255,0.04)",
+              borderBottom: "1px solid var(--border-subtle)",
             }}
           >
-            <div className="px-6 py-5 text-xs font-semibold uppercase tracking-wider" style={{ color: "#f5a623" }}>
+            <div style={{ padding: "16px 24px", fontSize: 11, fontWeight: 700, textTransform: "uppercase" as const, letterSpacing: 1, color: "#00D9FF", fontFamily: "'Inter', sans-serif" }}>
               Metric
             </div>
             {selectedLeagues.map((league, i) => (
-              <div key={league.id} className="px-6 py-5 text-center">
-                <div className="text-3xl mb-1">{league.flag}</div>
-                <div
-                  className="font-bold text-sm"
-                  style={{ color: COLORS[i] }}
-                >
-                  {league.shortName}
-                </div>
-                <div className="text-xs text-gray-500 mt-0.5">{league.country}</div>
+              <div key={league.id} style={{ padding: "16px 24px", textAlign: "center" }}>
+                <div style={{ fontSize: 28, marginBottom: 4 }}>{league.flag}</div>
+                <div style={{ fontWeight: 700, fontSize: 13, color: COLORS[i], fontFamily: "'Inter', sans-serif" }}>{league.shortName}</div>
+                <div style={{ fontSize: 11, color: "#6B7280", marginTop: 2 }}>{league.country}</div>
               </div>
             ))}
           </div>
@@ -212,16 +184,16 @@ export default function ComparisonPage() {
             return (
               <div
                 key={metric.key}
-                className="grid"
                 style={{
+                  display: "grid",
                   gridTemplateColumns: `220px repeat(${selectedLeagues.length}, 1fr)`,
-                  backgroundColor: mi % 2 === 0 ? "rgba(6,14,26,0.5)" : "rgba(13,31,60,0.5)",
-                  borderBottom: "1px solid rgba(245,166,35,0.04)",
+                  backgroundColor: mi % 2 === 0 ? "transparent" : "rgba(255,255,255,0.02)",
+                  borderBottom: "1px solid var(--border-subtle)",
                 }}
               >
-                <div className="px-6 py-5 flex items-center gap-3">
-                  <span className="text-xl">{metric.icon}</span>
-                  <span className="text-sm text-gray-300 font-medium">{metric.label}</span>
+                <div style={{ padding: "16px 24px", display: "flex", alignItems: "center", gap: 10 }}>
+                  <span style={{ fontSize: 18 }}>{metric.icon}</span>
+                  <span style={{ fontSize: 13, color: "#C8C9D4", fontFamily: "'Lato', sans-serif" }}>{metric.label}</span>
                 </div>
                 {selectedLeagues.map((league, i) => {
                   const val = (league as unknown as Record<string, number>)[metric.key];
@@ -229,31 +201,36 @@ export default function ComparisonPage() {
                   return (
                     <div
                       key={league.id}
-                      className="px-6 py-5 text-center flex flex-col items-center justify-center"
-                      style={
-                        isBest && metric.key !== "founded"
+                      style={{
+                        padding: "16px 24px",
+                        textAlign: "center",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        ...(isBest && metric.key !== "founded"
                           ? {
                               background: `${COLORS[i]}08`,
-                              borderLeft: `2px solid ${COLORS[i]}40`,
+                              borderLeft: `2px solid ${COLORS[i]}`,
+                              boxShadow: `inset 0 0 20px ${COLORS[i]}08`,
                             }
-                          : {}
-                      }
+                          : {}),
+                      }}
                     >
-                      <div
-                        className="text-lg font-extrabold mb-0.5"
-                        style={{ color: isBest ? COLORS[i] : "#ffffff" }}
-                      >
+                      <div style={{ fontSize: 16, fontWeight: 800, fontFamily: "'Inter', sans-serif", color: isBest && metric.key !== "founded" ? COLORS[i] : "#FFFFFF", marginBottom: 4 }}>
                         {metric.format(val)}
                       </div>
                       {isBest && metric.key !== "founded" && (
-                        <span
-                          className="text-xs font-semibold px-2 py-0.5 rounded-full"
-                          style={{
-                            color: COLORS[i],
-                            backgroundColor: `${COLORS[i]}15`,
-                            border: `1px solid ${COLORS[i]}30`,
-                          }}
-                        >
+                        <span style={{
+                          fontSize: 10,
+                          fontWeight: 700,
+                          padding: "2px 8px",
+                          borderRadius: 10,
+                          color: COLORS[i],
+                          background: `${COLORS[i]}15`,
+                          border: `1px solid ${COLORS[i]}30`,
+                          fontFamily: "'Inter', sans-serif",
+                        }}>
                           ▲ Best
                         </span>
                       )}
@@ -266,82 +243,63 @@ export default function ComparisonPage() {
         </div>
 
         {/* Bar Charts */}
-        <h2 className="text-2xl font-bold text-white mb-6">Visual Comparison</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+        <h2 style={{ color: "#FFFFFF", marginBottom: 20 }}>Visual Comparison</h2>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 16, marginBottom: 32 }}>
           {[
             { key: "prizeMoneyUSD", label: "Prize Money (USD)", icon: "💰" },
             { key: "avgViewershipMillion", label: "Avg Viewership (Millions)", icon: "📺" },
             { key: "playerQualityRating", label: "Player Quality Rating", icon: "⭐" },
             { key: "numberOfSeasons", label: "Seasons Completed", icon: "🏆" },
           ].map((chart) => {
-            const values = selectedLeagues.map(
-              (l) => (l as unknown as Record<string, number>)[chart.key]
-            );
+            const values = selectedLeagues.map((l) => (l as unknown as Record<string, number>)[chart.key]);
             const maxVal = Math.max(...values);
             return (
-              <div
-                key={chart.key}
-                className="glass-card p-6"
-              >
-                <div className="flex items-center gap-2 mb-5">
-                  <span className="text-xl">{chart.icon}</span>
-                  <h3 className="text-white font-semibold text-sm">{chart.label}</h3>
+              <div key={chart.key} className="glass-card" style={{ padding: 20 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
+                  <span style={{ fontSize: 18 }}>{chart.icon}</span>
+                  <h3 style={{ fontSize: 14, color: "#FFFFFF", margin: 0 }}>{chart.label}</h3>
                 </div>
-                <div className="space-y-2">
-                  {selectedLeagues.map((league, i) => (
-                    <Bar
-                      key={league.id}
-                      value={(league as unknown as Record<string, number>)[chart.key]}
-                      max={maxVal}
-                      color={COLORS[i]}
-                      label={`${league.flag} ${league.shortName}`}
-                    />
-                  ))}
-                </div>
+                {selectedLeagues.map((league, i) => (
+                  <Bar
+                    key={league.id}
+                    value={(league as unknown as Record<string, number>)[chart.key]}
+                    max={maxVal}
+                    color={COLORS[i]}
+                    label={`${league.flag} ${league.shortName}`}
+                  />
+                ))}
               </div>
             );
           })}
         </div>
 
         {/* Quick Summary */}
-        <h2 className="text-2xl font-bold text-white mb-6">Quick Summary</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <h2 style={{ color: "#FFFFFF", marginBottom: 20 }}>Quick Summary</h2>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 16 }}>
           {selectedLeagues.map((league, i) => (
             <div
               key={league.id}
-              className="glass-card p-6"
-              style={{
-                borderColor: `${COLORS[i]}30`,
-                boxShadow: `0 0 20px ${COLORS[i]}10`,
-              }}
+              className="glass-card"
+              style={{ padding: 20, borderColor: `${COLORS[i]}30`, boxShadow: `0 0 20px ${COLORS[i]}10` }}
             >
-              <div className="flex items-center gap-3 mb-4">
-                <span className="text-3xl">{league.flag}</span>
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
+                <span style={{ fontSize: 28 }}>{league.flag}</span>
                 <div>
-                  <div className="font-bold text-white">{league.name}</div>
-                  <div className="text-xs text-gray-400">{league.country}</div>
+                  <div style={{ fontWeight: 700, color: "#FFFFFF", fontFamily: "'Inter', sans-serif" }}>{league.name}</div>
+                  <div style={{ fontSize: 12, color: "#6B7280" }}>{league.country}</div>
                 </div>
               </div>
-
-              {/* Color accent bar */}
-              <div
-                className="h-0.5 rounded-full mb-4"
-                style={{ background: `linear-gradient(90deg, ${COLORS[i]}, transparent)` }}
-              />
-
-              <div className="space-y-2">
+              <div style={{ height: 2, borderRadius: 1, background: `linear-gradient(90deg, ${COLORS[i]}, transparent)`, marginBottom: 16 }} />
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                 {[
                   { label: "Status", value: league.isActive ? "● Active" : "Off Season" },
                   { label: "Format", value: league.format },
                   { label: "Teams", value: `${league.teams} franchises` },
                   { label: "Season", value: league.activeSeason },
                 ].map((row) => (
-                  <div key={row.label} className="flex justify-between text-sm">
-                    <span className="text-gray-400">{row.label}</span>
-                    <span
-                      className="font-medium"
-                      style={{ color: row.label === "Status" && league.isActive ? "#22c55e" : COLORS[i] }}
-                    >
+                  <div key={row.label} style={{ display: "flex", justifyContent: "space-between", fontSize: 13 }}>
+                    <span style={{ color: "#6B7280" }}>{row.label}</span>
+                    <span style={{ fontWeight: 500, color: row.label === "Status" && league.isActive ? "#22c55e" : COLORS[i], fontFamily: "'Inter', sans-serif" }}>
                       {row.value}
                     </span>
                   </div>

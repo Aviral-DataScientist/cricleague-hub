@@ -2,85 +2,68 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { leagues } from "../data/leagues";
 import { fetchRealNews, type RealArticle } from "../lib/api";
+import { ExternalLink, Search } from "lucide-react";
 
 const categoryColors: Record<string, string> = {
-  news: "#60a5fa",
-  analysis: "#a78bfa",
+  news: "#00D9FF",
+  analysis: "#A78BFA",
   interview: "#34d399",
   preview: "#f5a623",
   review: "#f472b6",
 };
 
 function ArticleCard({ article, url }: { article: RealArticle; url?: string }) {
+  const color = categoryColors[article.category] ?? "#00D9FF";
   const inner = (
-    <div
-      className="rounded-2xl overflow-hidden card-hover glass-card flex flex-col h-full"
-      style={{ padding: 0 }}
-    >
-      {/* Image placeholder with gradient */}
+    <div className="glass-card" style={{ padding: 0, overflow: "hidden", height: "100%", display: "flex", flexDirection: "column" }}>
+      {/* Gradient placeholder */}
       <div
-        className="h-44 flex items-center justify-center relative overflow-hidden"
         style={{
-          background: `linear-gradient(135deg, rgba(13,31,60,0.9) 0%, rgba(17,43,92,0.8) 100%)`,
+          height: 160,
+          background: `linear-gradient(135deg, ${color}15 0%, rgba(167,139,250,0.1) 100%)`,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          position: "relative",
+          fontSize: 48,
+          color: "rgba(255,255,255,0.1)",
         }}
       >
-        {/* Background cricket ball faint */}
-        <span className="text-7xl opacity-20 select-none">🏏</span>
-
-        {/* Category badge */}
-        <div
-          className="absolute top-3 left-3 text-xs font-semibold px-3 py-1.5 rounded-full capitalize"
-          style={{
-            backgroundColor: `${categoryColors[article.category] ?? "#60a5fa"}20`,
-            color: categoryColors[article.category] ?? "#60a5fa",
-            border: `1px solid ${categoryColors[article.category] ?? "#60a5fa"}50`,
-            backdropFilter: "blur(8px)",
-          }}
-        >
-          {article.category}
+        🏏
+        <div style={{ position: "absolute", top: 10, left: 10 }}>
+          <span
+            style={{
+              background: `${color}20`,
+              color,
+              border: `1px solid ${color}50`,
+              padding: "3px 10px",
+              borderRadius: 20,
+              fontSize: 11,
+              fontWeight: 700,
+              fontFamily: "'Inter', sans-serif",
+              textTransform: "capitalize",
+            }}
+          >
+            {article.category}
+          </span>
         </div>
-
-        {/* League tag */}
-        <div
-          className="absolute top-3 right-3 text-xs font-semibold px-2.5 py-1 rounded-md"
-          style={{
-            backgroundColor: "rgba(245,166,35,0.2)",
-            color: "#f5a623",
-            border: "1px solid rgba(245,166,35,0.3)",
-            backdropFilter: "blur(8px)",
-          }}
-        >
-          {article.leagueTag}
+        <div style={{ position: "absolute", top: 10, right: 10 }}>
+          <span className="badge-teal">{article.leagueTag}</span>
         </div>
       </div>
 
-      <div className="p-5 flex flex-col flex-1">
-        <h3 className="text-white font-bold text-base leading-snug mb-2">{article.title}</h3>
-        <p className="text-gray-400 text-sm leading-relaxed mb-4 flex-1">{article.excerpt}</p>
-
-        <div
-          className="flex items-center justify-between pt-4"
-          style={{ borderTop: "1px solid rgba(245,166,35,0.08)" }}
-        >
+      <div style={{ padding: 16, flex: 1, display: "flex", flexDirection: "column" }}>
+        <h3 style={{ color: "#FFFFFF", fontSize: 14, fontWeight: 600, lineHeight: 1.4, marginBottom: 8 }}>{article.title}</h3>
+        <p style={{ color: "#C8C9D4", fontSize: 13, lineHeight: 1.5, flex: 1, marginBottom: 12 }}>{article.excerpt}</p>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: 10, borderTop: "1px solid var(--border-subtle)" }}>
           <div>
-            <div className="text-xs font-medium text-white">{article.author}</div>
-            <div className="text-xs text-gray-500 mt-0.5">
-              {new Date(article.date).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-              })}{" "}
-              · {article.readTime} min read
+            <div style={{ fontSize: 12, color: "#FFFFFF", fontWeight: 500 }}>{article.author}</div>
+            <div style={{ fontSize: 11, color: "#6B7280", marginTop: 2 }}>
+              {new Date(article.date).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })} · {article.readTime} min
             </div>
           </div>
-          <span
-            className="text-xs font-semibold px-3 py-1.5 rounded-lg"
-            style={{
-              background: "linear-gradient(135deg, #f5a623, #d4891e)",
-              color: "#060e1a",
-            }}
-          >
-            Read →
+          <span style={{ display: "flex", alignItems: "center", gap: 4, color: "#00D9FF", fontSize: 12, fontWeight: 600, fontFamily: "'Inter', sans-serif" }}>
+            Read <ExternalLink size={12} />
           </span>
         </div>
       </div>
@@ -89,13 +72,13 @@ function ArticleCard({ article, url }: { article: RealArticle; url?: string }) {
 
   if (url) {
     return (
-      <a href={url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+      <a href={url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", display: "block", height: "100%" }}>
         {inner}
       </a>
     );
   }
   return (
-    <Link to={`/leagues/${article.leagueId}`} style={{ textDecoration: "none" }}>
+    <Link to={`/leagues/${article.leagueId}`} style={{ textDecoration: "none", display: "block", height: "100%" }}>
       {inner}
     </Link>
   );
@@ -145,114 +128,90 @@ export default function NewsPage() {
   const featuredUrl = featured ? articleUrls[featured.id] : undefined;
 
   return (
-    <div style={{ backgroundColor: "#060e1a", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "var(--bg-primary)", minHeight: "100vh" }}>
       {/* Page Header */}
-      <div
-        className="py-14 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
-        style={{
-          background: "linear-gradient(180deg, #040a14 0%, #060e1a 100%)",
-          borderBottom: "1px solid rgba(245,166,35,0.08)",
-        }}
-      >
-        <div
-          className="orb"
-          style={{
-            width: 400,
-            height: 400,
-            top: "-120px",
-            right: "0",
-            background: "radial-gradient(circle, rgba(96,165,250,0.08) 0%, transparent 70%)",
-          }}
-        />
-        <div className="max-w-7xl mx-auto relative">
-          <p className="text-xs font-semibold tracking-widest mb-2" style={{ color: "#f5a623" }}>
+      <div style={{ padding: "56px 24px 40px", borderBottom: "1px solid var(--border-subtle)" }}>
+        <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+          <p style={{ color: "#00D9FF", fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", fontFamily: "'Inter', sans-serif", marginBottom: 8 }}>
             LATEST FROM THE CREASE
           </p>
-          <div className="flex items-center gap-3 flex-wrap">
-            <h1 className="text-4xl sm:text-5xl font-extrabold text-white">News & Analysis</h1>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+            <h1 style={{ color: "#FFFFFF", margin: 0 }}>News & Analysis</h1>
             {isLive && (
-              <span
-                className="text-xs font-semibold px-3 py-1.5 rounded-full"
-                style={{
-                  backgroundColor: "rgba(34,197,94,0.15)",
-                  color: "#22c55e",
-                  border: "1px solid rgba(34,197,94,0.3)",
-                }}
-              >
-                ● Live from ESPN Cricinfo
-              </span>
+              <span className="badge-teal">● Live from ESPN Cricinfo</span>
             )}
             {isLoading && (
-              <span className="text-xs text-gray-500 animate-pulse">Fetching live news…</span>
+              <span style={{ color: "#6B7280", fontSize: 13 }}>Fetching live news…</span>
             )}
           </div>
-          <p className="text-gray-400 text-lg mt-3">
-            {isLive
-              ? "Real-time coverage fetched from ESPN Cricinfo."
-              : "In-depth coverage, expert analysis, and breaking news from every major T20 league."}
+          <p style={{ color: "#C8C9D4", fontSize: 16 }}>
+            {isLive ? "Real-time coverage fetched from ESPN Cricinfo." : "In-depth coverage, expert analysis, and breaking news from every major T20 league."}
           </p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        {/* Featured Article — large magazine-style card */}
+      <div style={{ maxWidth: 1400, margin: "0 auto", padding: "32px 24px" }}>
+        {/* Featured Article */}
         {featured && (
           <div
-            className="rounded-2xl overflow-hidden mb-10 relative glass-card"
-            style={{
-              borderColor: "rgba(245,166,35,0.25)",
-              boxShadow: "0 0 40px rgba(245,166,35,0.08)",
-              padding: 0,
-            }}
+            className="glass-card"
+            style={{ padding: 0, overflow: "hidden", marginBottom: 32, position: "relative" }}
           >
-            {/* Large gradient background */}
             <div
-              className="absolute inset-0"
               style={{
-                background: "linear-gradient(135deg, rgba(26,58,107,0.9) 0%, rgba(13,31,60,0.95) 100%)",
+                background: "linear-gradient(135deg, rgba(0,217,255,0.08) 0%, rgba(167,139,250,0.06) 100%)",
+                padding: "40px 40px",
+                position: "relative",
               }}
-            />
-            {/* Large cricket icon background */}
-            <div
-              className="absolute right-0 top-0 h-full w-1/3 flex items-center justify-center opacity-10 text-[12rem] hidden lg:flex select-none"
             >
-              🏏
-            </div>
-
-            <div className="relative p-8 lg:p-12">
-              {/* Featured badge */}
-              <div className="mb-4">
-                <span
-                  className="text-xs font-semibold px-3 py-1.5 rounded-full"
-                  style={{ background: "linear-gradient(135deg, #f5a623, #d4891e)", color: "#060e1a" }}
-                >
-                  ⚡ Featured
-                </span>
+              {/* Large cricket icon bg */}
+              <div
+                style={{
+                  position: "absolute",
+                  right: 40,
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  fontSize: 120,
+                  opacity: 0.06,
+                  display: "none",
+                }}
+                className="lg:block"
+              >
+                🏏
               </div>
 
+              <div style={{ marginBottom: 16 }}>
+                <span className="badge-red">⚡ Featured</span>
+              </div>
               <span
-                className="text-xs font-semibold px-2.5 py-1 rounded-md capitalize mb-4 inline-block"
-                style={{ backgroundColor: "rgba(245,166,35,0.15)", color: "#f5a623", border: "1px solid rgba(245,166,35,0.25)" }}
+                style={{
+                  background: "rgba(0,217,255,0.1)",
+                  color: "#00D9FF",
+                  border: "1px solid rgba(0,217,255,0.25)",
+                  padding: "3px 10px",
+                  borderRadius: 6,
+                  fontSize: 11,
+                  fontWeight: 700,
+                  fontFamily: "'Inter', sans-serif",
+                  textTransform: "capitalize",
+                  display: "inline-block",
+                  marginBottom: 16,
+                }}
               >
                 {featured.leagueTag} · {featured.category}
               </span>
-
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white mb-4 leading-snug max-w-2xl">
+              <h2 style={{ color: "#FFFFFF", fontSize: "clamp(20px, 3vw, 32px)", marginBottom: 12, maxWidth: 700, lineHeight: 1.3 }}>
                 {featured.title}
               </h2>
-              <p className="text-gray-300 leading-relaxed mb-6 max-w-xl text-base">{featured.excerpt}</p>
-
-              <div className="flex items-center gap-4 flex-wrap">
+              <p style={{ color: "#C8C9D4", fontSize: 15, lineHeight: 1.6, maxWidth: 600, marginBottom: 24 }}>
+                {featured.excerpt}
+              </p>
+              <div style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap" }}>
                 <div>
-                  <div className="text-sm font-semibold text-white">{featured.author}</div>
-                  <div className="text-xs text-gray-400">
-                    {new Date(featured.date).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}{" "}
-                    · {featured.readTime} min read
-                    {isLive && <span className="ml-2" style={{ color: "#22c55e" }}>· ESPN Cricinfo</span>}
+                  <div style={{ fontSize: 14, fontWeight: 600, color: "#FFFFFF" }}>{featured.author}</div>
+                  <div style={{ fontSize: 12, color: "#6B7280", marginTop: 2 }}>
+                    {new Date(featured.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })} · {featured.readTime} min read
+                    {isLive && <span style={{ color: "#22c55e", marginLeft: 8 }}>· ESPN Cricinfo</span>}
                   </div>
                 </div>
                 {featuredUrl ? (
@@ -260,26 +219,16 @@ export default function NewsPage() {
                     href={featuredUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-5 py-2.5 rounded-xl text-sm font-semibold transition-all hover:-translate-y-0.5"
-                    style={{
-                      background: "linear-gradient(135deg, #f5a623, #d4891e)",
-                      color: "#060e1a",
-                      textDecoration: "none",
-                      boxShadow: "0 4px 16px rgba(245,166,35,0.3)",
-                    }}
+                    className="btn-primary"
+                    style={{ fontSize: 13 }}
                   >
                     Read Full Article →
                   </a>
                 ) : (
                   <Link
                     to={`/leagues/${featured.leagueId}`}
-                    className="px-5 py-2.5 rounded-xl text-sm font-semibold transition-all hover:-translate-y-0.5"
-                    style={{
-                      background: "linear-gradient(135deg, #f5a623, #d4891e)",
-                      color: "#060e1a",
-                      textDecoration: "none",
-                      boxShadow: "0 4px 16px rgba(245,166,35,0.3)",
-                    }}
+                    className="btn-primary"
+                    style={{ fontSize: 13 }}
                   >
                     Read Full Article →
                   </Link>
@@ -290,22 +239,32 @@ export default function NewsPage() {
         )}
 
         {/* Filters */}
-        <div className="glass-card p-5 mb-8">
-          <div className="flex flex-col md:flex-row gap-4">
+        <div className="glass-card" style={{ padding: 20, marginBottom: 24 }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginBottom: 16 }}>
             {/* Search */}
-            <div className="flex-1 relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+            <div style={{ position: "relative", flex: "1 1 200px", minWidth: 180 }}>
+              <Search size={14} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "#6B7280" }} />
               <input
                 type="text"
                 placeholder="Search articles..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full pl-11 pr-4 py-3 rounded-xl text-sm text-white placeholder-gray-500 focus-gold"
                 style={{
-                  backgroundColor: "rgba(6,14,26,0.8)",
-                  border: "1px solid rgba(245,166,35,0.15)",
+                  width: "100%",
+                  paddingLeft: 34,
+                  paddingRight: 12,
+                  paddingTop: 9,
+                  paddingBottom: 9,
+                  borderRadius: 8,
+                  border: "1px solid var(--border-subtle)",
+                  background: "rgba(255,255,255,0.03)",
+                  color: "#FFFFFF",
+                  fontSize: 13,
+                  fontFamily: "'Lato', sans-serif",
                   outline: "none",
                 }}
+                onFocus={(e) => (e.currentTarget.style.borderColor = "rgba(0,217,255,0.4)")}
+                onBlur={(e) => (e.currentTarget.style.borderColor = "var(--border-subtle)")}
               />
             </div>
 
@@ -313,10 +272,16 @@ export default function NewsPage() {
             <select
               value={selectedLeague}
               onChange={(e) => setSelectedLeague(e.target.value)}
-              className="px-4 py-3 rounded-xl text-sm text-white focus:outline-none cursor-pointer"
               style={{
-                backgroundColor: "rgba(6,14,26,0.8)",
-                border: "1px solid rgba(245,166,35,0.15)",
+                padding: "9px 14px",
+                borderRadius: 8,
+                border: "1px solid var(--border-subtle)",
+                background: "rgba(255,255,255,0.03)",
+                color: "#C8C9D4",
+                fontSize: 13,
+                fontFamily: "'Lato', sans-serif",
+                cursor: "pointer",
+                outline: "none",
               }}
             >
               <option value="all">All Leagues</option>
@@ -329,66 +294,63 @@ export default function NewsPage() {
           </div>
 
           {/* Category pills */}
-          <div className="flex flex-wrap gap-2 mt-4">
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
             <button
               onClick={() => setSelectedCategory("all")}
-              className="px-4 py-2 rounded-full text-sm font-medium transition-all"
-              style={
-                selectedCategory === "all"
-                  ? {
-                      background: "linear-gradient(135deg, #f5a623, #d4891e)",
-                      color: "#060e1a",
-                      boxShadow: "0 4px 12px rgba(245,166,35,0.25)",
-                    }
-                  : {
-                      backgroundColor: "rgba(6,14,26,0.8)",
-                      border: "1px solid rgba(245,166,35,0.15)",
-                      color: "#9ca3af",
-                    }
-              }
+              style={{
+                padding: "6px 14px",
+                borderRadius: 20,
+                border: selectedCategory === "all" ? "1px solid rgba(0,217,255,0.5)" : "1px solid var(--border-subtle)",
+                background: selectedCategory === "all" ? "rgba(0,217,255,0.15)" : "transparent",
+                color: selectedCategory === "all" ? "#00D9FF" : "#C8C9D4",
+                fontSize: 13,
+                fontFamily: "'Inter', sans-serif",
+                fontWeight: 500,
+                cursor: "pointer",
+              }}
             >
               All
             </button>
-            {allCategories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
-                className="px-4 py-2 rounded-full text-sm font-medium capitalize transition-all"
-                style={
-                  selectedCategory === cat
-                    ? {
-                        background: `${categoryColors[cat] ?? "#60a5fa"}20`,
-                        border: `1px solid ${categoryColors[cat] ?? "#60a5fa"}50`,
-                        color: categoryColors[cat] ?? "#60a5fa",
-                        boxShadow: `0 0 12px ${categoryColors[cat] ?? "#60a5fa"}20`,
-                      }
-                    : {
-                        backgroundColor: "rgba(6,14,26,0.8)",
-                        border: "1px solid rgba(245,166,35,0.12)",
-                        color: "#9ca3af",
-                      }
-                }
-              >
-                {cat}
-              </button>
-            ))}
+            {allCategories.map((cat) => {
+              const c = categoryColors[cat] ?? "#00D9FF";
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  style={{
+                    padding: "6px 14px",
+                    borderRadius: 20,
+                    border: selectedCategory === cat ? `1px solid ${c}50` : "1px solid var(--border-subtle)",
+                    background: selectedCategory === cat ? `${c}20` : "transparent",
+                    color: selectedCategory === cat ? c : "#C8C9D4",
+                    fontSize: 13,
+                    fontFamily: "'Inter', sans-serif",
+                    fontWeight: 500,
+                    cursor: "pointer",
+                    textTransform: "capitalize",
+                  }}
+                >
+                  {cat}
+                </button>
+              );
+            })}
           </div>
         </div>
 
         {/* Article count */}
-        <p className="text-gray-400 text-sm mb-6">
-          Showing <span className="text-white font-semibold">{filtered.length}</span> articles
-          {isLive && <span className="ml-2" style={{ color: "#22c55e" }}>· Live data from ESPN Cricinfo</span>}
+        <p style={{ color: "#6B7280", fontSize: 13, marginBottom: 20 }}>
+          Showing <span style={{ color: "#FFFFFF", fontWeight: 600 }}>{filtered.length}</span> articles
+          {isLive && <span style={{ color: "#22c55e", marginLeft: 8 }}>· Live data from ESPN Cricinfo</span>}
         </p>
 
-        {/* Articles grid — 3 columns magazine style */}
+        {/* Articles grid */}
         {filtered.length === 0 ? (
-          <div className="text-center py-20">
-            <p className="text-5xl mb-4">📰</p>
-            <p className="text-gray-400 text-lg">No articles match your filters.</p>
+          <div style={{ textAlign: "center", padding: "80px 0" }}>
+            <p style={{ fontSize: 48, marginBottom: 16 }}>📰</p>
+            <p style={{ color: "#C8C9D4", fontSize: 16 }}>No articles match your filters.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 16 }}>
             {filtered.map((article) => (
               <ArticleCard key={article.id} article={article} url={articleUrls[article.id]} />
             ))}

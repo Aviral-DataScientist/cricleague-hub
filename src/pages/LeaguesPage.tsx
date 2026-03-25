@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { leagues, continents } from "../data/leagues";
+import { Search, Trophy } from "lucide-react";
 
 export default function LeaguesPage() {
   const [search, setSearch] = useState("");
@@ -22,100 +23,92 @@ export default function LeaguesPage() {
   });
 
   return (
-    <div style={{ backgroundColor: "#060e1a", minHeight: "100vh" }}>
-      {/* Page Header */}
-      <div
-        className="py-14 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
-        style={{
-          background: "linear-gradient(180deg, #040a14 0%, #060e1a 100%)",
-          borderBottom: "1px solid rgba(245,166,35,0.08)",
-        }}
-      >
-        <div
-          className="orb"
-          style={{
-            width: 400,
-            height: 400,
-            top: "-100px",
-            right: "-50px",
-            background: "radial-gradient(circle, rgba(245,166,35,0.08) 0%, transparent 70%)",
-          }}
-        />
-        <div className="max-w-7xl mx-auto relative">
-          <p className="text-xs font-semibold tracking-widest mb-2" style={{ color: "#f5a623" }}>
-            GLOBAL T20 CRICKET
-          </p>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-3">
-            All Leagues
-          </h1>
-          <p className="text-gray-400 text-lg max-w-2xl">
-            Explore every major T20 franchise league across the world — from the
-            mighty IPL to the emerging MLC.
+    <div style={{ backgroundColor: "var(--bg-primary)", minHeight: "100vh" }}>
+      {/* Page Hero */}
+      <div style={{ padding: "56px 24px 40px", borderBottom: "1px solid var(--border-subtle)" }}>
+        <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
+            <Trophy size={28} color="#00D9FF" />
+            <h1 style={{ color: "#FFFFFF", margin: 0 }}>All T20 Leagues</h1>
+          </div>
+          <p style={{ color: "#C8C9D4", fontSize: 16, maxWidth: 500 }}>
+            Explore every major T20 franchise league across the world — from the mighty IPL to the emerging MLC.
           </p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div style={{ maxWidth: 1400, margin: "0 auto", padding: "32px 24px" }}>
         {/* Filters */}
-        <div className="glass-card flex flex-col md:flex-row gap-4 mb-10 p-5">
+        <div className="glass-card" style={{ padding: 20, marginBottom: 24, display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center" }}>
           {/* Search */}
-          <div className="flex-1 relative">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-              🔍
-            </span>
+          <div style={{ position: "relative", flex: "1 1 200px", minWidth: 180 }}>
+            <Search size={15} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "#6B7280" }} />
             <input
               type="text"
               placeholder="Search leagues..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-11 pr-4 py-3 rounded-xl text-sm text-white placeholder-gray-500 focus-gold"
               style={{
-                backgroundColor: "rgba(6,14,26,0.8)",
-                border: "1px solid rgba(245,166,35,0.15)",
+                width: "100%",
+                paddingLeft: 36,
+                paddingRight: 16,
+                paddingTop: 10,
+                paddingBottom: 10,
+                borderRadius: 8,
+                border: "1px solid var(--border-subtle)",
+                background: "rgba(255,255,255,0.03)",
+                color: "#FFFFFF",
+                fontSize: 14,
+                fontFamily: "'Lato', sans-serif",
                 outline: "none",
               }}
+              onFocus={(e) => (e.currentTarget.style.borderColor = "rgba(0,217,255,0.4)")}
+              onBlur={(e) => (e.currentTarget.style.borderColor = "var(--border-subtle)")}
             />
           </div>
 
-          {/* Continent filter */}
-          <select
-            value={selectedContinent}
-            onChange={(e) => setSelectedContinent(e.target.value)}
-            className="px-4 py-3 rounded-xl text-sm text-white focus:outline-none cursor-pointer"
-            style={{
-              backgroundColor: "rgba(6,14,26,0.8)",
-              border: "1px solid rgba(245,166,35,0.15)",
-              color: selectedContinent === "All" ? "#9ca3af" : "#ffffff",
-            }}
-          >
-            <option value="All">All Continents</option>
-            {continents.map((c) => (
-              <option key={c} value={c}>
+          {/* Continent pills */}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+            {["All", ...continents].map((c) => (
+              <button
+                key={c}
+                onClick={() => setSelectedContinent(c)}
+                style={{
+                  padding: "7px 14px",
+                  borderRadius: 20,
+                  border: selectedContinent === c ? "1px solid rgba(0,217,255,0.5)" : "1px solid var(--border-subtle)",
+                  background: selectedContinent === c ? "rgba(0,217,255,0.15)" : "transparent",
+                  color: selectedContinent === c ? "#00D9FF" : "#C8C9D4",
+                  fontSize: 13,
+                  fontFamily: "'Inter', sans-serif",
+                  fontWeight: 500,
+                  cursor: "pointer",
+                  transition: "all 200ms ease",
+                }}
+              >
                 {c}
-              </option>
+              </button>
             ))}
-          </select>
+          </div>
 
-          {/* Status filter */}
-          <div className="flex gap-2">
+          {/* Status pills */}
+          <div style={{ display: "flex", gap: 6 }}>
             {["All", "Active", "Off Season"].map((s) => (
               <button
                 key={s}
                 onClick={() => setStatusFilter(s)}
-                className="px-4 py-3 rounded-xl text-sm font-medium transition-all duration-150"
-                style={
-                  statusFilter === s
-                    ? {
-                        background: "linear-gradient(135deg, #f5a623, #d4891e)",
-                        color: "#060e1a",
-                        boxShadow: "0 4px 16px rgba(245,166,35,0.3)",
-                      }
-                    : {
-                        backgroundColor: "rgba(6,14,26,0.8)",
-                        border: "1px solid rgba(245,166,35,0.15)",
-                        color: "#9ca3af",
-                      }
-                }
+                style={{
+                  padding: "7px 14px",
+                  borderRadius: 20,
+                  border: statusFilter === s ? "1px solid rgba(0,217,255,0.5)" : "1px solid var(--border-subtle)",
+                  background: statusFilter === s ? "rgba(0,217,255,0.15)" : "transparent",
+                  color: statusFilter === s ? "#00D9FF" : "#C8C9D4",
+                  fontSize: 13,
+                  fontFamily: "'Inter', sans-serif",
+                  fontWeight: 500,
+                  cursor: "pointer",
+                  transition: "all 200ms ease",
+                }}
               >
                 {s}
               </button>
@@ -124,131 +117,73 @@ export default function LeaguesPage() {
         </div>
 
         {/* Results count */}
-        <p className="text-gray-400 text-sm mb-6">
-          Showing <span className="text-white font-semibold">{filtered.length}</span> of{" "}
-          <span className="text-white font-semibold">{leagues.length}</span> leagues
+        <p style={{ color: "#6B7280", fontSize: 13, marginBottom: 20 }}>
+          Showing <span style={{ color: "#FFFFFF", fontWeight: 600 }}>{filtered.length}</span> of{" "}
+          <span style={{ color: "#FFFFFF", fontWeight: 600 }}>{leagues.length}</span> leagues
         </p>
 
-        {/* League cards grid */}
+        {/* Grid */}
         {filtered.length === 0 ? (
-          <div className="text-center py-20">
-            <p className="text-5xl mb-4">🏏</p>
-            <p className="text-gray-400 text-lg">No leagues found. Try adjusting your filters.</p>
+          <div style={{ textAlign: "center", padding: "80px 0" }}>
+            <p style={{ fontSize: 48, marginBottom: 16 }}>🏏</p>
+            <p style={{ color: "#C8C9D4", fontSize: 16 }}>No leagues found. Try adjusting your filters.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 16 }}>
             {filtered.map((league) => (
-              <Link
+              <div
                 key={league.id}
-                to={`/leagues/${league.id}`}
-                className="block rounded-2xl overflow-hidden card-hover glass-card"
-                style={{
-                  textDecoration: "none",
-                  borderLeft: `3px solid ${league.color}`,
-                }}
+                className="glass-card"
+                style={{ borderLeft: `4px solid ${league.color}`, padding: 20 }}
               >
-                {/* Color bar */}
-                <div
-                  className="h-1.5"
-                  style={{
-                    background: `linear-gradient(90deg, ${league.color}, ${league.accentColor})`,
-                  }}
-                />
-
-                <div className="p-6">
-                  {/* Header row */}
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <span className="text-4xl">{league.flag}</span>
-                      <div>
-                        <div className="text-xs text-gray-400 mb-0.5">{league.continent}</div>
-                        <h3 className="text-white font-bold text-lg leading-snug">
-                          {league.name}
-                        </h3>
-                      </div>
-                    </div>
-                    <span
-                      className="text-xs font-semibold px-2.5 py-1.5 rounded-full shrink-0"
-                      style={
-                        league.isActive
-                          ? {
-                              backgroundColor: "rgba(34,197,94,0.15)",
-                              color: "#22c55e",
-                              border: "1px solid rgba(34,197,94,0.3)",
-                            }
-                          : {
-                              backgroundColor: "rgba(156,163,175,0.08)",
-                              color: "#9ca3af",
-                              border: "1px solid rgba(156,163,175,0.15)",
-                            }
-                      }
-                    >
-                      {league.isActive ? "● Live" : "Off Season"}
-                    </span>
+                <div style={{ display: "flex", alignItems: "flex-start", gap: 14, marginBottom: 14 }}>
+                  <span style={{ fontSize: 36, lineHeight: 1, flexShrink: 0 }}>{league.flag}</span>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ color: "#6B7280", fontSize: 11, marginBottom: 4, textTransform: "uppercase", letterSpacing: 0.5 }}>{league.continent}</div>
+                    <h3 style={{ color: "#FFFFFF", fontSize: 17, margin: 0 }}>{league.name}</h3>
+                    <div style={{ color: "#C8C9D4", fontSize: 13, marginTop: 2 }}>{league.country} · {league.format}</div>
                   </div>
+                  {league.isActive
+                    ? <span className="badge-teal">ACTIVE</span>
+                    : <span style={{ background: "rgba(255,255,255,0.06)", color: "#9CA3AF", padding: "3px 8px", borderRadius: 20, fontSize: 10, fontWeight: 700, fontFamily: "'Inter',sans-serif", whiteSpace: "nowrap" as const }}>OFF</span>
+                  }
+                </div>
 
-                  {/* Description */}
-                  <p className="text-gray-400 text-sm leading-relaxed mb-5 line-clamp-2">
-                    {league.description}
-                  </p>
+                <p style={{ color: "#C8C9D4", fontSize: 13, lineHeight: 1.5, marginBottom: 14, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" as const, overflow: "hidden" }}>
+                  {league.description}
+                </p>
 
-                  {/* Stats row */}
-                  <div
-                    className="grid grid-cols-4 gap-3 pt-4"
-                    style={{ borderTop: "1px solid rgba(245,166,35,0.08)" }}
-                  >
-                    <div className="text-center">
-                      <div className="text-white font-bold">{league.teams}</div>
-                      <div className="text-xs text-gray-500 mt-0.5">Teams</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="font-bold" style={{ color: "#f5a623" }}>
-                        {league.founded}
-                      </div>
-                      <div className="text-xs text-gray-500 mt-0.5">Founded</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-white font-bold">{league.numberOfSeasons}</div>
-                      <div className="text-xs text-gray-500 mt-0.5">Seasons</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="font-bold" style={{ color: "#f5a623" }}>
-                        {league.format}
-                      </div>
-                      <div className="text-xs text-gray-500 mt-0.5">Format</div>
-                    </div>
+                <div style={{ display: "flex", gap: 16, marginBottom: 14, paddingTop: 12, borderTop: "1px solid var(--border-subtle)" }}>
+                  <div style={{ textAlign: "center" }}>
+                    <div style={{ color: "#FFFFFF", fontWeight: 700, fontSize: 16, fontFamily: "'Inter', sans-serif" }}>{league.teams}</div>
+                    <div style={{ color: "#6B7280", fontSize: 11 }}>Teams</div>
                   </div>
-
-                  {/* Teams list snippet */}
-                  <div className="mt-4 flex flex-wrap gap-1.5">
-                    {league.teamsList.slice(0, 3).map((team) => (
-                      <span
-                        key={team}
-                        className="text-xs px-2.5 py-1 rounded-md"
-                        style={{
-                          backgroundColor: "rgba(245,166,35,0.06)",
-                          color: "#9ca3af",
-                          border: "1px solid rgba(245,166,35,0.1)",
-                        }}
-                      >
-                        {team}
-                      </span>
-                    ))}
-                    {league.teamsList.length > 3 && (
-                      <span
-                        className="text-xs px-2.5 py-1 rounded-md"
-                        style={{
-                          backgroundColor: "rgba(245,166,35,0.12)",
-                          color: "#f5a623",
-                          border: "1px solid rgba(245,166,35,0.2)",
-                        }}
-                      >
-                        +{league.teamsList.length - 3} more
-                      </span>
-                    )}
+                  <div style={{ textAlign: "center" }}>
+                    <div style={{ color: "#FFFFFF", fontWeight: 700, fontSize: 16, fontFamily: "'Inter', sans-serif" }}>{league.numberOfSeasons}</div>
+                    <div style={{ color: "#6B7280", fontSize: 11 }}>Seasons</div>
+                  </div>
+                  <div style={{ textAlign: "center" }}>
+                    <div style={{ color: "#FFFFFF", fontWeight: 700, fontSize: 16, fontFamily: "'Inter', sans-serif" }}>{league.founded}</div>
+                    <div style={{ color: "#6B7280", fontSize: 11 }}>Founded</div>
                   </div>
                 </div>
-              </Link>
+
+                <Link
+                  to={`/leagues/${league.id}`}
+                  style={{
+                    color: "#00D9FF",
+                    textDecoration: "none",
+                    fontSize: 13,
+                    fontFamily: "'Inter', sans-serif",
+                    fontWeight: 600,
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 4,
+                  }}
+                >
+                  View Details →
+                </Link>
+              </div>
             ))}
           </div>
         )}

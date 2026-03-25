@@ -2,26 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getLeagueById } from "../data/leagues";
 import { fetchLeagueStats, type RealLeagueStats } from "../lib/api";
-
-const statCard = (label: string, value: string | number, icon: string, accent = false) => (
-  <div
-    className="glass-card p-5 flex flex-col items-center text-center"
-    style={
-      accent
-        ? { borderColor: "rgba(245,166,35,0.35)", boxShadow: "0 0 20px rgba(245,166,35,0.08)" }
-        : {}
-    }
-  >
-    <div className="text-3xl mb-2">{icon}</div>
-    <div
-      className="text-2xl font-extrabold mb-1"
-      style={{ color: accent ? "#f5a623" : "#ffffff" }}
-    >
-      {value}
-    </div>
-    <div className="text-xs text-gray-400">{label}</div>
-  </div>
-);
+import { Calendar, Users, Trophy, Clock, DollarSign, Star } from "lucide-react";
 
 export default function LeagueDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -44,18 +25,11 @@ export default function LeagueDetailPage() {
 
   if (!league) {
     return (
-      <div
-        className="flex flex-col items-center justify-center py-32 text-center"
-        style={{ backgroundColor: "#060e1a" }}
-      >
-        <p className="text-6xl mb-4">🏏</p>
-        <h2 className="text-2xl font-bold text-white mb-2">League Not Found</h2>
-        <p className="text-gray-400 mb-6">We couldn't find that league.</p>
-        <Link
-          to="/leagues"
-          className="px-6 py-3 rounded-xl font-semibold"
-          style={{ background: "linear-gradient(135deg, #f5a623, #d4891e)", color: "#060e1a" }}
-        >
+      <div style={{ backgroundColor: "var(--bg-primary)", minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: 32 }}>
+        <p style={{ fontSize: 64, marginBottom: 16 }}>🏏</p>
+        <h2 style={{ color: "#FFFFFF", marginBottom: 8 }}>League Not Found</h2>
+        <p style={{ color: "#C8C9D4", marginBottom: 24 }}>We couldn't find that league.</p>
+        <Link to="/leagues" className="btn-primary">
           Back to Leagues
         </Link>
       </div>
@@ -69,113 +43,77 @@ export default function LeagueDetailPage() {
     maximumFractionDigits: 1,
   }).format(league.prizeMoneyUSD);
 
+  const overviewStats = [
+    { icon: Calendar, label: "Founded", value: league.founded },
+    { icon: Users, label: "Teams", value: league.teams },
+    { icon: Trophy, label: "Seasons", value: realStats?.seasons?.length ?? league.numberOfSeasons },
+    { icon: Clock, label: "Latest Season", value: realStats?.latestSeason ?? "—" },
+    { icon: DollarSign, label: "Prize Money", value: prizeMoney },
+    { icon: Star, label: "Quality Rating", value: `${league.playerQualityRating}/100` },
+  ];
+
   return (
-    <div style={{ backgroundColor: "#060e1a", minHeight: "100vh" }}>
-      {/* ─── Hero Banner ─── */}
+    <div style={{ backgroundColor: "var(--bg-primary)", minHeight: "100vh" }}>
+      {/* ── Hero ── */}
       <div
-        className="relative overflow-hidden"
         style={{
-          background: `linear-gradient(135deg, ${league.color}40 0%, #060e1a 65%)`,
-          borderBottom: "1px solid rgba(245,166,35,0.08)",
+          background: `linear-gradient(135deg, ${league.color}30 0%, var(--bg-primary) 60%)`,
+          borderBottom: "1px solid var(--border-subtle)",
+          padding: "48px 24px 40px",
+          position: "relative",
+          overflow: "hidden",
         }}
       >
-        {/* League color glow orb */}
+        {/* Glow orb */}
         <div
-          className="orb"
           style={{
-            width: 600,
-            height: 600,
-            top: "-200px",
-            left: "-100px",
-            background: `radial-gradient(circle, ${league.color}25 0%, transparent 70%)`,
+            position: "absolute",
+            width: 500,
+            height: 500,
+            top: -200,
+            left: -100,
+            borderRadius: "50%",
+            background: `radial-gradient(circle, ${league.color}20 0%, transparent 70%)`,
+            filter: "blur(60px)",
+            pointerEvents: "none",
           }}
         />
-        <div
-          className="orb"
-          style={{
-            width: 300,
-            height: 300,
-            top: "-50px",
-            right: "10%",
-            background: "radial-gradient(circle, rgba(245,166,35,0.1) 0%, transparent 70%)",
-          }}
-        />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative">
+        <div style={{ maxWidth: 1400, margin: "0 auto", position: "relative" }}>
           {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-sm text-gray-400 mb-6">
-            <Link to="/" className="hover:text-white transition-colors" style={{ textDecoration: "none" }}>
-              Home
-            </Link>
-            <span style={{ color: "rgba(245,166,35,0.4)" }}>›</span>
-            <Link to="/leagues" className="hover:text-white transition-colors" style={{ textDecoration: "none" }}>
-              Leagues
-            </Link>
-            <span style={{ color: "rgba(245,166,35,0.4)" }}>›</span>
-            <span className="text-white">{league.shortName}</span>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "#6B7280", marginBottom: 20 }}>
+            <Link to="/" style={{ color: "#6B7280", textDecoration: "none" }}>Home</Link>
+            <span style={{ color: "rgba(0,217,255,0.4)" }}>›</span>
+            <Link to="/leagues" style={{ color: "#6B7280", textDecoration: "none" }}>Leagues</Link>
+            <span style={{ color: "rgba(0,217,255,0.4)" }}>›</span>
+            <span style={{ color: "#FFFFFF" }}>{league.shortName}</span>
           </div>
 
-          <div className="flex flex-col lg:flex-row lg:items-center gap-8">
-            <div className="flex items-center gap-5">
-              <span
-                className="text-7xl"
-                style={{ filter: "drop-shadow(0 0 20px rgba(245,166,35,0.3))" }}
-              >
-                {league.flag}
-              </span>
-              <div>
-                <div className="flex items-center gap-3 mb-2 flex-wrap">
-                  <span
-                    className="text-xs font-semibold px-3 py-1.5 rounded-full"
-                    style={
-                      league.isActive
-                        ? { backgroundColor: "rgba(34,197,94,0.15)", color: "#22c55e", border: "1px solid rgba(34,197,94,0.3)" }
-                        : { backgroundColor: "rgba(156,163,175,0.1)", color: "#9ca3af", border: "1px solid rgba(156,163,175,0.2)" }
-                    }
-                  >
-                    {league.isActive ? "● Live Now" : "Off Season"}
+          <div style={{ display: "flex", alignItems: "center", gap: 24, flexWrap: "wrap" }}>
+            <span style={{ fontSize: 72, lineHeight: 1, filter: `drop-shadow(0 0 20px ${league.color}60)` }}>
+              {league.flag}
+            </span>
+            <div>
+              <div style={{ display: "flex", gap: 8, marginBottom: 12, flexWrap: "wrap", alignItems: "center" }}>
+                {league.isActive
+                  ? <span className="badge-teal">● ACTIVE</span>
+                  : <span style={{ background: "rgba(255,255,255,0.06)", color: "#9CA3AF", padding: "3px 10px", borderRadius: 20, fontSize: 11, fontWeight: 700, fontFamily: "'Inter',sans-serif" }}>OFF SEASON</span>
+                }
+                <span style={{ background: "rgba(0,217,255,0.1)", color: "#00D9FF", border: "1px solid rgba(0,217,255,0.2)", padding: "3px 10px", borderRadius: 6, fontSize: 11, fontWeight: 700, fontFamily: "'Inter',sans-serif" }}>
+                  {league.format}
+                </span>
+                {realStats && !statsLoading && (
+                  <span className="badge-violet">
+                    {realStats.isFallback ? "📊 Stats Data" : `📊 ${realStats.totalMatches} Real Matches`}
                   </span>
-                  <span
-                    className="text-xs px-2.5 py-1 rounded-full"
-                    style={{
-                      backgroundColor: "rgba(245,166,35,0.08)",
-                      color: "#f5a623",
-                      border: "1px solid rgba(245,166,35,0.2)",
-                    }}
-                  >
-                    {league.format}
-                  </span>
-                  {realStats && !statsLoading && (
-                    <span
-                      className="text-xs font-semibold px-2.5 py-1 rounded-full"
-                      style={{
-                        backgroundColor: "rgba(245,166,35,0.12)",
-                        color: "#f5a623",
-                        border: "1px solid rgba(245,166,35,0.3)",
-                      }}
-                    >
-                      {realStats.isFallback ? "📊 Stats Data" : `📊 ${realStats.totalMatches} Real Matches`}
-                    </span>
-                  )}
-                </div>
-                <h1 className="text-4xl sm:text-5xl font-extrabold text-white leading-tight">
-                  {league.name}
-                </h1>
-                <p className="text-gray-300 mt-2 text-lg">
-                  {league.country} · Founded {league.founded} · {league.teams} Teams
-                </p>
+                )}
               </div>
+              <h1 style={{ color: "#FFFFFF", margin: "0 0 8px", fontSize: "clamp(28px, 5vw, 48px)" }}>{league.name}</h1>
+              <p style={{ color: "#C8C9D4", fontSize: 15 }}>
+                {league.country} · Founded {league.founded} · {league.teams} Teams
+              </p>
             </div>
-
-            <div className="lg:ml-auto flex gap-3">
-              <Link
-                to="/compare"
-                className="px-5 py-3 rounded-xl text-sm font-medium transition-all hover:-translate-y-0.5 glass-card"
-                style={{
-                  color: "#f5a623",
-                  textDecoration: "none",
-                }}
-              >
+            <div style={{ marginLeft: "auto" }}>
+              <Link to="/compare" className="btn-secondary" style={{ fontSize: 13 }}>
                 Compare ⚖️
               </Link>
             </div>
@@ -183,8 +121,10 @@ export default function LeagueDetailPage() {
 
           {/* Color bar */}
           <div
-            className="mt-8 h-1 rounded-full"
             style={{
+              marginTop: 28,
+              height: 3,
+              borderRadius: 2,
               background: `linear-gradient(90deg, ${league.color}, ${league.accentColor}, ${league.color})`,
               boxShadow: `0 0 12px ${league.color}60`,
             }}
@@ -192,68 +132,73 @@ export default function LeagueDetailPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* ─── Description ─── */}
-        <div className="glass-card p-6 mb-10">
-          <p className="text-gray-300 text-base leading-relaxed">{league.description}</p>
+      <div style={{ maxWidth: 1400, margin: "0 auto", padding: "32px 24px" }}>
+        {/* Description */}
+        <div className="glass-card" style={{ padding: 20, marginBottom: 32 }}>
+          <p style={{ color: "#C8C9D4", lineHeight: 1.7, fontSize: 15 }}>{league.description}</p>
         </div>
 
-        {/* ─── Key Stats ─── */}
-        <h2 className="text-2xl font-bold text-white mb-5">League Overview</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-12 overflow-x-auto">
-          {statCard("Founded", league.founded, "📅")}
-          {statCard("Teams", league.teams, "👕")}
-          {statCard("Seasons", realStats?.seasons?.length ?? league.numberOfSeasons, "🏆")}
-          {realStats?.latestSeason && statCard("Latest Season", realStats.latestSeason, "📆", true)}
-          {statCard("Prize Money", prizeMoney, "💰", true)}
-          {statCard("Avg Viewership", `${league.avgViewershipMillion}M`, "📺")}
-          {statCard("Quality Rating", `${league.playerQualityRating}/100`, "⭐", true)}
+        {/* ── League Overview ── */}
+        <h2 style={{ color: "#FFFFFF", marginBottom: 16 }}>League Overview</h2>
+        <div style={{ overflowX: "auto", marginBottom: 40 }}>
+          <div style={{ display: "flex", gap: 12, minWidth: "fit-content", paddingBottom: 4 }}>
+            {overviewStats.map(({ icon: Icon, label, value }) => (
+              <div
+                key={label}
+                className="glass-card"
+                style={{ padding: "20px 24px", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", minWidth: 130 }}
+              >
+                <Icon size={18} color="#00D9FF" style={{ marginBottom: 8 }} />
+                <div style={{ fontSize: 20, fontWeight: 700, fontFamily: "'Inter', sans-serif", color: "#FFFFFF", marginBottom: 4 }}>
+                  {String(value)}
+                </div>
+                <div style={{ fontSize: 11, color: "#C8C9D4" }}>{label}</div>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* ─── Records (real data only) ─── */}
+        {/* ── All-Time Records ── */}
         {realStats && (
           <>
-            <div className="flex items-center gap-3 mb-5">
-              <h2 className="text-2xl font-bold text-white">All-Time Records</h2>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+              <h2 style={{ color: "#FFFFFF", margin: 0 }}>All-Time Records</h2>
               {!realStats.isFallback && (
-                <span
-                  className="text-xs font-semibold px-2.5 py-1 rounded-full"
-                  style={{ backgroundColor: "rgba(34,197,94,0.12)", color: "#22c55e", border: "1px solid rgba(34,197,94,0.3)" }}
-                >
+                <span style={{ background: "rgba(34,197,94,0.12)", color: "#22c55e", border: "1px solid rgba(34,197,94,0.3)", padding: "3px 10px", borderRadius: 20, fontSize: 11, fontWeight: 700, fontFamily: "'Inter',sans-serif" }}>
                   ✓ Real Data
                 </span>
               )}
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12">
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 16, marginBottom: 40 }}>
               {realStats.topRunScorers[0] && (
-                <div className="glass-card p-6 glow-border">
-                  <div className="text-3xl mb-3">🏏</div>
-                  <div className="text-xs text-gray-400 uppercase tracking-wider mb-2">Most Runs (Career)</div>
-                  <div className="text-2xl font-extrabold text-white mb-1">
+                <div className="glass-card" style={{ padding: 20, borderColor: "rgba(0,217,255,0.2)" }}>
+                  <div style={{ fontSize: 32, marginBottom: 10 }}>🏏</div>
+                  <div style={{ fontSize: 10, color: "#6B7280", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6, fontFamily: "'Inter',sans-serif" }}>Most Runs (Career)</div>
+                  <div style={{ fontSize: 24, fontWeight: 800, color: "#FFFFFF", fontFamily: "'Inter',sans-serif", marginBottom: 4 }}>
                     {(realStats.topRunScorers[0].runs ?? 0).toLocaleString()}
                   </div>
-                  <div className="font-semibold gradient-text">{realStats.topRunScorers[0].name}</div>
-                  <div className="text-xs text-gray-500 mt-1">Career</div>
+                  <div style={{ color: "#00D9FF", fontWeight: 600, fontSize: 14 }}>{realStats.topRunScorers[0].name}</div>
                 </div>
               )}
-
               {realStats.topWicketTakers[0] && (
-                <div className="glass-card p-6 glow-border">
-                  <div className="text-3xl mb-3">🎳</div>
-                  <div className="text-xs text-gray-400 uppercase tracking-wider mb-2">Most Wickets (Career)</div>
-                  <div className="text-2xl font-extrabold text-white mb-1">{realStats.topWicketTakers[0].wickets ?? 0}</div>
-                  <div className="font-semibold gradient-text">{realStats.topWicketTakers[0].name}</div>
-                  <div className="text-xs text-gray-500 mt-1">Career</div>
+                <div className="glass-card" style={{ padding: 20, borderColor: "rgba(167,139,250,0.2)" }}>
+                  <div style={{ fontSize: 32, marginBottom: 10 }}>🎳</div>
+                  <div style={{ fontSize: 10, color: "#6B7280", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6, fontFamily: "'Inter',sans-serif" }}>Most Wickets (Career)</div>
+                  <div style={{ fontSize: 24, fontWeight: 800, color: "#FFFFFF", fontFamily: "'Inter',sans-serif", marginBottom: 4 }}>
+                    {realStats.topWicketTakers[0].wickets ?? 0}
+                  </div>
+                  <div style={{ color: "#A78BFA", fontWeight: 600, fontSize: 14 }}>{realStats.topWicketTakers[0].name}</div>
                 </div>
               )}
-
               {realStats.highestIndividualScore && (
-                <div className="glass-card p-6 glow-border">
-                  <div className="text-3xl mb-3">⚡</div>
-                  <div className="text-xs text-gray-400 uppercase tracking-wider mb-2">Highest Score</div>
-                  <div className="text-2xl font-extrabold text-white mb-1">{realStats.highestIndividualScore.score}*</div>
-                  <div className="font-semibold gradient-text">{realStats.highestIndividualScore.player}</div>
-                  <div className="text-xs text-gray-500 mt-1">
+                <div className="glass-card" style={{ padding: 20, borderColor: "rgba(239,68,68,0.2)" }}>
+                  <div style={{ fontSize: 32, marginBottom: 10 }}>⚡</div>
+                  <div style={{ fontSize: 10, color: "#6B7280", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6, fontFamily: "'Inter',sans-serif" }}>Highest Score</div>
+                  <div style={{ fontSize: 24, fontWeight: 800, color: "#FFFFFF", fontFamily: "'Inter',sans-serif", marginBottom: 4 }}>
+                    {realStats.highestIndividualScore.score}*
+                  </div>
+                  <div style={{ color: "#EF4444", fontWeight: 600, fontSize: 14 }}>{realStats.highestIndividualScore.player}</div>
+                  <div style={{ color: "#6B7280", fontSize: 11, marginTop: 4 }}>
                     vs {realStats.highestIndividualScore.against} · {realStats.highestIndividualScore.season}
                   </div>
                 </div>
@@ -262,36 +207,23 @@ export default function LeagueDetailPage() {
           </>
         )}
 
-        {/* ─── Real Stats: Top Run Scorers ─── */}
+        {/* ── Top Run Scorers ── */}
         {realStats && realStats.topRunScorers.length > 0 && (
           <>
-            <div className="flex items-center gap-3 mb-5">
-              <h2 className="text-2xl font-bold text-white">Top Run Scorers</h2>
-              <span
-                className="text-xs font-semibold px-2.5 py-1 rounded-full"
-                style={{ backgroundColor: "rgba(245,166,35,0.12)", color: "#f5a623", border: "1px solid rgba(245,166,35,0.3)" }}
-              >
-                📊 Cricsheet Data
-              </span>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+              <h2 style={{ color: "#FFFFFF", margin: 0 }}>Top Run Scorers</h2>
+              <span className="badge-teal">📊 Cricsheet Data</span>
             </div>
-            <div
-              className="rounded-2xl overflow-hidden mb-12 glass-card"
-              style={{ padding: 0 }}
-            >
-              <table className="w-full">
+            <div className="glass-card" style={{ overflow: "hidden", padding: 0, marginBottom: 40 }}>
+              <table style={{ width: "100%", borderCollapse: "collapse" }}>
                 <thead>
-                  <tr
-                    style={{
-                      background: "linear-gradient(90deg, rgba(13,31,60,0.9), rgba(17,43,92,0.9))",
-                      borderBottom: "1px solid rgba(245,166,35,0.15)",
-                    }}
-                  >
-                    <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wider" style={{ color: "#f5a623" }}>#</th>
-                    <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wider" style={{ color: "#f5a623" }}>Player</th>
-                    <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wider" style={{ color: "#f5a623" }}>Runs</th>
-                    <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wider hidden sm:table-cell" style={{ color: "#f5a623" }}>Innings</th>
-                    <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wider hidden md:table-cell" style={{ color: "#f5a623" }}>Average</th>
-                    <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wider hidden md:table-cell" style={{ color: "#f5a623" }}>SR</th>
+                  <tr style={{ background: "rgba(0,217,255,0.06)", borderBottom: "1px solid rgba(0,217,255,0.15)" }}>
+                    <th style={{ padding: "14px 20px", textAlign: "left", fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.5, color: "#00D9FF", fontFamily: "'Inter',sans-serif" }}>#</th>
+                    <th style={{ padding: "14px 20px", textAlign: "left", fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.5, color: "#00D9FF", fontFamily: "'Inter',sans-serif" }}>Player</th>
+                    <th style={{ padding: "14px 20px", textAlign: "left", fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.5, color: "#00D9FF", fontFamily: "'Inter',sans-serif" }}>Runs</th>
+                    <th style={{ padding: "14px 20px", textAlign: "left", fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.5, color: "#00D9FF", fontFamily: "'Inter',sans-serif" }} className="hidden sm:table-cell">Innings</th>
+                    <th style={{ padding: "14px 20px", textAlign: "left", fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.5, color: "#00D9FF", fontFamily: "'Inter',sans-serif" }} className="hidden md:table-cell">Average</th>
+                    <th style={{ padding: "14px 20px", textAlign: "left", fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.5, color: "#00D9FF", fontFamily: "'Inter',sans-serif" }} className="hidden md:table-cell">SR</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -299,18 +231,16 @@ export default function LeagueDetailPage() {
                     <tr
                       key={p.name}
                       style={{
-                        backgroundColor: i % 2 === 0 ? "rgba(6,14,26,0.6)" : "rgba(13,31,60,0.6)",
-                        borderTop: "1px solid rgba(245,166,35,0.04)",
+                        backgroundColor: i % 2 === 0 ? "transparent" : "rgba(255,255,255,0.02)",
+                        borderTop: "1px solid var(--border-subtle)",
                       }}
                     >
-                      <td className="px-5 py-3 text-gray-400 text-sm font-medium">{i + 1}</td>
-                      <td className="px-5 py-3 text-white text-sm font-semibold">{p.name}</td>
-                      <td className="px-5 py-3 text-sm font-bold" style={{ color: "#f5a623" }}>
-                        {(p.runs ?? 0).toLocaleString()}
-                      </td>
-                      <td className="px-5 py-3 text-gray-400 text-sm hidden sm:table-cell">{p.matches}</td>
-                      <td className="px-5 py-3 text-gray-400 text-sm hidden md:table-cell">{p.average}</td>
-                      <td className="px-5 py-3 text-gray-400 text-sm hidden md:table-cell">{p.strikeRate}</td>
+                      <td style={{ padding: "12px 20px", color: "#6B7280", fontSize: 13 }}>{i + 1}</td>
+                      <td style={{ padding: "12px 20px", color: "#FFFFFF", fontSize: 13, fontWeight: 600 }}>{p.name}</td>
+                      <td style={{ padding: "12px 20px", fontSize: 13, fontWeight: 700, color: "#00D9FF" }}>{(p.runs ?? 0).toLocaleString()}</td>
+                      <td style={{ padding: "12px 20px", color: "#C8C9D4", fontSize: 13 }} className="hidden sm:table-cell">{p.matches}</td>
+                      <td style={{ padding: "12px 20px", color: "#C8C9D4", fontSize: 13 }} className="hidden md:table-cell">{p.average}</td>
+                      <td style={{ padding: "12px 20px", color: "#C8C9D4", fontSize: 13 }} className="hidden md:table-cell">{p.strikeRate}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -319,36 +249,23 @@ export default function LeagueDetailPage() {
           </>
         )}
 
-        {/* ─── Real Stats: Top Wicket Takers ─── */}
+        {/* ── Top Wicket Takers ── */}
         {realStats && realStats.topWicketTakers.length > 0 && (
           <>
-            <div className="flex items-center gap-3 mb-5">
-              <h2 className="text-2xl font-bold text-white">Top Wicket Takers</h2>
-              <span
-                className="text-xs font-semibold px-2.5 py-1 rounded-full"
-                style={{ backgroundColor: "rgba(245,166,35,0.12)", color: "#f5a623", border: "1px solid rgba(245,166,35,0.3)" }}
-              >
-                📊 Cricsheet Data
-              </span>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+              <h2 style={{ color: "#FFFFFF", margin: 0 }}>Top Wicket Takers</h2>
+              <span className="badge-violet">📊 Cricsheet Data</span>
             </div>
-            <div
-              className="rounded-2xl overflow-hidden mb-12 glass-card"
-              style={{ padding: 0 }}
-            >
-              <table className="w-full">
+            <div className="glass-card" style={{ overflow: "hidden", padding: 0, marginBottom: 40 }}>
+              <table style={{ width: "100%", borderCollapse: "collapse" }}>
                 <thead>
-                  <tr
-                    style={{
-                      background: "linear-gradient(90deg, rgba(13,31,60,0.9), rgba(17,43,92,0.9))",
-                      borderBottom: "1px solid rgba(245,166,35,0.15)",
-                    }}
-                  >
-                    <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wider" style={{ color: "#f5a623" }}>#</th>
-                    <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wider" style={{ color: "#f5a623" }}>Bowler</th>
-                    <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wider" style={{ color: "#f5a623" }}>Wickets</th>
-                    <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wider hidden sm:table-cell" style={{ color: "#f5a623" }}>Matches</th>
-                    <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wider hidden md:table-cell" style={{ color: "#f5a623" }}>Economy</th>
-                    <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wider hidden md:table-cell" style={{ color: "#f5a623" }}>Average</th>
+                  <tr style={{ background: "rgba(167,139,250,0.06)", borderBottom: "1px solid rgba(167,139,250,0.15)" }}>
+                    <th style={{ padding: "14px 20px", textAlign: "left", fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.5, color: "#A78BFA", fontFamily: "'Inter',sans-serif" }}>#</th>
+                    <th style={{ padding: "14px 20px", textAlign: "left", fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.5, color: "#A78BFA", fontFamily: "'Inter',sans-serif" }}>Bowler</th>
+                    <th style={{ padding: "14px 20px", textAlign: "left", fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.5, color: "#A78BFA", fontFamily: "'Inter',sans-serif" }}>Wickets</th>
+                    <th style={{ padding: "14px 20px", textAlign: "left", fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.5, color: "#A78BFA", fontFamily: "'Inter',sans-serif" }} className="hidden sm:table-cell">Matches</th>
+                    <th style={{ padding: "14px 20px", textAlign: "left", fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.5, color: "#A78BFA", fontFamily: "'Inter',sans-serif" }} className="hidden md:table-cell">Economy</th>
+                    <th style={{ padding: "14px 20px", textAlign: "left", fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.5, color: "#A78BFA", fontFamily: "'Inter',sans-serif" }} className="hidden md:table-cell">Average</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -356,18 +273,16 @@ export default function LeagueDetailPage() {
                     <tr
                       key={p.name}
                       style={{
-                        backgroundColor: i % 2 === 0 ? "rgba(6,14,26,0.6)" : "rgba(13,31,60,0.6)",
-                        borderTop: "1px solid rgba(245,166,35,0.04)",
+                        backgroundColor: i % 2 === 0 ? "transparent" : "rgba(255,255,255,0.02)",
+                        borderTop: "1px solid var(--border-subtle)",
                       }}
                     >
-                      <td className="px-5 py-3 text-gray-400 text-sm font-medium">{i + 1}</td>
-                      <td className="px-5 py-3 text-white text-sm font-semibold">{p.name}</td>
-                      <td className="px-5 py-3 text-sm font-bold" style={{ color: "#f5a623" }}>
-                        {p.wickets ?? 0}
-                      </td>
-                      <td className="px-5 py-3 text-gray-400 text-sm hidden sm:table-cell">{p.matches}</td>
-                      <td className="px-5 py-3 text-gray-400 text-sm hidden md:table-cell">{p.economy}</td>
-                      <td className="px-5 py-3 text-gray-400 text-sm hidden md:table-cell">{p.average}</td>
+                      <td style={{ padding: "12px 20px", color: "#6B7280", fontSize: 13 }}>{i + 1}</td>
+                      <td style={{ padding: "12px 20px", color: "#FFFFFF", fontSize: 13, fontWeight: 600 }}>{p.name}</td>
+                      <td style={{ padding: "12px 20px", fontSize: 13, fontWeight: 700, color: "#A78BFA" }}>{p.wickets ?? 0}</td>
+                      <td style={{ padding: "12px 20px", color: "#C8C9D4", fontSize: 13 }} className="hidden sm:table-cell">{p.matches}</td>
+                      <td style={{ padding: "12px 20px", color: "#C8C9D4", fontSize: 13 }} className="hidden md:table-cell">{p.economy}</td>
+                      <td style={{ padding: "12px 20px", color: "#C8C9D4", fontSize: 13 }} className="hidden md:table-cell">{p.average}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -376,95 +291,85 @@ export default function LeagueDetailPage() {
           </>
         )}
 
-        {/* ─── Top Players (mock reference data) ─── */}
-        <h2 className="text-2xl font-bold text-white mb-5">Notable Players</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-12">
+        {/* ── Notable Players ── */}
+        <h2 style={{ color: "#FFFFFF", marginBottom: 16 }}>Notable Players</h2>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: 12, marginBottom: 40 }}>
           {league.topPlayers.map((player, i) => (
-            <div
-              key={player.name}
-              className="glass-card p-5 text-center relative overflow-hidden card-hover"
-            >
-              {/* Rank badge */}
+            <div key={player.name} className="glass-card" style={{ padding: 16, textAlign: "center", position: "relative" }}>
               <div
-                className="absolute top-3 left-3 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold"
-                style={
-                  i === 0
-                    ? { background: "linear-gradient(135deg, #f5a623, #d4891e)", color: "#060e1a" }
-                    : { backgroundColor: "rgba(255,255,255,0.08)", color: "#9ca3af" }
-                }
+                style={{
+                  position: "absolute",
+                  top: 10,
+                  left: 10,
+                  width: 22,
+                  height: 22,
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: 11,
+                  fontWeight: 700,
+                  fontFamily: "'Inter',sans-serif",
+                  background: i === 0 ? "#00D9FF" : "rgba(255,255,255,0.06)",
+                  color: i === 0 ? "#000" : "#9CA3AF",
+                }}
               >
                 {i + 1}
               </div>
-
-              {/* Avatar placeholder */}
               <div
-                className="w-14 h-14 rounded-full mx-auto mb-3 flex items-center justify-center text-2xl"
                 style={{
-                  background: `linear-gradient(135deg, ${league.color}80, ${league.accentColor}40)`,
-                  border: "2px solid rgba(245,166,35,0.25)",
-                  boxShadow: "0 0 16px rgba(245,166,35,0.1)",
+                  width: 48,
+                  height: 48,
+                  borderRadius: "50%",
+                  margin: "0 auto 10px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: 20,
+                  background: `linear-gradient(135deg, ${league.color}60, ${league.accentColor}30)`,
+                  border: "1px solid rgba(0,217,255,0.15)",
                 }}
               >
                 🏏
               </div>
-
-              <div className="font-bold text-white text-sm leading-snug mb-1">{player.name}</div>
-              <div className="text-xs text-gray-400 mb-3">{player.country}</div>
-
-              <span
-                className="text-xs px-2.5 py-1 rounded-md inline-block mb-3"
-                style={{ backgroundColor: "rgba(245,166,35,0.1)", color: "#f5a623", border: "1px solid rgba(245,166,35,0.2)" }}
-              >
+              <div style={{ fontWeight: 700, color: "#FFFFFF", fontSize: 13, lineHeight: 1.3, marginBottom: 4 }}>{player.name}</div>
+              <div style={{ fontSize: 11, color: "#6B7280", marginBottom: 8 }}>{player.country}</div>
+              <span style={{ background: "rgba(0,217,255,0.1)", color: "#00D9FF", padding: "2px 8px", borderRadius: 4, fontSize: 10, fontWeight: 700, fontFamily: "'Inter',sans-serif", display: "inline-block", marginBottom: 8 }}>
                 {player.role}
               </span>
-
-              <div className="text-xs text-gray-400 mb-1">
-                {player.runs != null
-                  ? `${player.runs.toLocaleString()} runs`
-                  : `${player.wickets} wickets`}
+              <div style={{ fontSize: 11, color: "#C8C9D4", marginBottom: 6 }}>
+                {player.runs != null ? `${player.runs.toLocaleString()} runs` : `${player.wickets} wickets`}
               </div>
-
-              {/* Rating bar */}
-              <div className="mt-2">
-                <div className="flex justify-between text-xs mb-1">
-                  <span className="text-gray-500">Rating</span>
-                  <span style={{ color: "#f5a623" }}>{player.rating}</span>
+              <div>
+                <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, marginBottom: 4 }}>
+                  <span style={{ color: "#6B7280" }}>Rating</span>
+                  <span style={{ color: "#00D9FF" }}>{player.rating}</span>
                 </div>
-                <div className="h-1.5 rounded-full overflow-hidden" style={{ backgroundColor: "rgba(6,14,26,0.8)" }}>
-                  <div
-                    className="h-full rounded-full"
-                    style={{ width: `${player.rating}%`, background: "linear-gradient(90deg, #f5a623, #fbbf24)" }}
-                  />
+                <div style={{ height: 4, borderRadius: 2, background: "rgba(255,255,255,0.06)", overflow: "hidden" }}>
+                  <div style={{ height: "100%", width: `${player.rating}%`, background: "linear-gradient(90deg, #00D9FF, #A78BFA)", borderRadius: 2 }} />
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* ─── Highest Team Total ─── */}
+        {/* ── Highest Team Total ── */}
         {realStats?.highestTeamTotal && (
-          <div className="mb-12">
-            <div className="flex items-center gap-3 mb-5">
-              <h2 className="text-2xl font-bold text-white">Highest Team Total</h2>
-              <span
-                className="text-xs font-semibold px-2.5 py-1 rounded-full"
-                style={{ backgroundColor: "rgba(245,166,35,0.12)", color: "#f5a623", border: "1px solid rgba(245,166,35,0.3)" }}
-              >
-                📊 Cricsheet Data
-              </span>
+          <div style={{ marginBottom: 40 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+              <h2 style={{ color: "#FFFFFF", margin: 0 }}>Highest Team Total</h2>
+              <span className="badge-teal">📊 Cricsheet Data</span>
             </div>
-            <div className="glass-card p-6 glow-border">
-              <div className="flex items-center gap-4">
-                <div className="text-4xl">🏟️</div>
+            <div className="glass-card" style={{ padding: 24 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+                <span style={{ fontSize: 40 }}>🏟️</span>
                 <div>
-                  <div className="text-3xl font-extrabold text-white mb-1">
+                  <div style={{ fontSize: 32, fontWeight: 800, color: "#FFFFFF", fontFamily: "'Inter',sans-serif" }}>
                     {realStats.highestTeamTotal.runs}
-                    <span className="text-lg text-gray-400 font-normal ml-1">runs</span>
+                    <span style={{ fontSize: 16, color: "#C8C9D4", fontWeight: 400, marginLeft: 6 }}>runs</span>
                   </div>
-                  <div className="font-semibold gradient-text">
-                    {realStats.highestTeamTotal.team}
-                  </div>
-                  <div className="text-xs text-gray-500 mt-1">
+                  <div style={{ color: "#00D9FF", fontWeight: 600, fontSize: 15 }}>{realStats.highestTeamTotal.team}</div>
+                  <div style={{ color: "#6B7280", fontSize: 12, marginTop: 4 }}>
                     vs {realStats.highestTeamTotal.against} · {realStats.highestTeamTotal.season}
                   </div>
                 </div>
@@ -473,83 +378,52 @@ export default function LeagueDetailPage() {
           </div>
         )}
 
-        {/* ─── Recent Seasons ─── */}
-        <h2 className="text-2xl font-bold text-white mb-5">Recent Seasons</h2>
-        <div
-          className="rounded-2xl overflow-hidden mb-12 glass-card"
-          style={{ padding: 0 }}
-        >
+        {/* ── Recent Seasons ── */}
+        <h2 style={{ color: "#FFFFFF", marginBottom: 16 }}>Recent Seasons</h2>
+        <div className="glass-card" style={{ overflow: "hidden", padding: 0, marginBottom: 40 }}>
           {realStats && !realStats.isFallback && realStats.seasons && realStats.seasons.length > 0 ? (
-            <table className="w-full">
+            <table style={{ width: "100%", borderCollapse: "collapse" }}>
               <thead>
-                <tr
-                  style={{
-                    background: "linear-gradient(90deg, rgba(13,31,60,0.9), rgba(17,43,92,0.9))",
-                    borderBottom: "1px solid rgba(245,166,35,0.15)",
-                  }}
-                >
-                  <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wider" style={{ color: "#f5a623" }}>Season</th>
-                  <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wider" style={{ color: "#f5a623" }}>Status</th>
+                <tr style={{ background: "rgba(0,217,255,0.04)", borderBottom: "1px solid var(--border-subtle)" }}>
+                  <th style={{ padding: "14px 20px", textAlign: "left", fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.5, color: "#00D9FF", fontFamily: "'Inter',sans-serif" }}>Season</th>
+                  <th style={{ padding: "14px 20px", textAlign: "left", fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.5, color: "#00D9FF", fontFamily: "'Inter',sans-serif" }}>Status</th>
                 </tr>
               </thead>
               <tbody>
                 {[...realStats.seasons].reverse().map((season, i) => (
-                  <tr
-                    key={season}
-                    style={{
-                      backgroundColor: i % 2 === 0 ? "rgba(6,14,26,0.6)" : "rgba(13,31,60,0.6)",
-                      borderTop: "1px solid rgba(245,166,35,0.04)",
-                    }}
-                  >
-                    <td className="px-5 py-4">
-                      <span className="font-bold text-sm" style={{ color: "#f5a623" }}>{season}</span>
+                  <tr key={season} style={{ backgroundColor: i % 2 === 0 ? "transparent" : "rgba(255,255,255,0.02)", borderTop: "1px solid var(--border-subtle)" }}>
+                    <td style={{ padding: "12px 20px" }}>
+                      <span style={{ fontWeight: 700, fontSize: 13, color: "#00D9FF", fontFamily: "'Inter',sans-serif" }}>{season}</span>
                     </td>
-                    <td className="px-5 py-4">
-                      {i === 0 ? (
-                        <span
-                          className="text-xs font-semibold px-2.5 py-1 rounded-full"
-                          style={{ backgroundColor: "rgba(34,197,94,0.15)", color: "#22c55e", border: "1px solid rgba(34,197,94,0.3)" }}
-                        >
-                          Current/Recent
-                        </span>
-                      ) : (
-                        <span className="text-xs text-gray-400">Completed</span>
-                      )}
+                    <td style={{ padding: "12px 20px" }}>
+                      {i === 0
+                        ? <span style={{ background: "rgba(34,197,94,0.12)", color: "#22c55e", border: "1px solid rgba(34,197,94,0.3)", padding: "3px 10px", borderRadius: 20, fontSize: 11, fontWeight: 700, fontFamily: "'Inter',sans-serif" }}>Current/Recent</span>
+                        : <span style={{ color: "#6B7280", fontSize: 12 }}>Completed</span>
+                      }
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           ) : (
-            <table className="w-full">
+            <table style={{ width: "100%", borderCollapse: "collapse" }}>
               <thead>
-                <tr
-                  style={{
-                    background: "linear-gradient(90deg, rgba(13,31,60,0.9), rgba(17,43,92,0.9))",
-                    borderBottom: "1px solid rgba(245,166,35,0.15)",
-                  }}
-                >
-                  <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wider" style={{ color: "#f5a623" }}>Season</th>
-                  <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wider" style={{ color: "#f5a623" }}>Champion 🏆</th>
-                  <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wider hidden sm:table-cell" style={{ color: "#f5a623" }}>Runner Up</th>
-                  <th className="px-5 py-4 text-left text-xs font-semibold uppercase tracking-wider hidden md:table-cell" style={{ color: "#f5a623" }}>Player of Tournament</th>
+                <tr style={{ background: "rgba(0,217,255,0.04)", borderBottom: "1px solid var(--border-subtle)" }}>
+                  <th style={{ padding: "14px 20px", textAlign: "left", fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.5, color: "#00D9FF", fontFamily: "'Inter',sans-serif" }}>Season</th>
+                  <th style={{ padding: "14px 20px", textAlign: "left", fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.5, color: "#00D9FF", fontFamily: "'Inter',sans-serif" }}>Champion 🏆</th>
+                  <th style={{ padding: "14px 20px", textAlign: "left", fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.5, color: "#00D9FF", fontFamily: "'Inter',sans-serif" }} className="hidden sm:table-cell">Runner Up</th>
+                  <th style={{ padding: "14px 20px", textAlign: "left", fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 0.5, color: "#00D9FF", fontFamily: "'Inter',sans-serif" }} className="hidden md:table-cell">Player of Tournament</th>
                 </tr>
               </thead>
               <tbody>
                 {league.recentSeasons.map((season, i) => (
-                  <tr
-                    key={season.year}
-                    style={{
-                      backgroundColor: i % 2 === 0 ? "rgba(6,14,26,0.6)" : "rgba(13,31,60,0.6)",
-                      borderTop: "1px solid rgba(245,166,35,0.04)",
-                    }}
-                  >
-                    <td className="px-5 py-4">
-                      <span className="font-bold text-sm" style={{ color: "#f5a623" }}>{season.year}</span>
+                  <tr key={season.year} style={{ backgroundColor: i % 2 === 0 ? "transparent" : "rgba(255,255,255,0.02)", borderTop: "1px solid var(--border-subtle)" }}>
+                    <td style={{ padding: "12px 20px" }}>
+                      <span style={{ fontWeight: 700, fontSize: 13, color: "#00D9FF", fontFamily: "'Inter',sans-serif" }}>{season.year}</span>
                     </td>
-                    <td className="px-5 py-4 text-white text-sm font-medium">{season.champion}</td>
-                    <td className="px-5 py-4 text-gray-400 text-sm hidden sm:table-cell">{season.runnerUp}</td>
-                    <td className="px-5 py-4 text-gray-400 text-sm hidden md:table-cell">{season.playerOfTournament}</td>
+                    <td style={{ padding: "12px 20px", color: "#FFFFFF", fontSize: 13, fontWeight: 500 }}>{season.champion}</td>
+                    <td style={{ padding: "12px 20px", color: "#C8C9D4", fontSize: 13 }} className="hidden sm:table-cell">{season.runnerUp}</td>
+                    <td style={{ padding: "12px 20px", color: "#C8C9D4", fontSize: 13 }} className="hidden md:table-cell">{season.playerOfTournament}</td>
                   </tr>
                 ))}
               </tbody>
@@ -557,34 +431,23 @@ export default function LeagueDetailPage() {
           )}
         </div>
 
-        {/* ─── Teams ─── */}
-        <h2 className="text-2xl font-bold text-white mb-5">
-          {league.name} Teams ({league.teams})
-        </h2>
-        <div className="flex flex-wrap gap-3 mb-12">
+        {/* ── Teams ── */}
+        <h2 style={{ color: "#FFFFFF", marginBottom: 16 }}>{league.name} Teams ({league.teams})</h2>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
           {league.teamsList.map((team) => (
             <span
               key={team}
-              className="px-4 py-2.5 rounded-xl text-sm font-medium glass-card"
-              style={{
-                color: "#d1d5db",
-              }}
+              className="glass-card"
+              style={{ padding: "8px 16px", fontSize: 13, color: "#C8C9D4" }}
             >
               {team}
             </span>
           ))}
         </div>
 
-        {/* ─── News ─── */}
-        <div className="mb-12 text-center">
-          <Link
-            to="/news"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-all hover:-translate-y-0.5 glass-card glow-border"
-            style={{
-              color: "#f5a623",
-              textDecoration: "none",
-            }}
-          >
+        {/* ── News link ── */}
+        <div style={{ textAlign: "center", marginBottom: 40 }}>
+          <Link to="/news" className="btn-secondary">
             📰 Visit News Page for Latest Articles →
           </Link>
         </div>

@@ -2,396 +2,249 @@ import { Link } from "react-router-dom";
 import { leagues } from "../data/leagues";
 import newsData from "../data/real/news.json";
 import type { RealArticle } from "../lib/api";
+import { Trophy, Globe, Users, Activity, Calendar, Newspaper } from "lucide-react";
 
-const statBar = [
-  { label: "T20 Leagues", value: "11", icon: "🏆" },
-  { label: "Countries", value: "10+", icon: "🌍" },
-  { label: "Teams", value: "90+", icon: "👕" },
-  { label: "Players", value: "1000+", icon: "🏏" },
-  { label: "Seasons Tracked", value: "100+", icon: "📅" },
+const statCards = [
+  { icon: Trophy, value: "11", label: "Leagues" },
+  { icon: Globe, value: "4000+", label: "Matches" },
+  { icon: Users, value: "10+", label: "Countries" },
+  { icon: Activity, value: "1000+", label: "Players" },
+  { icon: Calendar, value: "2025", label: "Season" },
 ];
 
 export default function HomePage() {
-  const featuredArticles = (newsData as unknown as RealArticle[]).slice(0, 3);
+  const articles = newsData as unknown as RealArticle[];
+  const featuredArticle = articles[0];
+  const sideArticles = articles.slice(1, 3);
+  const scrollArticles = articles.slice(3, 9);
+  const featuredLeagues = leagues.slice(0, 6);
 
   return (
-    <div>
-      {/* ─── Hero ─── */}
+    <div style={{ backgroundColor: "var(--bg-primary)", minHeight: "100vh" }}>
+      {/* ── Hero ── */}
       <section
-        className="relative overflow-hidden"
         style={{
-          background:
-            "linear-gradient(135deg, #060e1a 0%, #0a1e42 40%, #112b5c 70%, #060e1a 100%)",
-          minHeight: "90vh",
+          minHeight: "85vh",
           display: "flex",
           alignItems: "center",
+          position: "relative",
+          overflow: "hidden",
+          backgroundColor: "#0F1112",
         }}
       >
-        {/* Floating orbs */}
+        {/* Glow orbs */}
         <div
-          className="orb"
           style={{
+            position: "absolute",
+            width: 600,
+            height: 600,
+            top: -100,
+            left: -100,
+            borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(0,217,255,0.06) 0%, transparent 70%)",
+            filter: "blur(40px)",
+            pointerEvents: "none",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
             width: 500,
             height: 500,
-            top: "-100px",
-            left: "-100px",
-            background: "radial-gradient(circle, rgba(26,86,160,0.3) 0%, transparent 70%)",
-          }}
-        />
-        <div
-          className="orb"
-          style={{
-            width: 350,
-            height: 350,
-            top: "-50px",
+            top: -80,
             right: "5%",
-            background: "radial-gradient(circle, rgba(245,166,35,0.15) 0%, transparent 70%)",
-          }}
-        />
-        <div
-          className="orb"
-          style={{
-            width: 250,
-            height: 250,
-            bottom: "5%",
-            left: "40%",
-            background: "radial-gradient(circle, rgba(17,43,92,0.4) 0%, transparent 70%)",
+            borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(167,139,250,0.05) 0%, transparent 70%)",
+            filter: "blur(40px)",
+            pointerEvents: "none",
           }}
         />
 
-        {/* Cricket ball SVG decoration */}
-        <div
-          className="absolute right-0 top-0 w-1/2 h-full opacity-5"
-          style={{
-            backgroundImage:
-              "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='90' fill='none' stroke='%23f5a623' stroke-width='3'/%3E%3Cpath d='M 10 100 Q 100 10 190 100 Q 100 190 10 100' fill='none' stroke='%23f5a623' stroke-width='2'/%3E%3C/svg%3E\")",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "right -50px center",
-            backgroundSize: "600px",
-          }}
-        />
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="max-w-3xl animate-fade-in">
+        <div style={{ maxWidth: 1400, margin: "0 auto", padding: "80px 24px", position: "relative", width: "100%" }}>
+          <div style={{ maxWidth: 800, margin: "0 auto", textAlign: "center" }} className="fade-in">
             {/* Badge */}
-            <div
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-6"
-              style={{
-                background: "rgba(245,166,35,0.12)",
-                border: "1px solid rgba(245,166,35,0.3)",
-                color: "#f5a623",
-                backdropFilter: "blur(8px)",
-              }}
-            >
-              <span>⚡</span> All 11 Major T20 Leagues. One Hub.
-            </div>
+            <span className="badge-teal" style={{ display: "inline-flex", alignItems: "center", gap: 6, marginBottom: 24 }}>
+              🏏 11 Leagues • Real Data • Updated 2025
+            </span>
 
             <h1
-              className="text-5xl sm:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight"
-              style={{ color: "#ffffff", letterSpacing: "-1px" }}
+              className="teal-gradient-heading"
+              style={{ fontSize: "clamp(40px, 7vw, 72px)", marginBottom: 20, lineHeight: 1.15 }}
             >
-              Your Ultimate{" "}
-              <span className="gradient-text glow-text">
-                T20 Cricket
-              </span>{" "}
-              Universe
+              The Ultimate{"\n"}T20 Cricket Hub
             </h1>
 
-            <p className="text-lg sm:text-xl text-gray-300 mb-10 leading-relaxed max-w-2xl">
-              From the blazing pitches of the IPL to the sun-soaked Caribbean Premier League —
-              explore every major franchise T20 competition in one beautifully designed hub.
+            <p style={{ color: "#C8C9D4", fontSize: 18, fontFamily: "'Lato', sans-serif", marginBottom: 36, maxWidth: 600, margin: "0 auto 36px" }}>
+              From the blazing pitches of the IPL to the sun-soaked Caribbean Premier League — explore every major franchise T20 competition in one beautifully designed hub.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                to="/leagues"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-base transition-all duration-200 hover:-translate-y-1"
-                style={{
-                  background: "linear-gradient(135deg, #f5a623, #d4891e)",
-                  color: "#060e1a",
-                  boxShadow: "0 8px 30px rgba(245,166,35,0.4), 0 0 0 0 rgba(245,166,35,0)",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.boxShadow =
-                    "0 12px 40px rgba(245,166,35,0.55), 0 0 30px rgba(245,166,35,0.2)";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.boxShadow =
-                    "0 8px 30px rgba(245,166,35,0.4)";
-                }}
-              >
-                Explore Leagues <span>→</span>
+            <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginBottom: 48 }}>
+              <Link to="/leagues" className="btn-primary">
+                Explore Leagues →
               </Link>
-              <Link
-                to="/compare"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-base transition-all duration-200 hover:-translate-y-1 glass-card"
-                style={{
-                  color: "#f5a623",
-                  backdropFilter: "blur(12px)",
-                }}
-              >
-                Compare Leagues ⚖️
+              <Link to="/compare" className="btn-secondary">
+                Compare Leagues
               </Link>
+            </div>
+
+            {/* Stat pills */}
+            <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
+              {["11 Leagues", "4000+ Matches", "10+ Countries", "2025 Data"].map((pill) => (
+                <div
+                  key={pill}
+                  className="glass-card"
+                  style={{ padding: "8px 20px", fontSize: 13, fontFamily: "'Inter', sans-serif", fontWeight: 600, color: "#C8C9D4" }}
+                >
+                  {pill}
+                </div>
+              ))}
             </div>
           </div>
         </div>
-
-        {/* Decorative bottom fade */}
-        <div
-          className="absolute bottom-0 left-0 right-0 h-24"
-          style={{ background: "linear-gradient(to bottom, transparent, #060e1a)" }}
-        />
       </section>
 
-      {/* ─── Stats Bar ─── */}
-      <section style={{ backgroundColor: "#060e1a" }} className="py-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-            {statBar.map((stat, i) => (
+      {/* ── Stats Bar ── */}
+      <section style={{ backgroundColor: "var(--bg-primary)", padding: "48px 24px" }}>
+        <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+          <div style={{ display: "flex", gap: 16, flexWrap: "wrap", justifyContent: "center" }}>
+            {statCards.map(({ icon: Icon, value, label }, i) => (
               <div
-                key={i}
-                className="glass-card flex flex-col items-center py-6 px-4 text-center"
-                style={{ animationDelay: `${i * 0.1}s` }}
+                key={label}
+                className="glass-card fade-in"
+                style={{ padding: "20px 24px", display: "flex", flexDirection: "column", alignItems: "center", minWidth: 140, flex: "1 1 140px", maxWidth: 200, animationDelay: `${i * 0.08}s` }}
               >
-                <span className="text-3xl mb-2">{stat.icon}</span>
-                <span
-                  className="text-3xl font-extrabold shimmer"
-                  style={{ color: "#f5a623" }}
-                >
-                  {stat.value}
-                </span>
-                <span className="text-xs text-gray-400 mt-1">{stat.label}</span>
+                <Icon size={22} color="#00D9FF" style={{ marginBottom: 10 }} />
+                <div style={{ fontSize: 28, fontWeight: 700, fontFamily: "'Inter', sans-serif", color: "#FFFFFF", lineHeight: 1 }}>
+                  {value}
+                </div>
+                <div style={{ color: "#C8C9D4", fontSize: 13, marginTop: 6 }}>{label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Section divider */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="section-divider" />
-      </div>
+      {/* ── Latest News ── */}
+      <section style={{ padding: "48px 24px", backgroundColor: "var(--bg-primary)" }}>
+        <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+          <h2 className="section-title">
+            <Newspaper size={20} color="#00D9FF" />
+            Latest Cricket News
+          </h2>
 
-      {/* ─── Featured Leagues ─── */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: "#060e1a" }}>
-        <div className="max-w-7xl mx-auto">
-          {/* Section title with decorative lines */}
-          <div className="flex items-center gap-4 mb-3">
-            <div className="flex-1 section-divider" />
-            <p className="text-xs font-semibold tracking-widest" style={{ color: "#f5a623" }}>
-              AROUND THE WORLD
-            </p>
-            <div className="flex-1 section-divider" />
-          </div>
-          <div className="flex items-end justify-between mb-10">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white">
-              All Major T20 Leagues
-            </h2>
-            <Link
-              to="/leagues"
-              className="hidden sm:inline-flex items-center gap-2 text-sm font-medium transition-colors hover:text-white"
-              style={{ color: "#f5a623" }}
-            >
-              View All →
-            </Link>
+          {/* Bento grid */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "2fr 1fr",
+              gridTemplateRows: "auto auto",
+              gap: 16,
+              marginBottom: 16,
+            }}
+            className="news-bento"
+          >
+            {/* Featured large article */}
+            {featuredArticle && (
+              <div
+                className="glass-card"
+                style={{ gridRow: "1 / 3", padding: 0, overflow: "hidden" }}
+              >
+                <div
+                  style={{
+                    height: 200,
+                    background: "linear-gradient(135deg, #00D9FF22 0%, #A78BFA22 100%)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: 64,
+                  }}
+                >
+                  🏏
+                </div>
+                <div style={{ padding: 24 }}>
+                  <span className="badge-red" style={{ marginBottom: 12, display: "inline-block" }}>LATEST</span>
+                  <h2 style={{ fontSize: 22, marginBottom: 12, color: "#FFFFFF" }}>{featuredArticle.title}</h2>
+                  <p style={{ color: "#C8C9D4", fontSize: 14, lineHeight: 1.6, marginBottom: 16 }}>{featuredArticle.excerpt}</p>
+                  <div style={{ color: "#6B7280", fontSize: 12 }}>
+                    {featuredArticle.author} · {new Date(featuredArticle.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Two smaller articles */}
+            {sideArticles.map((article) => (
+              <div key={article.id} className="glass-card" style={{ padding: 20 }}>
+                <span className="badge-violet" style={{ marginBottom: 10, display: "inline-block" }}>{article.leagueTag}</span>
+                <h3 style={{ fontSize: 15, color: "#FFFFFF", marginBottom: 8, fontWeight: 600 }}>{article.title}</h3>
+                <p style={{ color: "#C8C9D4", fontSize: 13, lineHeight: 1.5, marginBottom: 10 }}>{article.excerpt}</p>
+                <div style={{ color: "#6B7280", fontSize: 12 }}>
+                  {new Date(article.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                </div>
+              </div>
+            ))}
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {leagues.map((league) => (
+          {/* Horizontal scroll row */}
+          <div style={{ display: "flex", gap: 16, overflowX: "auto", paddingBottom: 8 }}>
+            {scrollArticles.map((article) => (
+              <div
+                key={article.id}
+                className="glass-card"
+                style={{ padding: 16, minWidth: 240, flexShrink: 0 }}
+              >
+                <span className="badge-teal" style={{ marginBottom: 8, display: "inline-block" }}>{article.leagueTag}</span>
+                <h3 style={{ fontSize: 13, color: "#FFFFFF", fontWeight: 600, lineHeight: 1.4, marginBottom: 6 }}>{article.title}</h3>
+                <div style={{ color: "#6B7280", fontSize: 11 }}>
+                  {new Date(article.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Featured Leagues ── */}
+      <section style={{ padding: "48px 24px", backgroundColor: "var(--bg-primary)" }}>
+        <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+          <h2 className="section-title">
+            <Trophy size={20} color="#00D9FF" />
+            Featured Leagues
+          </h2>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 16, marginBottom: 24 }}>
+            {featuredLeagues.map((league) => (
               <Link
                 key={league.id}
                 to={`/leagues/${league.id}`}
-                className="block rounded-2xl overflow-hidden card-hover glass-card relative"
-                style={{
-                  textDecoration: "none",
-                  borderLeft: `3px solid ${league.color}`,
-                }}
+                style={{ textDecoration: "none" }}
               >
-                {/* League flag in top-right */}
                 <div
-                  className="absolute top-3 right-3 text-2xl"
-                  style={{ lineHeight: 1 }}
+                  className="glass-card"
+                  style={{
+                    padding: 20,
+                    borderLeft: `4px solid ${league.color}`,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 16,
+                  }}
                 >
-                  {league.flag}
-                </div>
-
-                {/* Card top color banner */}
-                <div
-                  className="h-1.5"
-                  style={{ background: `linear-gradient(90deg, ${league.color}, ${league.accentColor})` }}
-                />
-                <div className="p-5 pr-12">
-                  <div className="mb-3">
-                    <span
-                      className="text-xs font-semibold px-2.5 py-1 rounded-full"
-                      style={
-                        league.isActive
-                          ? {
-                              backgroundColor: "rgba(34,197,94,0.15)",
-                              color: "#22c55e",
-                              border: "1px solid rgba(34,197,94,0.3)",
-                            }
-                          : {
-                              backgroundColor: "rgba(156,163,175,0.1)",
-                              color: "#9ca3af",
-                              border: "1px solid rgba(156,163,175,0.2)",
-                            }
-                      }
-                    >
-                      {league.isActive ? "● ACTIVE" : "OFF SEASON"}
-                    </span>
-                  </div>
-
-                  <h3 className="text-white font-bold text-base mb-1 leading-snug">
-                    {league.name}
-                  </h3>
-                  <p className="text-xs text-gray-400 mb-4">
-                    {league.country} · {league.format} · Since {league.founded}
-                  </p>
-
-                  <div
-                    className="grid grid-cols-3 gap-2 pt-3"
-                    style={{ borderTop: "1px solid rgba(245,166,35,0.1)" }}
-                  >
-                    <div className="text-center">
-                      <div className="text-base font-bold text-white">{league.teams}</div>
-                      <div className="text-xs text-gray-500">Teams</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-base font-bold" style={{ color: "#f5a623" }}>
-                        {league.numberOfSeasons}
-                      </div>
-                      <div className="text-xs text-gray-500">Seasons</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-base font-bold text-white">
-                        {league.playerQualityRating}
-                      </div>
-                      <div className="text-xs text-gray-500">Rating</div>
-                    </div>
+                  <span style={{ fontSize: 40, lineHeight: 1 }}>{league.flag}</span>
+                  <div style={{ flex: 1 }}>
+                    <h3 style={{ fontSize: 16, color: "#FFFFFF", marginBottom: 4 }}>{league.name}</h3>
+                    <div style={{ color: "#C8C9D4", fontSize: 13, marginBottom: 8 }}>{league.country}</div>
+                    {league.isActive
+                      ? <span className="badge-teal">ACTIVE</span>
+                      : <span style={{ background: "rgba(255,255,255,0.06)", color: "#9CA3AF", padding: "3px 10px", borderRadius: 20, fontSize: 11, fontWeight: 700, fontFamily: "'Inter',sans-serif", textTransform: "uppercase" as const }}>OFF SEASON</span>
+                    }
                   </div>
                 </div>
               </Link>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* Section divider */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="section-divider" />
-      </div>
-
-      {/* ─── Latest News ─── */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: "#060e1a" }}>
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-center gap-4 mb-3">
-            <div className="flex-1 section-divider" />
-            <p className="text-xs font-semibold tracking-widest" style={{ color: "#f5a623" }}>
-              LATEST
-            </p>
-            <div className="flex-1 section-divider" />
-          </div>
-          <div className="flex items-end justify-between mb-10">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white">
-              Featured Stories
-            </h2>
-            <Link
-              to="/news"
-              className="hidden sm:inline-flex items-center gap-2 text-sm font-medium transition-colors hover:text-white"
-              style={{ color: "#f5a623" }}
-            >
-              All Articles →
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {featuredArticles.map((article) => (
-              <div
-                key={article.id}
-                className="rounded-2xl overflow-hidden card-hover glass-card"
-              >
-                {/* Category strip */}
-                <div
-                  className="px-5 pt-5 pb-3"
-                  style={{ borderBottom: "1px solid rgba(245,166,35,0.08)" }}
-                >
-                  <span
-                    className="text-xs font-semibold uppercase tracking-wider px-2.5 py-1 rounded-md"
-                    style={{
-                      backgroundColor: "rgba(245,166,35,0.15)",
-                      color: "#f5a623",
-                      border: "1px solid rgba(245,166,35,0.2)",
-                    }}
-                  >
-                    {article.leagueTag}
-                  </span>
-                  <span className="ml-2 text-xs text-gray-500 capitalize">
-                    {article.category}
-                  </span>
-                </div>
-                <div className="p-5">
-                  <h3 className="text-white font-bold text-base leading-snug mb-3">
-                    {article.title}
-                  </h3>
-                  <p className="text-gray-400 text-sm leading-relaxed mb-4">
-                    {article.excerpt}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="text-xs text-gray-500">
-                      By {article.author} · {article.readTime} min read
-                    </div>
-                    <Link
-                      to="/news"
-                      className="text-xs font-medium transition-colors hover:opacity-80"
-                      style={{ color: "#f5a623" }}
-                    >
-                      Read More →
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── CTA Section ─── */}
-      <section
-        className="py-20 px-4 text-center relative overflow-hidden"
-        style={{
-          background: "linear-gradient(135deg, #060e1a, #0a1e42, #060e1a)",
-        }}
-      >
-        <div
-          className="orb"
-          style={{
-            width: 400,
-            height: 400,
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            background: "radial-gradient(circle, rgba(245,166,35,0.08) 0%, transparent 70%)",
-          }}
-        />
-        <div className="relative max-w-2xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            Compare Your Favourite{" "}
-            <span className="gradient-text">Leagues</span>
-          </h2>
-          <p className="text-gray-300 mb-8">
-            Side-by-side comparisons of prize money, viewership, player quality and more.
-          </p>
-          <Link
-            to="/compare"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold transition-all duration-200 hover:-translate-y-1"
-            style={{
-              background: "linear-gradient(135deg, #f5a623, #d4891e)",
-              color: "#060e1a",
-              boxShadow: "0 8px 30px rgba(245,166,35,0.35)",
-            }}
-          >
-            Start Comparing ⚖️
+          <Link to="/leagues" style={{ color: "#00D9FF", textDecoration: "none", fontFamily: "'Inter', sans-serif", fontWeight: 600, fontSize: 14 }}>
+            View All Leagues →
           </Link>
         </div>
       </section>
