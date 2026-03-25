@@ -1,12 +1,12 @@
 /**
- * CricLeague Hub — API Client
- * Fetches real data from the backend (localhost:3001) with mock-data fallback.
+ * CricLeague Hub – API Client
+ * Imports real data directly from processed JSON files (works on GitHub Pages).
+ * No backend server needed for static stats and news.
  */
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3001';
-const TIMEOUT_MS = 6000;
-
-// ─── Types ────────────────────────────────────────────────────────────────────
+// ============================================================
+// Types
+// ============================================================
 
 export interface RealPlayerStat {
   name: string;
@@ -22,6 +22,8 @@ export interface RealLeagueStats {
   leagueId: string;
   leagueName: string;
   totalMatches: number;
+  latestSeason?: string;
+  seasons?: string[];
   processedAt: string;
   isFallback?: boolean;
   topRunScorers: RealPlayerStat[];
@@ -46,41 +48,51 @@ export interface RealArticle {
   source?: string;
 }
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
+// ============================================================
+// Direct JSON imports (bundled at build time — works on GitHub Pages)
+// ============================================================
 
-async function apiFetch<T>(path: string): Promise<T | null> {
+import iplData from '../data/real/ipl.json';
+import bblData from '../data/real/bbl.json';
+import pslData from '../data/real/psl.json';
+import cplData from '../data/real/cpl.json';
+import hundredData from '../data/real/hundred.json';
+import t20blastData from '../data/real/t20blast.json';
+import newsData from '../data/real/news.json';
+
+const leagueDataMap: Record<string, RealLeagueStats> = {
+  ipl: iplData as RealLeagueStats,
+  bbl: bblData as RealLeagueStats,
+  psl: pslData as RealLeagueStats,
+  cpl: cplData as RealLeagueStats,
+  hundred: hundredData as RealLeagueStats,
+  t20blast: t20blastData as RealLeagueStats,
+};
+
+// ============================================================
+// Public API (same interface as before — drop-in replacement)
+// ============================================================
+
+/** Fetch real news articles. Returns from bundled JSON. */
+export async function fetchRealNews(): Promise<RealArticle[] | null> {
   try {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
-    const res = await fetch(`${API_BASE}${path}`, { signal: controller.signal });
-    clearTimeout(timer);
-    if (!res.ok) return null;
-    return (await res.json()) as T;
+    return (newsData as unknown as RealArticle[]);
   } catch {
     return null;
   }
 }
 
-// ─── Public API ───────────────────────────────────────────────────────────────
-
-/** Fetch real news articles from ESPN RSS (via backend proxy). Returns null on failure. */
-export async function fetchRealNews(): Promise<RealArticle[] | null> {
-  return apiFetch<RealArticle[]>('/api/news');
-}
-
-/** Fetch cricsheet-processed stats for a specific league. Returns null on failure. */
+/** Fetch cricsheet-processed stats for a specific league. */
 export async function fetchLeagueStats(leagueId: string): Promise<RealLeagueStats | null> {
-  return apiFetch<RealLeagueStats>(`/api/leagues/${leagueId}`);
+  return leagueDataMap[leagueId] ?? null;
 }
 
-/** Fetch all processed league stats. Returns empty object on failure. */
+/** Fetch all processed league stats. */
 export async function fetchAllLeagueStats(): Promise<Record<string, RealLeagueStats>> {
-  const data = await apiFetch<Record<string, RealLeagueStats>>('/api/leagues');
-  return data ?? {};
+  return leagueDataMap;
 }
 
-/** Check if the backend API is reachable. */
+/** Always true since we use local data now. */
 export async function checkApiHealth(): Promise<boolean> {
-  const data = await apiFetch<{ status: string }>('/api/health');
-  return data?.status === 'ok';
+  return true;
 }
