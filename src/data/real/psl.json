@@ -1,163 +1,176 @@
 {
   "leagueId": "psl",
   "leagueName": "Pakistan Super League",
-  "totalMatches": 400,
-  "isFallback": true,
-  "processedAt": "2026-03-25T02:41:35.352Z",
+  "totalMatches": 314,
+  "processedAt": "2026-03-25T08:20:59.017Z",
+  "latestSeason": "2025",
+  "seasons": [
+    "2015/16",
+    "2016/17",
+    "2017/18",
+    "2018/19",
+    "2019/20",
+    "2020/21",
+    "2021",
+    "2021/22",
+    "2022/23",
+    "2023/24",
+    "2025"
+  ],
   "topRunScorers": [
     {
       "name": "Babar Azam",
-      "runs": 3056,
-      "matches": 101,
-      "average": 35.4,
-      "strikeRate": 128.9
-    },
-    {
-      "name": "Mohammad Rizwan",
-      "runs": 2856,
-      "matches": 98,
-      "average": 37.1,
-      "strikeRate": 130.5
+      "runs": 3792,
+      "matches": 97,
+      "average": 39.09,
+      "strikeRate": 127.51
     },
     {
       "name": "Fakhar Zaman",
-      "runs": 2411,
-      "matches": 90,
-      "average": 29.8,
-      "strikeRate": 136.2
+      "runs": 2969,
+      "matches": 100,
+      "average": 29.69,
+      "strikeRate": 141.92
     },
     {
-      "name": "Kamran Akmal",
-      "runs": 2309,
-      "matches": 89,
-      "average": 28.5,
-      "strikeRate": 138.7
+      "name": "Mohammad Rizwan",
+      "runs": 2770,
+      "matches": 82,
+      "average": 33.78,
+      "strikeRate": 128.96
     },
     {
       "name": "Shoaib Malik",
-      "runs": 2188,
-      "matches": 92,
-      "average": 31.3,
-      "strikeRate": 126.4
+      "runs": 2350,
+      "matches": 88,
+      "average": 26.7,
+      "strikeRate": 128.14
     },
     {
-      "name": "Umar Akmal",
-      "runs": 1998,
-      "matches": 84,
-      "average": 27.2,
-      "strikeRate": 131.8
+      "name": "RR Rossouw",
+      "runs": 2292,
+      "matches": 89,
+      "average": 25.75,
+      "strikeRate": 146.17
     },
     {
-      "name": "Asif Ali",
-      "runs": 1876,
-      "matches": 82,
-      "average": 28.8,
-      "strikeRate": 151.2
+      "name": "Kamran Akmal",
+      "runs": 1942,
+      "matches": 73,
+      "average": 26.6,
+      "strikeRate": 136.76
     },
     {
-      "name": "Ahmed Shehzad",
-      "runs": 1788,
-      "matches": 78,
-      "average": 26.3,
-      "strikeRate": 119.4
+      "name": "Mohammad Hafeez",
+      "runs": 1672,
+      "matches": 73,
+      "average": 22.9,
+      "strikeRate": 123.3
     },
     {
-      "name": "Colin Munro",
-      "runs": 1654,
-      "matches": 65,
-      "average": 29.5,
-      "strikeRate": 143.6
+      "name": "C Munro",
+      "runs": 1633,
+      "matches": 54,
+      "average": 30.24,
+      "strikeRate": 149.82
     },
     {
-      "name": "Liam Livingstone",
-      "runs": 1542,
-      "matches": 56,
-      "average": 31.5,
-      "strikeRate": 158.2
+      "name": "Sarfraz Ahmed",
+      "runs": 1525,
+      "matches": 73,
+      "average": 20.89,
+      "strikeRate": 122.69
+    },
+    {
+      "name": "Shan Masood",
+      "runs": 1503,
+      "matches": 55,
+      "average": 27.33,
+      "strikeRate": 128.9
     }
   ],
   "topWicketTakers": [
     {
       "name": "Hasan Ali",
-      "wickets": 121,
-      "matches": 91,
-      "economy": 8.23,
-      "average": 23.1
+      "wickets": 125,
+      "matches": 87,
+      "economy": 8.35,
+      "average": 23.2
+    },
+    {
+      "name": "Shaheen Shah Afridi",
+      "wickets": 122,
+      "matches": 78,
+      "economy": 8.24,
+      "average": 21.01
     },
     {
       "name": "Wahab Riaz",
-      "wickets": 116,
-      "matches": 96,
-      "economy": 8.61,
-      "average": 26.4
+      "wickets": 111,
+      "matches": 82,
+      "economy": 8.05,
+      "average": 23.64
     },
     {
       "name": "Shadab Khan",
-      "wickets": 108,
-      "matches": 93,
-      "economy": 7.82,
-      "average": 22.6
+      "wickets": 105,
+      "matches": 83,
+      "economy": 7.79,
+      "average": 24.49
     },
     {
-      "name": "Shaheen Afridi",
-      "wickets": 98,
-      "matches": 74,
-      "economy": 7.64,
-      "average": 20.3
+      "name": "Faheem Ashraf",
+      "wickets": 95,
+      "matches": 66,
+      "economy": 8.89,
+      "average": 24.52
     },
     {
       "name": "Mohammad Amir",
-      "wickets": 93,
-      "matches": 79,
-      "economy": 7.98,
-      "average": 24.7
+      "wickets": 85,
+      "matches": 77,
+      "economy": 7.92,
+      "average": 28.39
+    },
+    {
+      "name": "Haris Rauf",
+      "wickets": 83,
+      "matches": 65,
+      "economy": 9.55,
+      "average": 29.54
     },
     {
       "name": "Imad Wasim",
-      "wickets": 88,
-      "matches": 87,
-      "economy": 6.92,
-      "average": 23.4
+      "wickets": 77,
+      "matches": 80,
+      "economy": 7.15,
+      "average": 29.57
     },
     {
-      "name": "Usman Qadir",
-      "wickets": 82,
-      "matches": 73,
-      "economy": 8.14,
-      "average": 25.6
+      "name": "Usama Mir",
+      "wickets": 63,
+      "matches": 44,
+      "economy": 8.47,
+      "average": 23.59
     },
     {
-      "name": "Chris Jordan",
-      "wickets": 76,
-      "matches": 62,
-      "economy": 8.72,
-      "average": 27.1
-    },
-    {
-      "name": "Waqas Maqsood",
-      "wickets": 74,
-      "matches": 68,
-      "economy": 8.34,
-      "average": 26.8
-    },
-    {
-      "name": "Rumman Raees",
-      "wickets": 70,
-      "matches": 65,
-      "economy": 7.94,
-      "average": 25.3
+      "name": "Abbas Afridi",
+      "wickets": 60,
+      "matches": 34,
+      "economy": 9.67,
+      "average": 21.33
     }
   ],
   "highestIndividualScore": {
-    "player": "Kamran Akmal",
-    "score": 117,
+    "player": "JJ Roy",
+    "score": 145,
     "against": "Peshawar Zalmi",
-    "season": "2017"
+    "season": "2022/23"
   },
   "highestTeamTotal": {
-    "team": "Lahore Qalandars",
-    "runs": 220,
+    "team": "Quetta Gladiators",
+    "runs": 263,
     "against": "Islamabad United",
-    "season": "2022"
+    "season": "2025"
   }
 }

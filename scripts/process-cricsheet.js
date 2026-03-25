@@ -27,8 +27,8 @@ const LEAGUES = [
   { id: 'bbl',       url: 'https://cricsheet.org/downloads/bbl_json.zip',         name: 'Big Bash League' },
   { id: 'psl',       url: 'https://cricsheet.org/downloads/psl_json.zip',         name: 'Pakistan Super League' },
   { id: 'cpl',       url: 'https://cricsheet.org/downloads/cpl_json.zip',         name: 'Caribbean Premier League' },
-  { id: 'hundred',   url: 'https://cricsheet.org/downloads/the_hundred_json.zip', name: 'The Hundred' },
-  { id: 't20blast',  url: 'https://cricsheet.org/downloads/t20blast_json.zip',    name: 'Vitality T20 Blast' },
+  { id: 'hundred',   url: 'https://cricsheet.org/downloads/hnd_json.zip',          name: 'The Hundred' },
+  { id: 't20blast',  url: 'https://cricsheet.org/downloads/ntb_json.zip',          name: 'Vitality T20 Blast' },
 ];
 
 // ─── Download ────────────────────────────────────────────────────────────────
@@ -94,6 +94,7 @@ function processMatch(matchData, stats) {
   const season = String(info.season || (info.dates?.[0] || '').slice(0, 4) || 'Unknown');
   const teams = info.teams || [];
   stats.totalMatches += 1;
+  if (season !== 'Unknown') stats.seasons.add(season);
 
   for (const inning of matchData.innings) {
     const battingTeam = inning.team;
@@ -197,11 +198,16 @@ function buildOutput(leagueId, leagueName, stats) {
       average: s.wickets > 0 ? parseFloat((s.runsConceded / s.wickets).toFixed(2)) : 0,
     }));
 
+  const seasons = [...stats.seasons].sort();
+  const latestSeason = seasons.length > 0 ? seasons[seasons.length - 1] : 'Unknown';
+
   return {
     leagueId,
     leagueName,
     totalMatches: stats.totalMatches,
     processedAt: new Date().toISOString(),
+    latestSeason,
+    seasons,
     topRunScorers,
     topWicketTakers,
     highestIndividualScore: stats.highestScore,
@@ -235,6 +241,7 @@ async function processLeague(league) {
     bowlers: new Map(),
     highestScore: { player: '', score: 0, against: '', season: '' },
     highestTeamTotal: { team: '', runs: 0, against: '', season: '' },
+    seasons: new Set(),
   };
 
   let processed = 0;

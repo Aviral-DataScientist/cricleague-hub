@@ -1,163 +1,171 @@
 {
   "leagueId": "hundred",
   "leagueName": "The Hundred",
-  "totalMatches": 160,
-  "isFallback": true,
-  "processedAt": "2026-03-25T02:41:35.352Z",
+  "totalMatches": 322,
+  "processedAt": "2026-03-25T08:22:48.158Z",
+  "isFallback": false,
+  "latestSeason": "2025",
+  "seasons": [
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025"
+  ],
   "topRunScorers": [
     {
-      "name": "Dawid Malan",
-      "runs": 987,
+      "name": "DN Wyatt",
+      "runs": 1146,
+      "matches": 43,
+      "average": 26.65,
+      "strikeRate": 132.95
+    },
+    {
+      "name": "PD Salt",
+      "runs": 1138,
+      "matches": 43,
+      "average": 26.47,
+      "strikeRate": 152.96
+    },
+    {
+      "name": "JM Vince",
+      "runs": 1083,
+      "matches": 42,
+      "average": 25.79,
+      "strikeRate": 136.92
+    },
+    {
+      "name": "WG Jacks",
+      "runs": 1065,
+      "matches": 41,
+      "average": 25.98,
+      "strikeRate": 160.15
+    },
+    {
+      "name": "SIR Dunkley",
+      "runs": 1065,
+      "matches": 39,
+      "average": 27.31,
+      "strikeRate": 128.62
+    },
+    {
+      "name": "L Wolvaardt",
+      "runs": 1036,
       "matches": 35,
-      "average": 30.2,
-      "strikeRate": 136.8
+      "average": 29.6,
+      "strikeRate": 125.12
     },
     {
-      "name": "Jos Buttler",
-      "runs": 921,
-      "matches": 32,
-      "average": 31.8,
-      "strikeRate": 141.2
+      "name": "DJ Malan",
+      "runs": 1019,
+      "matches": 39,
+      "average": 26.13,
+      "strikeRate": 130.31
     },
     {
-      "name": "Joe Root",
-      "runs": 876,
-      "matches": 33,
-      "average": 29.5,
-      "strikeRate": 128.9
+      "name": "BM Duckett",
+      "runs": 1014,
+      "matches": 38,
+      "average": 26.68,
+      "strikeRate": 141.23
     },
     {
-      "name": "Tom Banton",
-      "runs": 812,
-      "matches": 34,
-      "average": 25.4,
-      "strikeRate": 134.6
+      "name": "LS Livingstone",
+      "runs": 996,
+      "matches": 37,
+      "average": 26.92,
+      "strikeRate": 148.66
     },
     {
-      "name": "Liam Livingstone",
-      "runs": 798,
-      "matches": 30,
-      "average": 31.1,
-      "strikeRate": 156.3
-    },
-    {
-      "name": "Will Smeed",
-      "runs": 756,
-      "matches": 31,
-      "average": 26.7,
-      "strikeRate": 140.5
-    },
-    {
-      "name": "Paul Stirling",
-      "runs": 712,
-      "matches": 29,
-      "average": 28.3,
-      "strikeRate": 138.2
-    },
-    {
-      "name": "James Vince",
-      "runs": 698,
-      "matches": 32,
-      "average": 25.1,
-      "strikeRate": 131.4
-    },
-    {
-      "name": "Finn Allen",
-      "runs": 654,
+      "name": "JM Cox",
+      "runs": 940,
       "matches": 27,
-      "average": 27.7,
-      "strikeRate": 148.9
-    },
-    {
-      "name": "Jonny Bairstow",
-      "runs": 621,
-      "matches": 28,
-      "average": 24.9,
-      "strikeRate": 135.6
+      "average": 34.81,
+      "strikeRate": 154.1
     }
   ],
   "topWicketTakers": [
     {
-      "name": "Adil Rashid",
-      "wickets": 56,
-      "matches": 38,
-      "economy": 7.21,
-      "average": 20.3
-    },
-    {
-      "name": "Jofra Archer",
-      "wickets": 52,
-      "matches": 34,
-      "economy": 7.64,
-      "average": 21.8
-    },
-    {
-      "name": "Pat Brown",
-      "wickets": 48,
-      "matches": 36,
-      "economy": 8.12,
-      "average": 24.5
-    },
-    {
-      "name": "Tom Curran",
-      "wickets": 44,
+      "name": "LK Bell",
+      "wickets": 60,
       "matches": 33,
-      "economy": 8.43,
-      "average": 26.1
+      "economy": 6.97,
+      "average": 15.25
     },
     {
-      "name": "Mason Crane",
-      "wickets": 41,
+      "name": "A Wellington",
+      "wickets": 52,
       "matches": 31,
-      "economy": 7.85,
-      "average": 23.4
+      "economy": 7.18,
+      "average": 16.79
     },
     {
-      "name": "Mohammad Hasnain",
-      "wickets": 38,
-      "matches": 29,
-      "economy": 8.54,
-      "average": 25.7
-    },
-    {
-      "name": "Fidel Edwards",
-      "wickets": 36,
+      "name": "TS Mills",
+      "wickets": 51,
       "matches": 28,
-      "economy": 8.76,
-      "average": 27.3
+      "economy": 8.5,
+      "average": 18.25
     },
     {
-      "name": "Luke Wood",
-      "wickets": 34,
-      "matches": 30,
-      "economy": 8.32,
-      "average": 26.8
+      "name": "KL Cross",
+      "wickets": 50,
+      "matches": 32,
+      "economy": 7.35,
+      "average": 18.68
     },
     {
-      "name": "Marchant de Lange",
-      "wickets": 32,
+      "name": "M Kapp",
+      "wickets": 46,
       "matches": 26,
-      "economy": 8.91,
-      "average": 28.4
+      "economy": 6.47,
+      "average": 14.13
     },
     {
-      "name": "Danny Lamb",
-      "wickets": 30,
-      "matches": 27,
-      "economy": 8.64,
-      "average": 29.1
+      "name": "SM Curran",
+      "wickets": 45,
+      "matches": 28,
+      "economy": 8.81,
+      "average": 21.27
+    },
+    {
+      "name": "AU Rashid",
+      "wickets": 45,
+      "matches": 31,
+      "economy": 7.68,
+      "average": 20.53
+    },
+    {
+      "name": "EL Arlott",
+      "wickets": 45,
+      "matches": 24,
+      "economy": 7.66,
+      "average": 16.33
+    },
+    {
+      "name": "LCN Smith",
+      "wickets": 42,
+      "matches": 30,
+      "economy": 7.07,
+      "average": 19.81
+    },
+    {
+      "name": "KL Gordon",
+      "wickets": 41,
+      "matches": 29,
+      "economy": 7.64,
+      "average": 20.95
     }
   ],
   "highestIndividualScore": {
-    "player": "Jos Buttler",
-    "score": 101,
-    "against": "London Spirit",
-    "season": "2021"
+    "player": "TT Beaumont",
+    "score": 118,
+    "against": "Trent Rockets",
+    "season": "2023"
   },
   "highestTeamTotal": {
-    "team": "Southern Brave",
-    "runs": 182,
+    "team": "Oval Invincibles",
+    "runs": 226,
     "against": "Welsh Fire",
-    "season": "2021"
+    "season": "2025"
   }
 }

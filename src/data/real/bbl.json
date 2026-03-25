@@ -1,163 +1,180 @@
 {
   "leagueId": "bbl",
   "leagueName": "Big Bash League",
-  "totalMatches": 480,
-  "isFallback": true,
-  "processedAt": "2026-03-25T02:41:35.352Z",
+  "totalMatches": 662,
+  "processedAt": "2026-03-25T08:20:58.777Z",
+  "latestSeason": "2025/26",
+  "seasons": [
+    "2011/12",
+    "2012/13",
+    "2013/14",
+    "2014/15",
+    "2015/16",
+    "2016/17",
+    "2017/18",
+    "2018/19",
+    "2019/20",
+    "2020/21",
+    "2021/22",
+    "2022/23",
+    "2023/24",
+    "2024/25",
+    "2025/26"
+  ],
   "topRunScorers": [
     {
-      "name": "Chris Lynn",
-      "runs": 2803,
-      "matches": 96,
-      "average": 31.5,
-      "strikeRate": 150.2
+      "name": "CA Lynn",
+      "runs": 4088,
+      "matches": 133,
+      "average": 30.74,
+      "strikeRate": 149.47
     },
     {
-      "name": "Aaron Finch",
-      "runs": 2682,
-      "matches": 105,
-      "average": 27.1,
-      "strikeRate": 135.4
+      "name": "MC Henriques",
+      "runs": 3356,
+      "matches": 147,
+      "average": 22.83,
+      "strikeRate": 129.43
     },
     {
-      "name": "Matthew Wade",
-      "runs": 2576,
+      "name": "AJ Finch",
+      "runs": 3310,
+      "matches": 104,
+      "average": 31.83,
+      "strikeRate": 131.25
+    },
+    {
+      "name": "MP Stoinis",
+      "runs": 3218,
+      "matches": 114,
+      "average": 28.23,
+      "strikeRate": 133.97
+    },
+    {
+      "name": "GJ Maxwell",
+      "runs": 3196,
+      "matches": 116,
+      "average": 27.55,
+      "strikeRate": 155.3
+    },
+    {
+      "name": "DJM Short",
+      "runs": 3138,
+      "matches": 102,
+      "average": 30.76,
+      "strikeRate": 131.46
+    },
+    {
+      "name": "BR McDermott",
+      "runs": 3104,
       "matches": 110,
-      "average": 25.8,
-      "strikeRate": 128.6
+      "average": 28.22,
+      "strikeRate": 138.08
     },
     {
-      "name": "David Warner",
-      "runs": 2400,
-      "matches": 78,
-      "average": 34.3,
-      "strikeRate": 140.1
+      "name": "MS Wade",
+      "runs": 2946,
+      "matches": 111,
+      "average": 26.54,
+      "strikeRate": 141.84
     },
     {
-      "name": "Alex Ross",
-      "runs": 2210,
-      "matches": 93,
-      "average": 27.6,
-      "strikeRate": 133.2
+      "name": "JW Wells",
+      "runs": 2935,
+      "matches": 123,
+      "average": 23.86,
+      "strikeRate": 121.68
     },
     {
-      "name": "Usman Khawaja",
-      "runs": 2188,
-      "matches": 91,
-      "average": 29.4,
-      "strikeRate": 125.9
-    },
-    {
-      "name": "Marcus Stoinis",
-      "runs": 2102,
-      "matches": 87,
-      "average": 28.2,
-      "strikeRate": 136.7
-    },
-    {
-      "name": "D'Arcy Short",
-      "runs": 1982,
-      "matches": 82,
-      "average": 31.5,
-      "strikeRate": 138.4
-    },
-    {
-      "name": "Michael Klinger",
-      "runs": 1878,
-      "matches": 84,
-      "average": 26.8,
-      "strikeRate": 122.1
-    },
-    {
-      "name": "Ben McDermott",
-      "runs": 1800,
-      "matches": 79,
-      "average": 25.4,
-      "strikeRate": 130.6
+      "name": "SE Marsh",
+      "runs": 2802,
+      "matches": 77,
+      "average": 36.39,
+      "strikeRate": 129.9
     }
   ],
   "topWicketTakers": [
     {
-      "name": "Andrew Tye",
-      "wickets": 119,
-      "matches": 87,
-      "economy": 8.12,
-      "average": 22.4
+      "name": "SA Abbott",
+      "wickets": 185,
+      "matches": 112,
+      "economy": 8.51,
+      "average": 20.49
     },
     {
-      "name": "Nathan Coulter-Nile",
-      "wickets": 114,
-      "matches": 92,
-      "economy": 8.35,
-      "average": 24.1
+      "name": "BJ Dwarshuis",
+      "wickets": 164,
+      "matches": 113,
+      "economy": 8.33,
+      "average": 22.77
     },
     {
-      "name": "Adam Zampa",
-      "wickets": 113,
-      "matches": 95,
-      "economy": 7.98,
-      "average": 23.5
+      "name": "AJ Tye",
+      "wickets": 160,
+      "matches": 105,
+      "economy": 8.23,
+      "average": 21.5
     },
     {
-      "name": "Ben Dwarshuis",
-      "wickets": 102,
-      "matches": 80,
-      "economy": 8.62,
-      "average": 26.3
+      "name": "JP Behrendorff",
+      "wickets": 145,
+      "matches": 102,
+      "economy": 7.27,
+      "average": 20.37
     },
     {
-      "name": "Clint McKay",
-      "wickets": 97,
+      "name": "KW Richardson",
+      "wickets": 138,
+      "matches": 104,
+      "economy": 8.04,
+      "average": 24.05
+    },
+    {
+      "name": "A Zampa",
+      "wickets": 130,
+      "matches": 108,
+      "economy": 7.44,
+      "average": 24.57
+    },
+    {
+      "name": "DR Sams",
+      "wickets": 128,
       "matches": 82,
-      "economy": 7.76,
-      "average": 22.1
+      "economy": 8.81,
+      "average": 22.36
     },
     {
-      "name": "Sean Abbott",
-      "wickets": 91,
-      "matches": 76,
-      "economy": 8.21,
-      "average": 24.8
+      "name": "PM Siddle",
+      "wickets": 127,
+      "matches": 89,
+      "economy": 7.8,
+      "average": 21.74
     },
     {
-      "name": "Billy Stanlake",
-      "wickets": 88,
-      "matches": 71,
-      "economy": 8.54,
-      "average": 25.6
+      "name": "RP Meredith",
+      "wickets": 117,
+      "matches": 82,
+      "economy": 8.62,
+      "average": 23.9
     },
     {
-      "name": "Peter Siddle",
-      "wickets": 83,
-      "matches": 74,
-      "economy": 7.94,
-      "average": 23.7
-    },
-    {
-      "name": "James Faulkner",
-      "wickets": 79,
-      "matches": 68,
-      "economy": 8.36,
-      "average": 26.1
-    },
-    {
-      "name": "Michael Neser",
-      "wickets": 75,
-      "matches": 67,
-      "economy": 8.12,
-      "average": 27.4
+      "name": "JA Richardson",
+      "wickets": 113,
+      "matches": 75,
+      "economy": 8.08,
+      "average": 21.25
     }
   ],
   "highestIndividualScore": {
-    "player": "Joe Burns",
-    "score": 115,
-    "against": "Brisbane Heat",
-    "season": "2017-18"
+    "player": "GJ Maxwell",
+    "score": 154,
+    "against": "Hobart Hurricanes",
+    "season": "2021/22"
   },
   "highestTeamTotal": {
-    "team": "Sydney Thunder",
-    "runs": 229,
-    "against": "Melbourne Renegades",
-    "season": "2015-16"
+    "team": "Melbourne Stars",
+    "runs": 273,
+    "against": "Hobart Hurricanes",
+    "season": "2021/22"
   }
 }

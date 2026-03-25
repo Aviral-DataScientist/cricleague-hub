@@ -175,7 +175,17 @@ app.get('/api/news', async (_req, res) => {
     res.json(articles);
   } catch (err) {
     console.error('ESPN RSS fetch failed:', err.message);
-    // Return error so frontend can fall back to mock data
+    // Try saved news.json as fallback
+    const savedNewsPath = join(__dirname, '../src/data/real/news.json');
+    if (existsSync(savedNewsPath)) {
+      try {
+        const saved = JSON.parse(readFileSync(savedNewsPath, 'utf8'));
+        console.log(`Serving ${saved.length} articles from saved news.json fallback`);
+        return res.json(saved);
+      } catch (e) {
+        console.error('Failed to read saved news.json:', e.message);
+      }
+    }
     res.status(502).json({ error: 'RSS fetch failed', message: err.message });
   }
 });

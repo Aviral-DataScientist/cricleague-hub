@@ -1,163 +1,178 @@
 {
   "leagueId": "cpl",
   "leagueName": "Caribbean Premier League",
-  "totalMatches": 320,
-  "isFallback": true,
-  "processedAt": "2026-03-25T02:41:35.352Z",
+  "totalMatches": 407,
+  "processedAt": "2026-03-25T08:20:59.326Z",
+  "latestSeason": "2025",
+  "seasons": [
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025"
+  ],
   "topRunScorers": [
     {
-      "name": "Chris Gayle",
-      "runs": 2718,
-      "matches": 88,
-      "average": 32.8,
-      "strikeRate": 152.3
+      "name": "J Charles",
+      "runs": 3451,
+      "matches": 124,
+      "average": 27.83,
+      "strikeRate": 132.32
     },
     {
-      "name": "Lendl Simmons",
-      "runs": 2402,
-      "matches": 95,
-      "average": 28.6,
-      "strikeRate": 136.1
+      "name": "ADS Fletcher",
+      "runs": 3343,
+      "matches": 121,
+      "average": 27.63,
+      "strikeRate": 123.86
     },
     {
-      "name": "Andre Russell",
-      "runs": 2198,
-      "matches": 102,
-      "average": 30.5,
-      "strikeRate": 168.4
+      "name": "KA Pollard",
+      "runs": 3103,
+      "matches": 123,
+      "average": 25.23,
+      "strikeRate": 151.66
     },
     {
-      "name": "Kieron Pollard",
-      "runs": 2156,
-      "matches": 110,
-      "average": 26.3,
-      "strikeRate": 148.7
+      "name": "N Pooran",
+      "runs": 2835,
+      "matches": 115,
+      "average": 24.65,
+      "strikeRate": 148.51
     },
     {
-      "name": "Evin Lewis",
-      "runs": 2089,
-      "matches": 87,
-      "average": 27.9,
-      "strikeRate": 141.5
+      "name": "C Munro",
+      "runs": 2770,
+      "matches": 92,
+      "average": 30.11,
+      "strikeRate": 132.92
     },
     {
-      "name": "Nicholas Pooran",
-      "runs": 1954,
+      "name": "E Lewis",
+      "runs": 2717,
+      "matches": 108,
+      "average": 25.16,
+      "strikeRate": 142.77
+    },
+    {
+      "name": "LMP Simmons",
+      "runs": 2546,
+      "matches": 89,
+      "average": 28.61,
+      "strikeRate": 120.66
+    },
+    {
+      "name": "CH Gayle",
+      "runs": 2408,
       "matches": 81,
-      "average": 29.6,
-      "strikeRate": 155.4
+      "average": 29.73,
+      "strikeRate": 131.73
     },
     {
-      "name": "Shimron Hetmyer",
-      "runs": 1876,
+      "name": "SO Hetmyer",
+      "runs": 2273,
+      "matches": 93,
+      "average": 24.44,
+      "strikeRate": 140.4
+    },
+    {
+      "name": "SD Hope",
+      "runs": 2253,
       "matches": 78,
-      "average": 28.1,
-      "strikeRate": 147.8
-    },
-    {
-      "name": "Brandon King",
-      "runs": 1698,
-      "matches": 72,
-      "average": 27.4,
-      "strikeRate": 132.6
-    },
-    {
-      "name": "Denesh Ramdin",
-      "runs": 1612,
-      "matches": 84,
-      "average": 23.7,
-      "strikeRate": 125.9
-    },
-    {
-      "name": "Shai Hope",
-      "runs": 1543,
-      "matches": 69,
-      "average": 26.2,
-      "strikeRate": 120.4
+      "average": 28.88,
+      "strikeRate": 127.65
     }
   ],
   "topWicketTakers": [
     {
-      "name": "Sunil Narine",
-      "wickets": 154,
-      "matches": 112,
-      "economy": 6.43,
-      "average": 18.7
-    },
-    {
-      "name": "Dwayne Bravo",
-      "wickets": 136,
-      "matches": 107,
-      "economy": 8.21,
-      "average": 24.3
-    },
-    {
-      "name": "Ravi Rampaul",
-      "wickets": 98,
-      "matches": 86,
-      "economy": 7.82,
-      "average": 23.8
-    },
-    {
-      "name": "Samuel Badree",
-      "wickets": 92,
-      "matches": 82,
-      "economy": 5.96,
-      "average": 17.4
+      "name": "SP Narine",
+      "wickets": 133,
+      "matches": 122,
+      "economy": 5.6,
+      "average": 20.38
     },
     {
       "name": "Imran Tahir",
-      "wickets": 87,
+      "wickets": 130,
+      "matches": 86,
+      "economy": 6.76,
+      "average": 17.72
+    },
+    {
+      "name": "DJ Bravo",
+      "wickets": 129,
+      "matches": 84,
+      "economy": 8.95,
+      "average": 23.29
+    },
+    {
+      "name": "JO Holder",
+      "wickets": 110,
+      "matches": 95,
+      "economy": 8.08,
+      "average": 27.83
+    },
+    {
+      "name": "AD Russell",
+      "wickets": 97,
       "matches": 72,
-      "economy": 7.34,
-      "average": 21.5
+      "economy": 9.1,
+      "average": 26.92
     },
     {
-      "name": "Fabian Allen",
-      "wickets": 78,
-      "matches": 74,
-      "economy": 7.12,
-      "average": 22.6
+      "name": "RR Emrit",
+      "wickets": 88,
+      "matches": 68,
+      "economy": 7.9,
+      "average": 24.3
     },
     {
-      "name": "Hayden Walsh Jr",
-      "wickets": 74,
-      "matches": 67,
-      "economy": 7.64,
-      "average": 23.1
-    },
-    {
-      "name": "Fidel Edwards",
-      "wickets": 71,
+      "name": "SS Cottrell",
+      "wickets": 85,
       "matches": 64,
-      "economy": 8.41,
-      "average": 26.7
+      "economy": 8,
+      "average": 23.88
     },
     {
-      "name": "Jason Holder",
-      "wickets": 68,
-      "matches": 72,
-      "economy": 7.56,
-      "average": 25.4
+      "name": "K Santokie",
+      "wickets": 84,
+      "matches": 53,
+      "economy": 7.89,
+      "average": 19.81
     },
     {
-      "name": "Kesrick Williams",
-      "wickets": 66,
-      "matches": 61,
-      "economy": 8.34,
-      "average": 27.2
+      "name": "KOK Williams",
+      "wickets": 83,
+      "matches": 54,
+      "economy": 8.93,
+      "average": 22.95
+    },
+    {
+      "name": "AS Joseph",
+      "wickets": 80,
+      "matches": 62,
+      "economy": 8.57,
+      "average": 26.46
     }
   ],
   "highestIndividualScore": {
-    "player": "Chris Gayle",
+    "player": "BA King",
     "score": 132,
-    "against": "Guyana Amazon Warriors",
-    "season": "2015"
+    "against": "Barbados Tridents",
+    "season": "2019"
   },
   "highestTeamTotal": {
-    "team": "Barbados Tridents",
-    "runs": 224,
-    "against": "Guyana Amazon Warriors",
-    "season": "2016"
+    "team": "Trinbago Knight Riders",
+    "runs": 267,
+    "against": "Jamaica Tallawahs",
+    "season": "2019"
   }
 }
