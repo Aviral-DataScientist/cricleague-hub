@@ -61,7 +61,7 @@ export const leagues: League[] = [
     accentColor: "#FFD700",
     description:
       "The Indian Premier League is the world's most-watched and richest cricket league, featuring the biggest stars from across the globe competing in a high-octane franchise tournament every year.",
-    numberOfSeasons: 17,
+    numberOfSeasons: 18,
     continent: "Asia",
     mostRuns: { player: "Virat Kohli", runs: 8004, season: "Career" },
     mostWickets: { player: "Yuzvendra Chahal", wickets: 205, season: "Career" },
@@ -104,7 +104,7 @@ export const leagues: League[] = [
     accentColor: "#FFD700",
     description:
       "Australia's premier T20 competition, the BBL features eight city-based franchises in a festive summer tournament known for its family-friendly atmosphere and cricketing flair.",
-    numberOfSeasons: 13,
+    numberOfSeasons: 15,
     continent: "Oceania",
     mostRuns: { player: "Chris Lynn", runs: 2803, season: "Career" },
     mostWickets: { player: "Andrew Tye", wickets: 119, season: "Career" },
@@ -146,7 +146,7 @@ export const leagues: League[] = [
     accentColor: "#FFFFFF",
     description:
       "Pakistan Super League has grown into one of Asia's most exciting T20 leagues, developing world-class Pakistani talent while attracting top international players.",
-    numberOfSeasons: 9,
+    numberOfSeasons: 10,
     continent: "Asia",
     mostRuns: { player: "Babar Azam", runs: 3056, season: "Career" },
     mostWickets: { player: "Hasan Ali", wickets: 121, season: "Career" },
@@ -188,7 +188,7 @@ export const leagues: League[] = [
     accentColor: "#FFD700",
     description:
       "The Caribbean Premier League brings together cricket, carnival culture, and stunning tropical venues for one of the most entertaining T20 tournaments in the world.",
-    numberOfSeasons: 11,
+    numberOfSeasons: 13,
     continent: "Americas",
     mostRuns: { player: "Chris Gayle", runs: 2718, season: "Career" },
     mostWickets: { player: "Sunil Narine", wickets: 154, season: "Career" },
@@ -230,7 +230,7 @@ export const leagues: League[] = [
     accentColor: "#CF0A2C",
     description:
       "England's innovative 100-ball format competition bringing cricket to a new generation, featuring city-based teams and simultaneous men's and women's tournaments.",
-    numberOfSeasons: 4,
+    numberOfSeasons: 5,
     continent: "Europe",
     mostRuns: { player: "Dawid Malan", runs: 987, season: "Career" },
     mostWickets: { player: "Adil Rashid", wickets: 56, season: "Career" },
@@ -470,7 +470,7 @@ export const leagues: League[] = [
     accentColor: "#FFDD00",
     description:
       "The oldest and most storied domestic T20 competition in the world, the Vitality T20 Blast features 18 county teams competing across England and Wales every summer.",
-    numberOfSeasons: 21,
+    numberOfSeasons: 12,
     continent: "Europe",
     mostRuns: { player: "Ian Bell", runs: 3900, season: "Career" },
     mostWickets: { player: "Imran Tahir", wickets: 112, season: "Career" },

@@ -176,7 +176,8 @@ export default function LeagueDetailPage() {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-12">
           {statCard("Founded", league.founded, "📅")}
           {statCard("Teams", league.teams, "👕")}
-          {statCard("Seasons", league.numberOfSeasons, "🏆")}
+          {statCard("Seasons", realStats?.seasons?.length ?? league.numberOfSeasons, "🏆")}
+          {realStats?.latestSeason && statCard("Latest Season", realStats.latestSeason, "📆", true)}
           {statCard("Prize Money", prizeMoney, "💰", true)}
           {statCard("Avg Viewership", `${league.avgViewershipMillion}M`, "📺")}
           {statCard("Quality Rating", `${league.playerQualityRating}/100`, "⭐", true)}
@@ -443,34 +444,72 @@ export default function LeagueDetailPage() {
           className="rounded-2xl overflow-hidden mb-12"
           style={{ border: "1px solid rgba(255,255,255,0.06)" }}
         >
-          <table className="w-full">
-            <thead>
-              <tr style={{ backgroundColor: "#112240" }}>
-                <th className="px-5 py-4 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">Season</th>
-                <th className="px-5 py-4 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">Champion 🏆</th>
-                <th className="px-5 py-4 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider hidden sm:table-cell">Runner Up</th>
-                <th className="px-5 py-4 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider hidden md:table-cell">Player of Tournament</th>
-              </tr>
-            </thead>
-            <tbody>
-              {league.recentSeasons.map((season, i) => (
-                <tr
-                  key={season.year}
-                  style={{
-                    backgroundColor: i % 2 === 0 ? "#0a1628" : "#0d1f3c",
-                    borderTop: "1px solid rgba(255,255,255,0.04)",
-                  }}
-                >
-                  <td className="px-5 py-4">
-                    <span className="font-bold text-sm" style={{ color: "#f5a623" }}>{season.year}</span>
-                  </td>
-                  <td className="px-5 py-4 text-white text-sm font-medium">{season.champion}</td>
-                  <td className="px-5 py-4 text-gray-400 text-sm hidden sm:table-cell">{season.runnerUp}</td>
-                  <td className="px-5 py-4 text-gray-400 text-sm hidden md:table-cell">{season.playerOfTournament}</td>
+          {realStats && !realStats.isFallback && realStats.seasons && realStats.seasons.length > 0 ? (
+            <table className="w-full">
+              <thead>
+                <tr style={{ backgroundColor: "#112240" }}>
+                  <th className="px-5 py-4 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">Season</th>
+                  <th className="px-5 py-4 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">Status</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {[...realStats.seasons].reverse().map((season, i) => (
+                  <tr
+                    key={season}
+                    style={{
+                      backgroundColor: i % 2 === 0 ? "#0a1628" : "#0d1f3c",
+                      borderTop: "1px solid rgba(255,255,255,0.04)",
+                    }}
+                  >
+                    <td className="px-5 py-4">
+                      <span className="font-bold text-sm" style={{ color: "#f5a623" }}>{season}</span>
+                    </td>
+                    <td className="px-5 py-4">
+                      {i === 0 ? (
+                        <span
+                          className="text-xs font-semibold px-2.5 py-1 rounded-full"
+                          style={{ backgroundColor: "rgba(34,197,94,0.15)", color: "#22c55e", border: "1px solid rgba(34,197,94,0.3)" }}
+                        >
+                          Current/Recent
+                        </span>
+                      ) : (
+                        <span className="text-xs text-gray-400">Completed</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <table className="w-full">
+              <thead>
+                <tr style={{ backgroundColor: "#112240" }}>
+                  <th className="px-5 py-4 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">Season</th>
+                  <th className="px-5 py-4 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider">Champion 🏆</th>
+                  <th className="px-5 py-4 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider hidden sm:table-cell">Runner Up</th>
+                  <th className="px-5 py-4 text-left text-xs font-semibold text-gray-400 uppercase tracking-wider hidden md:table-cell">Player of Tournament</th>
+                </tr>
+              </thead>
+              <tbody>
+                {league.recentSeasons.map((season, i) => (
+                  <tr
+                    key={season.year}
+                    style={{
+                      backgroundColor: i % 2 === 0 ? "#0a1628" : "#0d1f3c",
+                      borderTop: "1px solid rgba(255,255,255,0.04)",
+                    }}
+                  >
+                    <td className="px-5 py-4">
+                      <span className="font-bold text-sm" style={{ color: "#f5a623" }}>{season.year}</span>
+                    </td>
+                    <td className="px-5 py-4 text-white text-sm font-medium">{season.champion}</td>
+                    <td className="px-5 py-4 text-gray-400 text-sm hidden sm:table-cell">{season.runnerUp}</td>
+                    <td className="px-5 py-4 text-gray-400 text-sm hidden md:table-cell">{season.playerOfTournament}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
 
         {/* ─── Teams ─── */}
