@@ -1,0 +1,163 @@
+{
+  "leagueId": "cpl",
+  "leagueName": "Caribbean Premier League",
+  "totalMatches": 320,
+  "isFallback": true,
+  "processedAt": "2026-03-25T02:41:35.352Z",
+  "topRunScorers": [
+    {
+      "name": "Chris Gayle",
+      "runs": 2718,
+      "matches": 88,
+      "average": 32.8,
+      "strikeRate": 152.3
+    },
+    {
+      "name": "Lendl Simmons",
+      "runs": 2402,
+      "matches": 95,
+      "average": 28.6,
+      "strikeRate": 136.1
+    },
+    {
+      "name": "Andre Russell",
+      "runs": 2198,
+      "matches": 102,
+      "average": 30.5,
+      "strikeRate": 168.4
+    },
+    {
+      "name": "Kieron Pollard",
+      "runs": 2156,
+      "matches": 110,
+      "average": 26.3,
+      "strikeRate": 148.7
+    },
+    {
+      "name": "Evin Lewis",
+      "runs": 2089,
+      "matches": 87,
+      "average": 27.9,
+      "strikeRate": 141.5
+    },
+    {
+      "name": "Nicholas Pooran",
+      "runs": 1954,
+      "matches": 81,
+      "average": 29.6,
+      "strikeRate": 155.4
+    },
+    {
+      "name": "Shimron Hetmyer",
+      "runs": 1876,
+      "matches": 78,
+      "average": 28.1,
+      "strikeRate": 147.8
+    },
+    {
+      "name": "Brandon King",
+      "runs": 1698,
+      "matches": 72,
+      "average": 27.4,
+      "strikeRate": 132.6
+    },
+    {
+      "name": "Denesh Ramdin",
+      "runs": 1612,
+      "matches": 84,
+      "average": 23.7,
+      "strikeRate": 125.9
+    },
+    {
+      "name": "Shai Hope",
+      "runs": 1543,
+      "matches": 69,
+      "average": 26.2,
+      "strikeRate": 120.4
+    }
+  ],
+  "topWicketTakers": [
+    {
+      "name": "Sunil Narine",
+      "wickets": 154,
+      "matches": 112,
+      "economy": 6.43,
+      "average": 18.7
+    },
+    {
+      "name": "Dwayne Bravo",
+      "wickets": 136,
+      "matches": 107,
+      "economy": 8.21,
+      "average": 24.3
+    },
+    {
+      "name": "Ravi Rampaul",
+      "wickets": 98,
+      "matches": 86,
+      "economy": 7.82,
+      "average": 23.8
+    },
+    {
+      "name": "Samuel Badree",
+      "wickets": 92,
+      "matches": 82,
+      "economy": 5.96,
+      "average": 17.4
+    },
+    {
+      "name": "Imran Tahir",
+      "wickets": 87,
+      "matches": 72,
+      "economy": 7.34,
+      "average": 21.5
+    },
+    {
+      "name": "Fabian Allen",
+      "wickets": 78,
+      "matches": 74,
+      "economy": 7.12,
+      "average": 22.6
+    },
+    {
+      "name": "Hayden Walsh Jr",
+      "wickets": 74,
+      "matches": 67,
+      "economy": 7.64,
+      "average": 23.1
+    },
+    {
+      "name": "Fidel Edwards",
+      "wickets": 71,
+      "matches": 64,
+      "economy": 8.41,
+      "average": 26.7
+    },
+    {
+      "name": "Jason Holder",
+      "wickets": 68,
+      "matches": 72,
+      "economy": 7.56,
+      "average": 25.4
+    },
+    {
+      "name": "Kesrick Williams",
+      "wickets": 66,
+      "matches": 61,
+      "economy": 8.34,
+      "average": 27.2
+    }
+  ],
+  "highestIndividualScore": {
+    "player": "Chris Gayle",
+    "score": 132,
+    "against": "Guyana Amazon Warriors",
+    "season": "2015"
+  },
+  "highestTeamTotal": {
+    "team": "Barbados Tridents",
+    "runs": 224,
+    "against": "Guyana Amazon Warriors",
+    "season": "2016"
+  }
+}

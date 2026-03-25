@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { articles, categories, type Article } from "../data/articles";
+import { articles as mockArticles, categories as mockCategories, type Article } from "../data/articles";
 import { leagues } from "../data/leagues";
+import { fetchRealNews, type RealArticle } from "../lib/api";
 
 const categoryColors: Record<string, string> = {
   news: "#60a5fa",
@@ -11,10 +12,27 @@ const categoryColors: Record<string, string> = {
   review: "#f472b6",
 };
 
-function ArticleCard({ article }: { article: Article }) {
-  return (
+// Adapt RealArticle to Article shape for unified rendering
+function adaptRealArticle(a: RealArticle): Article {
+  return {
+    id: a.id,
+    title: a.title,
+    excerpt: a.excerpt,
+    content: a.content,
+    leagueTag: a.leagueTag,
+    leagueId: a.leagueId,
+    author: a.author,
+    date: a.date,
+    readTime: a.readTime,
+    category: a.category,
+    featured: a.featured,
+  };
+}
+
+function ArticleCard({ article, url }: { article: Article; url?: string }) {
+  const inner = (
     <div
-      className="rounded-2xl overflow-hidden card-hover flex flex-col"
+      className="rounded-2xl overflow-hidden card-hover flex flex-col h-full"
       style={{
         backgroundColor: "#112240",
         border: "1px solid rgba(255,255,255,0.06)",
@@ -23,39 +41,30 @@ function ArticleCard({ article }: { article: Article }) {
       {/* Image placeholder */}
       <div
         className="h-40 flex items-center justify-center relative overflow-hidden"
-        style={{
-          background: `linear-gradient(135deg, #0a1628, #1a3a6b)`,
-        }}
+        style={{ background: "linear-gradient(135deg, #0a1628, #1a3a6b)" }}
       >
         <span className="text-6xl opacity-30">🏏</span>
         <div
           className="absolute top-3 left-3 text-xs font-semibold px-3 py-1.5 rounded-full capitalize"
           style={{
-            backgroundColor: `${categoryColors[article.category]}20`,
-            color: categoryColors[article.category],
-            border: `1px solid ${categoryColors[article.category]}40`,
+            backgroundColor: `${categoryColors[article.category] ?? "#60a5fa"}20`,
+            color: categoryColors[article.category] ?? "#60a5fa",
+            border: `1px solid ${categoryColors[article.category] ?? "#60a5fa"}40`,
           }}
         >
           {article.category}
         </div>
         <div
           className="absolute top-3 right-3 text-xs font-semibold px-2.5 py-1 rounded-md"
-          style={{
-            backgroundColor: "rgba(245,166,35,0.15)",
-            color: "#f5a623",
-          }}
+          style={{ backgroundColor: "rgba(245,166,35,0.15)", color: "#f5a623" }}
         >
           {article.leagueTag}
         </div>
       </div>
 
       <div className="p-5 flex flex-col flex-1">
-        <h3 className="text-white font-bold text-base leading-snug mb-2">
-          {article.title}
-        </h3>
-        <p className="text-gray-400 text-sm leading-relaxed mb-4 flex-1">
-          {article.excerpt}
-        </p>
+        <h3 className="text-white font-bold text-base leading-snug mb-2">{article.title}</h3>
+        <p className="text-gray-400 text-sm leading-relaxed mb-4 flex-1">{article.excerpt}</p>
 
         <div
           className="flex items-center justify-between pt-4"
@@ -72,20 +81,31 @@ function ArticleCard({ article }: { article: Article }) {
               · {article.readTime} min read
             </div>
           </div>
-          <Link
-            to={`/leagues/${article.leagueId}`}
-            className="text-xs font-semibold px-3 py-1.5 rounded-lg transition-all hover:opacity-80"
+          <span
+            className="text-xs font-semibold px-3 py-1.5 rounded-lg"
             style={{
               background: "linear-gradient(135deg, #f5a623, #d4891e)",
               color: "#0a1628",
-              textDecoration: "none",
             }}
           >
             Read →
-          </Link>
+          </span>
         </div>
       </div>
     </div>
+  );
+
+  if (url) {
+    return (
+      <a href={url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+        {inner}
+      </a>
+    );
+  }
+  return (
+    <Link to={`/leagues/${article.leagueId}`} style={{ textDecoration: "none" }}>
+      {inner}
+    </Link>
   );
 }
 
@@ -93,8 +113,33 @@ export default function NewsPage() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedLeague, setSelectedLeague] = useState("all");
   const [search, setSearch] = useState("");
+  const [realArticles, setRealArticles] = useState<Article[] | null>(null);
+  const [articleUrls, setArticleUrls] = useState<Record<string, string>>({});
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLive, setIsLive] = useState(false);
 
-  const filtered = articles.filter((a) => {
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      setIsLoading(true);
+      const data = await fetchRealNews();
+      if (mounted && data && data.length > 0) {
+        const adapted = data.map(adaptRealArticle);
+        const urls: Record<string, string> = {};
+        data.forEach((a) => { if (a.url) urls[a.id] = a.url; });
+        setRealArticles(adapted);
+        setArticleUrls(urls);
+        setIsLive(true);
+      }
+      if (mounted) setIsLoading(false);
+    })();
+    return () => { mounted = false; };
+  }, []);
+
+  const displayArticles = realArticles ?? mockArticles;
+  const allCategories = isLive ? ["news"] : mockCategories;
+
+  const filtered = displayArticles.filter((a) => {
     const matchCat = selectedCategory === "all" || a.category === selectedCategory;
     const matchLeague = selectedLeague === "all" || a.leagueId === selectedLeague;
     const matchSearch =
@@ -105,7 +150,8 @@ export default function NewsPage() {
     return matchCat && matchLeague && matchSearch;
   });
 
-  const featured = articles.filter((a) => a.featured).slice(0, 1)[0];
+  const featured = displayArticles.find((a) => a.featured) ?? displayArticles[0];
+  const featuredUrl = featured ? articleUrls[featured.id] : undefined;
 
   return (
     <div style={{ backgroundColor: "#0a1628", minHeight: "100vh" }}>
@@ -121,11 +167,28 @@ export default function NewsPage() {
           <p className="text-sm font-medium mb-2" style={{ color: "#f5a623" }}>
             LATEST FROM THE CREASE
           </p>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-3">
-            News & Analysis
-          </h1>
-          <p className="text-gray-400 text-lg">
-            In-depth coverage, expert analysis, and breaking news from every major T20 league.
+          <div className="flex items-center gap-3 flex-wrap">
+            <h1 className="text-4xl sm:text-5xl font-extrabold text-white">News & Analysis</h1>
+            {isLive && (
+              <span
+                className="text-xs font-semibold px-3 py-1.5 rounded-full"
+                style={{
+                  backgroundColor: "rgba(34,197,94,0.15)",
+                  color: "#22c55e",
+                  border: "1px solid rgba(34,197,94,0.3)",
+                }}
+              >
+                ● Live from ESPN Cricinfo
+              </span>
+            )}
+            {isLoading && (
+              <span className="text-xs text-gray-500 animate-pulse">Fetching live news…</span>
+            )}
+          </div>
+          <p className="text-gray-400 text-lg mt-3">
+            {isLive
+              ? "Real-time coverage fetched from ESPN Cricinfo."
+              : "In-depth coverage, expert analysis, and breaking news from every major T20 league."}
           </p>
         </div>
       </div>
@@ -143,19 +206,13 @@ export default function NewsPage() {
             <div className="absolute top-5 left-5">
               <span
                 className="text-xs font-semibold px-3 py-1.5 rounded-full"
-                style={{
-                  background: "linear-gradient(135deg, #f5a623, #d4891e)",
-                  color: "#0a1628",
-                }}
+                style={{ background: "linear-gradient(135deg, #f5a623, #d4891e)", color: "#0a1628" }}
               >
                 ⚡ Featured
               </span>
             </div>
             <div className="p-8 pt-16 md:pt-10 md:pl-80 relative">
-              {/* Large flag bg decoration */}
-              <div
-                className="absolute left-8 top-1/2 -translate-y-1/2 text-9xl opacity-20 hidden md:block"
-              >
+              <div className="absolute left-8 top-1/2 -translate-y-1/2 text-9xl opacity-20 hidden md:block">
                 🏏
               </div>
               <span
@@ -167,9 +224,7 @@ export default function NewsPage() {
               <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-3 leading-snug">
                 {featured.title}
               </h2>
-              <p className="text-gray-300 leading-relaxed mb-5 max-w-2xl">
-                {featured.excerpt}
-              </p>
+              <p className="text-gray-300 leading-relaxed mb-5 max-w-2xl">{featured.excerpt}</p>
               <div className="flex items-center gap-4">
                 <div>
                   <div className="text-sm font-medium text-white">{featured.author}</div>
@@ -178,21 +233,38 @@ export default function NewsPage() {
                       year: "numeric",
                       month: "long",
                       day: "numeric",
-                    })}
+                    })}{" "}
                     · {featured.readTime} min read
+                    {isLive && <span className="ml-2 text-green-400">· ESPN Cricinfo</span>}
                   </div>
                 </div>
-                <Link
-                  to={`/leagues/${featured.leagueId}`}
-                  className="px-5 py-2.5 rounded-xl text-sm font-semibold transition-all hover:-translate-y-0.5"
-                  style={{
-                    background: "linear-gradient(135deg, #f5a623, #d4891e)",
-                    color: "#0a1628",
-                    textDecoration: "none",
-                  }}
-                >
-                  Read Full Article →
-                </Link>
+                {featuredUrl ? (
+                  <a
+                    href={featuredUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-5 py-2.5 rounded-xl text-sm font-semibold"
+                    style={{
+                      background: "linear-gradient(135deg, #f5a623, #d4891e)",
+                      color: "#0a1628",
+                      textDecoration: "none",
+                    }}
+                  >
+                    Read Full Article →
+                  </a>
+                ) : (
+                  <Link
+                    to={`/leagues/${featured.leagueId}`}
+                    className="px-5 py-2.5 rounded-xl text-sm font-semibold"
+                    style={{
+                      background: "linear-gradient(135deg, #f5a623, #d4891e)",
+                      color: "#0a1628",
+                      textDecoration: "none",
+                    }}
+                  >
+                    Read Full Article →
+                  </Link>
+                )}
               </div>
             </div>
           </div>
@@ -201,10 +273,7 @@ export default function NewsPage() {
         {/* Filters */}
         <div
           className="p-5 rounded-2xl mb-8"
-          style={{
-            backgroundColor: "#112240",
-            border: "1px solid rgba(255,255,255,0.06)",
-          }}
+          style={{ backgroundColor: "#112240", border: "1px solid rgba(255,255,255,0.06)" }}
         >
           <div className="flex flex-col md:flex-row gap-4">
             {/* Search */}
@@ -216,10 +285,7 @@ export default function NewsPage() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className="w-full pl-11 pr-4 py-3 rounded-xl text-sm text-white placeholder-gray-500 focus:outline-none"
-                style={{
-                  backgroundColor: "#0a1628",
-                  border: "1px solid rgba(255,255,255,0.1)",
-                }}
+                style={{ backgroundColor: "#0a1628", border: "1px solid rgba(255,255,255,0.1)" }}
               />
             </div>
 
@@ -228,10 +294,7 @@ export default function NewsPage() {
               value={selectedLeague}
               onChange={(e) => setSelectedLeague(e.target.value)}
               className="px-4 py-3 rounded-xl text-sm text-white focus:outline-none cursor-pointer"
-              style={{
-                backgroundColor: "#0a1628",
-                border: "1px solid rgba(255,255,255,0.1)",
-              }}
+              style={{ backgroundColor: "#0a1628", border: "1px solid rgba(255,255,255,0.1)" }}
             >
               <option value="all">All Leagues</option>
               {leagues.map((l) => (
@@ -255,7 +318,7 @@ export default function NewsPage() {
             >
               All
             </button>
-            {categories.map((cat) => (
+            {allCategories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
@@ -263,9 +326,9 @@ export default function NewsPage() {
                 style={
                   selectedCategory === cat
                     ? {
-                        background: `${categoryColors[cat]}20`,
-                        border: `1px solid ${categoryColors[cat]}50`,
-                        color: categoryColors[cat],
+                        background: `${categoryColors[cat] ?? "#60a5fa"}20`,
+                        border: `1px solid ${categoryColors[cat] ?? "#60a5fa"}50`,
+                        color: categoryColors[cat] ?? "#60a5fa",
                       }
                     : { backgroundColor: "#0a1628", border: "1px solid rgba(255,255,255,0.08)", color: "#9ca3af" }
                 }
@@ -279,6 +342,7 @@ export default function NewsPage() {
         {/* Article count */}
         <p className="text-gray-400 text-sm mb-6">
           Showing <span className="text-white font-semibold">{filtered.length}</span> articles
+          {isLive && <span className="text-green-400 ml-2">· Live data from ESPN Cricinfo</span>}
         </p>
 
         {/* Articles grid */}
@@ -290,7 +354,7 @@ export default function NewsPage() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((article) => (
-              <ArticleCard key={article.id} article={article} />
+              <ArticleCard key={article.id} article={article} url={articleUrls[article.id]} />
             ))}
           </div>
         )}

@@ -1,0 +1,163 @@
+{
+  "leagueId": "t20blast",
+  "leagueName": "Vitality T20 Blast",
+  "totalMatches": 1400,
+  "isFallback": true,
+  "processedAt": "2026-03-25T02:41:35.352Z",
+  "topRunScorers": [
+    {
+      "name": "Ian Bell",
+      "runs": 3900,
+      "matches": 156,
+      "average": 32.5,
+      "strikeRate": 134.2
+    },
+    {
+      "name": "Alex Hales",
+      "runs": 3756,
+      "matches": 142,
+      "average": 31.8,
+      "strikeRate": 151.6
+    },
+    {
+      "name": "Dawid Malan",
+      "runs": 3612,
+      "matches": 148,
+      "average": 29.4,
+      "strikeRate": 136.5
+    },
+    {
+      "name": "Sam Northeast",
+      "runs": 3456,
+      "matches": 149,
+      "average": 27.8,
+      "strikeRate": 141.3
+    },
+    {
+      "name": "Luke Wright",
+      "runs": 3312,
+      "matches": 152,
+      "average": 25.6,
+      "strikeRate": 148.9
+    },
+    {
+      "name": "Joe Denly",
+      "runs": 3187,
+      "matches": 143,
+      "average": 28.1,
+      "strikeRate": 132.4
+    },
+    {
+      "name": "David Willey",
+      "runs": 2998,
+      "matches": 139,
+      "average": 26.3,
+      "strikeRate": 143.7
+    },
+    {
+      "name": "James Vince",
+      "runs": 2876,
+      "matches": 136,
+      "average": 27.9,
+      "strikeRate": 135.8
+    },
+    {
+      "name": "Colin Munro",
+      "runs": 2756,
+      "matches": 112,
+      "average": 30.6,
+      "strikeRate": 156.2
+    },
+    {
+      "name": "Phil Salt",
+      "runs": 2634,
+      "matches": 118,
+      "average": 28.4,
+      "strikeRate": 149.3
+    }
+  ],
+  "topWicketTakers": [
+    {
+      "name": "Imran Tahir",
+      "wickets": 112,
+      "matches": 98,
+      "economy": 7.34,
+      "average": 20.8
+    },
+    {
+      "name": "Danny Briggs",
+      "wickets": 108,
+      "matches": 112,
+      "economy": 7.82,
+      "average": 24.6
+    },
+    {
+      "name": "Jade Dernbach",
+      "wickets": 104,
+      "matches": 105,
+      "economy": 8.43,
+      "average": 27.2
+    },
+    {
+      "name": "Tom Curran",
+      "wickets": 98,
+      "matches": 89,
+      "economy": 8.21,
+      "average": 25.7
+    },
+    {
+      "name": "Liam Dawson",
+      "wickets": 94,
+      "matches": 102,
+      "economy": 7.62,
+      "average": 23.9
+    },
+    {
+      "name": "Matt Henry",
+      "wickets": 89,
+      "matches": 81,
+      "economy": 8.12,
+      "average": 24.3
+    },
+    {
+      "name": "Kyle Abbott",
+      "wickets": 87,
+      "matches": 79,
+      "economy": 7.94,
+      "average": 23.1
+    },
+    {
+      "name": "Marchant de Lange",
+      "wickets": 84,
+      "matches": 74,
+      "economy": 9.01,
+      "average": 28.7
+    },
+    {
+      "name": "Ish Sodhi",
+      "wickets": 81,
+      "matches": 76,
+      "economy": 7.76,
+      "average": 24.8
+    },
+    {
+      "name": "Josh Davey",
+      "wickets": 78,
+      "matches": 82,
+      "economy": 8.34,
+      "average": 27.6
+    }
+  ],
+  "highestIndividualScore": {
+    "player": "Alex Hales",
+    "score": 147,
+    "against": "Hampshire",
+    "season": "2015"
+  },
+  "highestTeamTotal": {
+    "team": "Gloucestershire",
+    "runs": 254,
+    "against": "Middlesex",
+    "season": "2011"
+  }
+}

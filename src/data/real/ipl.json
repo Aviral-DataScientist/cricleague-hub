@@ -1,0 +1,163 @@
+{
+  "leagueId": "ipl",
+  "leagueName": "Indian Premier League",
+  "totalMatches": 1169,
+  "processedAt": "2026-03-25T02:41:36.654Z",
+  "isFallback": false,
+  "topRunScorers": [
+    {
+      "name": "V Kohli",
+      "runs": 8671,
+      "matches": 261,
+      "average": 33.22,
+      "strikeRate": 132.93
+    },
+    {
+      "name": "RG Sharma",
+      "runs": 7048,
+      "matches": 267,
+      "average": 26.4,
+      "strikeRate": 132.06
+    },
+    {
+      "name": "S Dhawan",
+      "runs": 6769,
+      "matches": 222,
+      "average": 30.49,
+      "strikeRate": 127.09
+    },
+    {
+      "name": "DA Warner",
+      "runs": 6567,
+      "matches": 187,
+      "average": 35.12,
+      "strikeRate": 139.66
+    },
+    {
+      "name": "SK Raina",
+      "runs": 5536,
+      "matches": 201,
+      "average": 27.54,
+      "strikeRate": 136.83
+    },
+    {
+      "name": "MS Dhoni",
+      "runs": 5439,
+      "matches": 241,
+      "average": 22.57,
+      "strikeRate": 137.45
+    },
+    {
+      "name": "KL Rahul",
+      "runs": 5235,
+      "matches": 138,
+      "average": 37.93,
+      "strikeRate": 136.04
+    },
+    {
+      "name": "AB de Villiers",
+      "runs": 5181,
+      "matches": 172,
+      "average": 30.12,
+      "strikeRate": 151.89
+    },
+    {
+      "name": "AM Rahane",
+      "runs": 5032,
+      "matches": 183,
+      "average": 27.5,
+      "strikeRate": 125.02
+    },
+    {
+      "name": "CH Gayle",
+      "runs": 4997,
+      "matches": 145,
+      "average": 34.46,
+      "strikeRate": 149.34
+    }
+  ],
+  "topWicketTakers": [
+    {
+      "name": "YS Chahal",
+      "wickets": 221,
+      "matches": 158,
+      "economy": 8.09,
+      "average": 23.13
+    },
+    {
+      "name": "B Kumar",
+      "wickets": 198,
+      "matches": 176,
+      "economy": 7.87,
+      "average": 27.98
+    },
+    {
+      "name": "PP Chawla",
+      "wickets": 192,
+      "matches": 161,
+      "economy": 8.07,
+      "average": 26.97
+    },
+    {
+      "name": "SP Narine",
+      "wickets": 192,
+      "matches": 182,
+      "economy": 6.93,
+      "average": 26.19
+    },
+    {
+      "name": "R Ashwin",
+      "wickets": 187,
+      "matches": 197,
+      "economy": 7.29,
+      "average": 30.59
+    },
+    {
+      "name": "JJ Bumrah",
+      "wickets": 186,
+      "matches": 140,
+      "economy": 7.43,
+      "average": 22.38
+    },
+    {
+      "name": "DJ Bravo",
+      "wickets": 183,
+      "matches": 130,
+      "economy": 8.53,
+      "average": 24.24
+    },
+    {
+      "name": "A Mishra",
+      "wickets": 174,
+      "matches": 141,
+      "economy": 7.46,
+      "average": 24.1
+    },
+    {
+      "name": "SL Malinga",
+      "wickets": 170,
+      "matches": 118,
+      "economy": 7.4,
+      "average": 20.51
+    },
+    {
+      "name": "RA Jadeja",
+      "wickets": 170,
+      "matches": 169,
+      "economy": 7.75,
+      "average": 30.84
+    }
+  ],
+  "highestIndividualScore": {
+    "player": "CH Gayle",
+    "score": 175,
+    "against": "Pune Warriors",
+    "season": "2013"
+  },
+  "highestTeamTotal": {
+    "team": "Sunrisers Hyderabad",
+    "runs": 287,
+    "against": "Royal Challengers Bengaluru",
+    "season": "2024"
+  }
+}

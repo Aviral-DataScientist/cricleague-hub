@@ -1,0 +1,163 @@
+{
+  "leagueId": "bbl",
+  "leagueName": "Big Bash League",
+  "totalMatches": 480,
+  "isFallback": true,
+  "processedAt": "2026-03-25T02:41:35.352Z",
+  "topRunScorers": [
+    {
+      "name": "Chris Lynn",
+      "runs": 2803,
+      "matches": 96,
+      "average": 31.5,
+      "strikeRate": 150.2
+    },
+    {
+      "name": "Aaron Finch",
+      "runs": 2682,
+      "matches": 105,
+      "average": 27.1,
+      "strikeRate": 135.4
+    },
+    {
+      "name": "Matthew Wade",
+      "runs": 2576,
+      "matches": 110,
+      "average": 25.8,
+      "strikeRate": 128.6
+    },
+    {
+      "name": "David Warner",
+      "runs": 2400,
+      "matches": 78,
+      "average": 34.3,
+      "strikeRate": 140.1
+    },
+    {
+      "name": "Alex Ross",
+      "runs": 2210,
+      "matches": 93,
+      "average": 27.6,
+      "strikeRate": 133.2
+    },
+    {
+      "name": "Usman Khawaja",
+      "runs": 2188,
+      "matches": 91,
+      "average": 29.4,
+      "strikeRate": 125.9
+    },
+    {
+      "name": "Marcus Stoinis",
+      "runs": 2102,
+      "matches": 87,
+      "average": 28.2,
+      "strikeRate": 136.7
+    },
+    {
+      "name": "D'Arcy Short",
+      "runs": 1982,
+      "matches": 82,
+      "average": 31.5,
+      "strikeRate": 138.4
+    },
+    {
+      "name": "Michael Klinger",
+      "runs": 1878,
+      "matches": 84,
+      "average": 26.8,
+      "strikeRate": 122.1
+    },
+    {
+      "name": "Ben McDermott",
+      "runs": 1800,
+      "matches": 79,
+      "average": 25.4,
+      "strikeRate": 130.6
+    }
+  ],
+  "topWicketTakers": [
+    {
+      "name": "Andrew Tye",
+      "wickets": 119,
+      "matches": 87,
+      "economy": 8.12,
+      "average": 22.4
+    },
+    {
+      "name": "Nathan Coulter-Nile",
+      "wickets": 114,
+      "matches": 92,
+      "economy": 8.35,
+      "average": 24.1
+    },
+    {
+      "name": "Adam Zampa",
+      "wickets": 113,
+      "matches": 95,
+      "economy": 7.98,
+      "average": 23.5
+    },
+    {
+      "name": "Ben Dwarshuis",
+      "wickets": 102,
+      "matches": 80,
+      "economy": 8.62,
+      "average": 26.3
+    },
+    {
+      "name": "Clint McKay",
+      "wickets": 97,
+      "matches": 82,
+      "economy": 7.76,
+      "average": 22.1
+    },
+    {
+      "name": "Sean Abbott",
+      "wickets": 91,
+      "matches": 76,
+      "economy": 8.21,
+      "average": 24.8
+    },
+    {
+      "name": "Billy Stanlake",
+      "wickets": 88,
+      "matches": 71,
+      "economy": 8.54,
+      "average": 25.6
+    },
+    {
+      "name": "Peter Siddle",
+      "wickets": 83,
+      "matches": 74,
+      "economy": 7.94,
+      "average": 23.7
+    },
+    {
+      "name": "James Faulkner",
+      "wickets": 79,
+      "matches": 68,
+      "economy": 8.36,
+      "average": 26.1
+    },
+    {
+      "name": "Michael Neser",
+      "wickets": 75,
+      "matches": 67,
+      "economy": 8.12,
+      "average": 27.4
+    }
+  ],
+  "highestIndividualScore": {
+    "player": "Joe Burns",
+    "score": 115,
+    "against": "Brisbane Heat",
+    "season": "2017-18"
+  },
+  "highestTeamTotal": {
+    "team": "Sydney Thunder",
+    "runs": 229,
+    "against": "Melbourne Renegades",
+    "season": "2015-16"
+  }
+}

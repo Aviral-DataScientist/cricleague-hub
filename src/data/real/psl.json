@@ -1,0 +1,163 @@
+{
+  "leagueId": "psl",
+  "leagueName": "Pakistan Super League",
+  "totalMatches": 400,
+  "isFallback": true,
+  "processedAt": "2026-03-25T02:41:35.352Z",
+  "topRunScorers": [
+    {
+      "name": "Babar Azam",
+      "runs": 3056,
+      "matches": 101,
+      "average": 35.4,
+      "strikeRate": 128.9
+    },
+    {
+      "name": "Mohammad Rizwan",
+      "runs": 2856,
+      "matches": 98,
+      "average": 37.1,
+      "strikeRate": 130.5
+    },
+    {
+      "name": "Fakhar Zaman",
+      "runs": 2411,
+      "matches": 90,
+      "average": 29.8,
+      "strikeRate": 136.2
+    },
+    {
+      "name": "Kamran Akmal",
+      "runs": 2309,
+      "matches": 89,
+      "average": 28.5,
+      "strikeRate": 138.7
+    },
+    {
+      "name": "Shoaib Malik",
+      "runs": 2188,
+      "matches": 92,
+      "average": 31.3,
+      "strikeRate": 126.4
+    },
+    {
+      "name": "Umar Akmal",
+      "runs": 1998,
+      "matches": 84,
+      "average": 27.2,
+      "strikeRate": 131.8
+    },
+    {
+      "name": "Asif Ali",
+      "runs": 1876,
+      "matches": 82,
+      "average": 28.8,
+      "strikeRate": 151.2
+    },
+    {
+      "name": "Ahmed Shehzad",
+      "runs": 1788,
+      "matches": 78,
+      "average": 26.3,
+      "strikeRate": 119.4
+    },
+    {
+      "name": "Colin Munro",
+      "runs": 1654,
+      "matches": 65,
+      "average": 29.5,
+      "strikeRate": 143.6
+    },
+    {
+      "name": "Liam Livingstone",
+      "runs": 1542,
+      "matches": 56,
+      "average": 31.5,
+      "strikeRate": 158.2
+    }
+  ],
+  "topWicketTakers": [
+    {
+      "name": "Hasan Ali",
+      "wickets": 121,
+      "matches": 91,
+      "economy": 8.23,
+      "average": 23.1
+    },
+    {
+      "name": "Wahab Riaz",
+      "wickets": 116,
+      "matches": 96,
+      "economy": 8.61,
+      "average": 26.4
+    },
+    {
+      "name": "Shadab Khan",
+      "wickets": 108,
+      "matches": 93,
+      "economy": 7.82,
+      "average": 22.6
+    },
+    {
+      "name": "Shaheen Afridi",
+      "wickets": 98,
+      "matches": 74,
+      "economy": 7.64,
+      "average": 20.3
+    },
+    {
+      "name": "Mohammad Amir",
+      "wickets": 93,
+      "matches": 79,
+      "economy": 7.98,
+      "average": 24.7
+    },
+    {
+      "name": "Imad Wasim",
+      "wickets": 88,
+      "matches": 87,
+      "economy": 6.92,
+      "average": 23.4
+    },
+    {
+      "name": "Usman Qadir",
+      "wickets": 82,
+      "matches": 73,
+      "economy": 8.14,
+      "average": 25.6
+    },
+    {
+      "name": "Chris Jordan",
+      "wickets": 76,
+      "matches": 62,
+      "economy": 8.72,
+      "average": 27.1
+    },
+    {
+      "name": "Waqas Maqsood",
+      "wickets": 74,
+      "matches": 68,
+      "economy": 8.34,
+      "average": 26.8
+    },
+    {
+      "name": "Rumman Raees",
+      "wickets": 70,
+      "matches": 65,
+      "economy": 7.94,
+      "average": 25.3
+    }
+  ],
+  "highestIndividualScore": {
+    "player": "Kamran Akmal",
+    "score": 117,
+    "against": "Peshawar Zalmi",
+    "season": "2017"
+  },
+  "highestTeamTotal": {
+    "team": "Lahore Qalandars",
+    "runs": 220,
+    "against": "Islamabad United",
+    "season": "2022"
+  }
+}
